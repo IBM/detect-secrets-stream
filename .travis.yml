@@ -22,7 +22,7 @@ deploy:
     script: make travis-deploy
     cleanup: false
     on:
-      condition: $TRAVIS_BRANCH = main || -z $TRAVIS_TAG
+      condition: $TRAVIS_BRANCH = main || ! -z $TRAVIS_TAG
 
 cache:
   directories:
