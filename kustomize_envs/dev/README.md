@@ -34,9 +34,6 @@ kubectl config current-context # make sure you are on the kind cluster
 # create dev namespace
 kubectl create ns dev
 
-# generate local secrets
-kustomize_envs/dev/gen-secret.sh
-
 # build image and deploy to dev cluster. "skaffold dev" would tail on log after image been deployed. In the meanwhile, you can use tools like k9s to monitor the status in your kube cluster
 skaffold dev --port-forward -p dev
 
