@@ -18,11 +18,12 @@ script:
   - make travis-test
 
 deploy:
-  - provider: script
-    script: make travis-deploy
-    cleanup: false
-    on:
-      condition: $TRAVIS_BRANCH = main || ! -z $TRAVIS_TAG
+  provider: script
+  script: make travis-deploy
+  cleanup: false
+  on:
+    all_branches: true
+    condition: $TRAVIS_BRANCH = main || ! -z $TRAVIS_TAG
 
 cache:
   directories:
