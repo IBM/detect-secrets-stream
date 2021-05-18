@@ -8,7 +8,7 @@ services:
   - docker
 
 before_install:
-  - export VERSION=github-travis-$TRAVIS_BUILD_NUMBER-$(date +%Y%m%d-%H%M%S)
+  - test -z "$TRAVIS_TAG" && export VERSION=github-travis-$TRAVIS_BUILD_NUMBER-$(date +%Y%m%d-%H%M%S) || export VERSION=$TRAVIS_TAG
   - echo "Build Version=$VERSION"
 install:
   - make setup
