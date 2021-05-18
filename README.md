@@ -44,27 +44,25 @@ brew install kustomize skaffold container-structure-test pipenv
 - Install python dependencies with `pipenv install --dev`
 - Initialize the pre-commit tool with `pre-commit install`
 
-## Secret Management
+## Local dev secrets
 
-We use [git-crypt](https://github.com/AGWA/git-crypt) to manage the secrets stored in this repo. To decrypt the secrets you need to
+To set up your local dev secrets, first run `./kustomize_envs/dev/gen-secret.sh`. It will create two hidden folders under `/kustomize_envs/dev/`:
 
-1. Install the git-crypt CLI
+- `secret_generated/` containing automatically-generated secrets
+- `secret_manual/` containing manually-entered secrets
 
-   ```sh
-   brew install git-crypt
-   ```
-
-2. Download the git-crypt encryption key to local as `<local_secret_key_file>`. IBM Cloud Key Protect is used to store encryption key. The access is only provided to detect-secrets admin.
-
-   ```sh
-   detect_secrets_stream/key-protect/get_key.sh git-crypt-key <local_secret_key_file>
-   ```
-
-3. unlock the encryption
-
-   ```sh
-   git-crypt unlock <local_secret_key_file>
-   ```
+This table contains information on what the values of the manually-entered  secrets should be set to:
+| File name | Value |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `app.key` | The test GitHub DSS app's private key |
+| `env.txt` | The test GitHub DSS app's ID |
+| `db2consv_zs.lic` | The IBM DB2 license certificate file. You can read more about how to retrieve it [here](https://www.ibm.com/docs/en/db2/11.1?topic=configuring-db2-licenses). |
+| `email.conf` | Your company's internal email regex. You just need to replace `mycompany.com` with your company's email domain. |
+| `ghe_revocation.token` | The Jenkins job trigger token to revoke the GHE token |
+| `github.conf` | `github.mycompany.com` - replace this with your company's GHE domain. `tokens` - a list of GitHub API tokens. This token pool is necessary because each is rate limited to 5000 requests per hour. |
+| `iam.conf` | The IBM Cloud IAM Admin API key |
+| `kafka.conf` | You'll need to create an IBM Cloud Events Stream service for this. Once created, navigate to the Service credentials panel from the Events Stream console and create a new service credential. `brokers_sasl` - the value of `kafka_brokers_sasl` from your service credential. `api_key` - the value of `api_key` from your service credential. |
+| `revoker_urls.conf` | Replace `github.mycompany.com` with your company's GHE URL. |
 
 ## Tests
 
