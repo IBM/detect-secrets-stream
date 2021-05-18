@@ -1,3 +1,4 @@
+os: linux
 language: python
 python:
   - "3.8"
@@ -19,9 +20,9 @@ script:
 deploy:
   - provider: script
     script: make travis-deploy
-    skip_cleanup: true
+    cleanup: false
     on:
-      branch: main
+      condition: $TRAVIS_BRANCH = main || -z $TRAVIS_TAG
 
 cache:
   directories:
