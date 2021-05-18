@@ -61,7 +61,7 @@ This table contains information on what the values of the manually-entered secre
 | `ghe_revocation.token` | The Jenkins job trigger token to revoke the GHE token |
 | `github.conf` | `github.mycompany.com` - replace this with your company's GHE domain. `tokens` - a list of GitHub API tokens. This token pool is necessary because each is rate limited to 5000 requests per hour. |
 | `iam.conf` | The IBM Cloud IAM Admin API key |
-| `kafka.conf` | You'll need to create an IBM Cloud Events Stream service for this. Once created, navigate to the Service credentials panel from the Events Stream console and create a new service credential. `brokers_sasl` - the value of `kafka_brokers_sasl` (without `"` or spaces) from your service credential. `api_key` - the value of `api_key` from your service credential. |
+| `kafka.conf` | You'll need to create an IBM Cloud Events Stream service for this. Then from the Events Stream console, navigate to the Service credentials panel and create a new service credential. `brokers_sasl` - the value of `kafka_brokers_sasl` (without `"` or spaces) from your service credential. `api_key` - the value of `api_key` from your service credential. |
 | `revoker_urls.conf` | Replace `github.mycompany.com` with your company's GHE URL, `artifactory` with your company's artifactory URL, and `jenkins` with your company's Jenkins URL. |
 
 ## Tests
