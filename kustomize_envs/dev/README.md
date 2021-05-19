@@ -35,6 +35,8 @@ kubectl config current-context # make sure you are on the kind cluster
 kubectl create ns dev
 
 # generate local secrets
+# you can follow the guide in ../README#local-dev-secrets to set up your secrets
+# re-running the gen-secret script will not overwrite non-empty files
 kustomize_envs/dev/gen-secret.sh
 
 # build image and deploy to dev cluster. "skaffold dev" would tail on log after image been deployed. In the meanwhile, you can use tools like k9s to monitor the status in your kube cluster
