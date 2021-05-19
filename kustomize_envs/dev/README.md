@@ -7,7 +7,6 @@ This doc describes how to use `skaffold` to run a detect-secrets-stream instance
 ### provision ahead of time
 
 - github-app:
-  - Named `detect-secrets-admin-tool-test`
   - `kustomize_envs/dev/secret_manual/app.key` stores the private key for this test Github App
   - `APP_ID` in `kustomize_envs/dev/secret_manual/env.txt` stores the Github App ID
 - a kafka queue named `diff-scan`
