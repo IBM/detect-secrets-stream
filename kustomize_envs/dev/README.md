@@ -7,11 +7,11 @@ This doc describes how to use `skaffold` to run a detect-secrets-stream instance
 ### provision ahead of time (already done)
 
 - github-app: [detect-secrets-admin-tool-test](https://github.ibm.com/github-apps/detect-secrets-admin-tool-test)
-  - `kustomize_envs/dev/secret/app.key` stores the private key for this test Github App
-  - `APP_ID` in `kustomize_envs/dev/secret/env.txt` stores the Github App ID
+  - `kustomize_envs/dev/secret_manual/app.key` stores the private key for this test Github App
+  - `APP_ID` in `kustomize_envs/dev/secret_manual/env.txt` stores the Github App ID
 - a kafka queue named `diff-scan`
   - You can request a free kafka instance in your own IBM Cloud account. Service link: https://cloud.ibm.com/catalog/services/event-streams. Once created, generate a queue named `diff-scan` in the kafka instance. **TODO** parameterize queue name
-  - The one stored `kustomize_envs/dev/secret/kafka.conf` is under @xianjun's account. Multiple people sharing the same queue can cause confusion when ingesting token.
+  - The one stored `kustomize_envs/dev/secret_manual/kafka.conf` is under @xianjun's account. Multiple people sharing the same queue can cause confusion when ingesting token.
 
 ### ondemand provision
 
