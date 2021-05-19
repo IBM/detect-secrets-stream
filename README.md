@@ -54,7 +54,7 @@ To set up your local dev secrets, first run `./kustomize_envs/dev/gen-secret.sh`
 This table contains information on what the values of the manually-entered secrets should be set to:
 | File name | Value |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `app.key` | The test GitHub DSS app's private key |
+| `app.key` | The test GitHub App's private key. Download from GitHub App config UI. |
 | `env.txt` | The test GitHub DSS app's ID |
 | `db2consv_zs.lic` | The IBM DB2 license certificate file. You can read more about how to retrieve it [here](https://www.ibm.com/docs/en/db2/11.1?topic=configuring-db2-licenses). |
 | `email.conf` | Your company's internal email regex. You just need to replace `mycompany.com` with your company's email domain. |
