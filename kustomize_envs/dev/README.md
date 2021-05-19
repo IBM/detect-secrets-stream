@@ -24,7 +24,7 @@ The resource below would be automatically provisioned when you run skaffold
 
 The steps below would deploy a test instance of detect-secrets-stream in a kube cluster you named. We are using [kind](https://kind.sigs.k8s.io/) to create a local cluster in the example below.
 
-You can also use other kube clusters. To install kind, run `brew install kind`
+To install kind, run `brew install kind`.
 
 ```shell
 # create a kube cluster, we are using kind
