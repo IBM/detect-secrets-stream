@@ -12,6 +12,7 @@ This doc describes how to use `skaffold` to run a detect-secrets-stream instance
   - `APP_ID` in `kustomize_envs/dev/secret_manual/env.txt` stores the Github App ID
 - a kafka queue named `diff-scan`
   - You can request a free kafka instance in your own IBM Cloud account. Service link: https://cloud.ibm.com/catalog/services/event-streams. Once created, generate a queue named `diff-scan` in the kafka instance. **TODO** parameterize queue name
+
 ### ondemand provision
 
 The resource below would be automatically provisioned when you run skaffold
@@ -77,6 +78,7 @@ kubectl exec -n dev -it $(kubectl get pods -n dev -l app=postgres -o jsonpath="{
 ```
 
 Allows running manual SQL commands against your postgresql database
+
 ```
 # Run inside of the container
 # connect to dss database and get all rows from "token" table
