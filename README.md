@@ -48,21 +48,21 @@ brew install kustomize skaffold container-structure-test pipenv
 
 To set up your local dev secrets, first run `./kustomize_envs/dev/gen-secret.sh`. It will create two hidden folders under `/kustomize_envs/dev/`:
 
-- `secret_generated/` containing automatically-generated secrets
-- `secret_manual/` containing manually-entered secrets
+- `secret_generated/` containing automatically-generated secrets. Secrets get regenerated when re-running `gen-secret.sh`.
+- `secret_manual/` containing manually-entered secrets. Running `gen-secret.sh` will generate a template for secrets under this folder. You do need to manually update each secret to match your environment. Re-running `gen-secret.sh` will not overwrite the files if they are non-empty.
 
 This table contains information on what the values of the manually-entered secrets should be set to:
 | File name | Value |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `app.key` | The test GitHub App's private key. Download from GitHub App config UI. |
-| `env.txt` | The test GitHub App's app ID. Obtained from GitHub App config UI. |
+| `app.key` | The test GitHub App's private key. Download this from the GitHub App config UI. |
+| `env.txt` | The test GitHub App's app ID. Obtained from the GitHub App config UI. |
 | `db2consv_zs.lic` | The IBM DB2 license certificate file. You can read more about how to retrieve it [here](https://www.ibm.com/docs/en/db2/11.1?topic=configuring-db2-licenses). This is only needed if looking for DB2 for z or DB2 for i secrets. |
-| `email.conf` | Your company's internal email regex. You just need to replace `mycompany.com` with your company's email domain. |
-| `ghe_revocation.token` | The Jenkins job trigger token to revoke the GHE token |
-| `github.conf` | `github.mycompany.com` - replace this with your company's GHE domain. `tokens` - a list of GitHub API tokens. This token pool is necessary because each is rate limited to 5000 requests per hour. |
-| `iam.conf` | The IBM Cloud IAM Admin API key |
-| `kafka.conf` | You'll need to create an IBM Cloud Events Stream service for this. Then from the Events Stream console, navigate to the Service credentials panel and create a new service credential. `brokers_sasl` - the value of `kafka_brokers_sasl` (without `"` or spaces) from your service credential. `api_key` - the value of `api_key` from your service credential. |
-| `revoker_urls.conf` | Replace `github.mycompany.com` with your company's GHE URL, `artifactory` with your company's artifactory URL, and `jenkins` with your company's Jenkins URL, which should contain a Jenkins job to revoke GHE token. |
+| `email.conf` | Your company's internal email regex. Replace `mycompany.com` with your company's email domain. |
+| `ghe_revocation.token` | The Jenkins job trigger token to revoke the GHE token. |
+| `github.conf` | `github.mycompany.com` - replace this with your company's GHE domain. `tokens` - a list of GitHub API tokens. This token pool is necessary for when a single token's rate limit has been reached. |
+| `iam.conf` | The IBM Cloud IAM API key for an admin account which can resolve an IBM Cloud IAM token owner. |
+| `kafka.conf` | `brokers_sasl` - comma-separated Kafka broker list. For example `broker-1:9093,broker-2:9093,broker-3:9093`. `api_key` - Kafka API key to publish and consume from the queue. When using [IBM Cloud Events Stream service](https://www.ibm.com/cloud/event-streams), you can obtain such value from the Events Stream console by navigating to the Service credentials panel and creating a new service credential. `brokers_sasl` is the value of `kafka_brokers_sasl` (without `"` or spaces) from your service credential. `api_key` is the value of `api_key` from your service credential. |
+| `revoker_urls.conf` | Replace `github.mycompany.com` with your company's GHE URL, `artifactory` with your company's artifactory URL, and `jenkins` with your company's Jenkins URL, which should contain a Jenkins job to revoke the GHE token. |
 
 ## Tests
 
