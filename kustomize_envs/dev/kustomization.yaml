@@ -90,7 +90,7 @@ secretGenerator:
   type: Opaque
 - name: gd-db-conf
   files:
-  - gd_db.conf=secret_manual/gd_db.conf
+  - gd_db.conf=secret_generated/gd_db.conf
   type: Opaque
 - name: gd-dc-secret
   files:
