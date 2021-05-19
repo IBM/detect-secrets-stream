@@ -176,7 +176,7 @@ python -m detect_secrets_stream.util.secret_util --help
 
 ## PI Disposal Process
 
-The mechanism for removing old secrets is a [cronjob]('/kustomize_envs/base/pi_cleaner/cronjob.yaml') which cleans PI on a daily basis.
+The mechanism for removing old secrets is a [cronjob](/kustomize_envs/base/pi_cleaner/cronjob.yaml) which cleans PI on a daily basis.
 
 It removes the following PI for all tokens that have been remediated for over seven days:
 
