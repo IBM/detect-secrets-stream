@@ -56,7 +56,7 @@ This table contains information on what the values of the manually-entered secre
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `app.key` | The test GitHub App's private key. Download from GitHub App config UI. |
 | `env.txt` | The test GitHub App's app ID. Obtained from GitHub App config UI. |
-| `db2consv_zs.lic` | The IBM DB2 license certificate file. You can read more about how to retrieve it [here](https://www.ibm.com/docs/en/db2/11.1?topic=configuring-db2-licenses). |
+| `db2consv_zs.lic` | The IBM DB2 license certificate file. You can read more about how to retrieve it [here](https://www.ibm.com/docs/en/db2/11.1?topic=configuring-db2-licenses). This is only needed if looking for DB2 for z or DB2 for i secrets. |
 | `email.conf` | Your company's internal email regex. You just need to replace `mycompany.com` with your company's email domain. |
 | `ghe_revocation.token` | The Jenkins job trigger token to revoke the GHE token |
 | `github.conf` | `github.mycompany.com` - replace this with your company's GHE domain. `tokens` - a list of GitHub API tokens. This token pool is necessary because each is rate limited to 5000 requests per hour. |
