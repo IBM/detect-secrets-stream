@@ -203,7 +203,10 @@ class DBMetrics(object):
         self.db_tokens_total.labels('any', 'unkwown', 'any').set(any_unknown)
         self.db_tokens_total.labels('any', 'any', 'any').set(any_any_any)
 
-        self.percentage_remediated.set((any_remediated/any_any_any)*100)
+        if any_any_any != 0:
+            self.percentage_remediated.set((any_remediated/any_any_any)*100)
+        else:
+            self.percentage_remediated.set(0)
 
     def start_collection(self):
         # Fail to connect should raise exception
