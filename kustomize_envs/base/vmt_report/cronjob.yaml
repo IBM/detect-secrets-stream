@@ -16,9 +16,9 @@ spec:
             args: ["-m", "detect_secrets_stream.notification.vmt_report"]
             env:
               - name: GD_VMT_BOX_FOLDER_ID
-                value: "83503857499"
+                value: ""
               - name: GD_WATSON_BOX_FOLDER_ID
-                value: "94207592655"
+                value: ""
               - name: GD_BOX_CONFIG_FILE
                 value: "/box-secrets/box_config.json"
               - name: GD_PRI_KEY_FILENAME

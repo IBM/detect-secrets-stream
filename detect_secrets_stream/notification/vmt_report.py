@@ -18,6 +18,9 @@ class VmtReport(object):
         return os.path.join(tempfile.gettempdir(), f'Exposed-Tokens-{datetime.date.today()}.csv')
 
     def send_csv(self, box_folder_id, org_set_filter=None, include_private_repo_tokens=True):
+        if not box_folder_id:
+            return
+
         file_basename = self.gen_report_name()
 
         gd_report_generator = GdReportGenerator()
