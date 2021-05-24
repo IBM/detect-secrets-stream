@@ -40,7 +40,7 @@ spec:
               path: email.conf
       containers:
           - name: gd-ingest
-            image: "us.icr.io/git-defenders/dss:latest"
+            image: "ibmcom/detect-secrets-stream:latest"
             command: ["/code/detect_secrets_stream/gd_ingest/docker-entrypoint.sh"]
             imagePullPolicy: IfNotPresent
             env:
