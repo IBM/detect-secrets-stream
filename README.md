@@ -75,7 +75,7 @@ This table contains information on what the values of the dev secrets should be 
 | File name | Value |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `basic_auth.conf` | Basic auth info for ingestion and revoker layer. |
-| `dc_iv_file` and `dc_key_file` | The key file used for deterministic encryption. This would be replaced by non-deterministic encryption later. |
+| `dc_iv_file` and `dc_key_file` | The key file used for deterministic encryption. This will be replaced by non-deterministic encryption later. |
 | `gd_db.conf` | Database related secrets. |
 | `hmac.key` | HMAC key used in hashing algorithm. |
 | `encryption.key` and `encryption.key.pub` | Encryption key used in non-deterministic encryption. |
