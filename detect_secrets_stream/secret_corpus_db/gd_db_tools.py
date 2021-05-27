@@ -79,13 +79,6 @@ table_def = [
         ')',
     ),
     (
-        'token_notification',
-        '(token_id INTEGER, '
-        'notify_method CHAR(2), '
-        'entity_notified CHAR(2), '
-        'date_notified TIMESTAMPTZ)',
-    ),
-    (
         'vmt_report',
         '(vuln_id VARCHAR, '
         'token_owner_email VARCHAR, '

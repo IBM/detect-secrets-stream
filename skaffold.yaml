@@ -10,13 +10,13 @@ build:
     envTemplate:
       template: "{{.VERSION}}"
   artifacts:
-  - image: us.icr.io/git-defenders/dss
+  - image: ibmcom/detect-secrets-stream
     context: .
     docker:
       dockerfile: Dockerfiles/Dockerfile.dss
 
 test:
-  - image: us.icr.io/git-defenders/dss
+  - image: ibmcom/detect-secrets-stream
     structureTests:
     - Dockerfiles/test.dss.yml
 
@@ -32,7 +32,7 @@ profiles:
           # replace this field with your own prefix
           prefix: myname-
       artifacts:
-      - image: us.icr.io/git-defenders/dss
+      - image: ibmcom/detect-secrets-stream
         context: .
         docker:
           dockerfile: Dockerfiles/Dockerfile.dss

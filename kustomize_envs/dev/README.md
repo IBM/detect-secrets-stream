@@ -4,14 +4,13 @@ This doc describes how to use `skaffold` to run a detect-secrets-stream instance
 
 ## Dependencies
 
-### provision ahead of time (already done)
+### provision ahead of time
 
-- github-app: [detect-secrets-admin-tool-test](https://github.ibm.com/github-apps/detect-secrets-admin-tool-test)
-  - `kustomize_envs/dev/secret/app.key` stores the private key for this test Github App
-  - `APP_ID` in `kustomize_envs/dev/secret/env.txt` stores the Github App ID
+- github-app:
+  - `kustomize_envs/dev/secret_manual/app.key` stores the private key for this test Github App
+  - `APP_ID` in `kustomize_envs/dev/secret_manual/env.txt` stores the Github App ID
 - a kafka queue named `diff-scan`
   - You can request a free kafka instance in your own IBM Cloud account. Service link: https://cloud.ibm.com/catalog/services/event-streams. Once created, generate a queue named `diff-scan` in the kafka instance. **TODO** parameterize queue name
-  - The one stored `kustomize_envs/dev/secret/kafka.conf` is under @xianjun's account. Multiple people sharing the same queue can cause confusion when ingesting token.
 
 ### ondemand provision
 
@@ -24,7 +23,7 @@ The resource below would be automatically provisioned when you run skaffold
 
 The steps below would deploy a test instance of detect-secrets-stream in a kube cluster you named. We are using [kind](https://kind.sigs.k8s.io/) to create a local cluster in the example below.
 
-You can also use other kube clusters. To install kind, run `brew install kind`
+To install kind, run `brew install kind`.
 
 ```shell
 # create a kube cluster, we are using kind
@@ -34,7 +33,8 @@ kubectl config current-context # make sure you are on the kind cluster
 # create dev namespace
 kubectl create ns dev
 
-# generate local secrets
+# generate local secret files
+# refer to the Local Dev Secrets guide in the root project README to set up manually-entered secrets
 kustomize_envs/dev/gen-secret.sh
 
 # build image and deploy to dev cluster. "skaffold dev" would tail on log after image been deployed. In the meanwhile, you can use tools like k9s to monitor the status in your kube cluster
@@ -77,6 +77,7 @@ kubectl exec -n dev -it $(kubectl get pods -n dev -l app=postgres -o jsonpath="{
 ```
 
 Allows running manual SQL commands against your postgresql database
+
 ```
 # Run inside of the container
 # connect to dss database and get all rows from "token" table
