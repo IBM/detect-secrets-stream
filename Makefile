@@ -1,10 +1,6 @@
 MAKEFLAGS += --warn-undefined-variables
 SHELL = /bin/bash
 
-CONTAINER_REGISTRY := us.icr.io
-IBM_CLOUD_REGION = us-east
-KUBE_CLUSTER = wds-k8s
-
 SKAFFOLD_VERBOSITY ?= info
 
 TEST_SECRET_BASE_DIR ?= ./temp
@@ -73,9 +69,6 @@ setup: setup-trivy setup-deploy-tools
 	# lock pipenv version due to https://github.com/pypa/pipenv/issues/4273
 	pip install pipenv==2018.11.26
 	PIP_IGNORE_INSTALLED=1 pipenv install --dev --deploy --ignore-pipfile
-
-	# install ibmcloud cli
-	curl -sL https://ibm.biz/idt-installer | bash
 
 .PHONY: start-local-test-db
 start-local-test-db:
@@ -154,13 +147,14 @@ start-scan_worker:
 
 .PHONY: login
 login:
-ifndef IBM_CLOUD_API_KEY
-	$(error env var IBM_CLOUD_API_KEY is not set)
+ifndef DOCKER_REG_API_KEY
+	$(error env var DOCKER_REG_API_KEY is not set)
 endif
-	# login to ibm cloud
-	@ibmcloud login --apikey $(IBM_CLOUD_API_KEY) -a https://cloud.ibm.com -r $(IBM_CLOUD_REGION)
+ifndef DOCKER_REG_USERNAME
+	$(error env var DOCKER_REG_USERNAME is not set)
+endif
 	# login to the docker registry
-	@echo $(IBM_CLOUD_API_KEY) | docker login -u iamapikey --password-stdin $(CONTAINER_REGISTRY)
+	@echo $(DOCKER_REG_API_KEY) | docker login -u $(DOCKER_REG_USERNAME) --password-stdin
 
 .PHONY: build-images
 build-images:

@@ -90,7 +90,7 @@ secretGenerator:
   type: Opaque
 - name: gd-db-conf
   files:
-  - gd_db.conf=secret_manual/gd_db.conf
+  - gd_db.conf=secret_generated/gd_db.conf
   type: Opaque
 - name: gd-dc-secret
   files:
@@ -111,4 +111,5 @@ secretGenerator:
   - ghe_revocation_token=secret_manual/ghe_revocation.token # manual
   - iam_conf=secret_manual/iam.conf # manual
   - revoker_urls_conf=secret_manual/revoker_urls.conf # manual
+  - email_conf=secret_manual/email.conf # manual
   type: Opaque

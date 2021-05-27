@@ -3,6 +3,7 @@ import json
 import logging
 
 from ..github_client.github import GitHub
+from ..util.conf import ConfUtil
 
 
 class GHElookup():
@@ -10,7 +11,7 @@ class GHElookup():
     def __init__(self, github=GitHub()):
         self.logger = logging.getLogger(__name__)
         self.github = github
-        self.github_host = 'github.company.com'
+        self.github_host = ConfUtil.load_github_conf()['host']
 
     def ghe_email_lookup(self, ghe_id):
         """ looks up user email given a GHE short handle """

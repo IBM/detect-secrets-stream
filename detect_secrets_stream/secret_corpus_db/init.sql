@@ -45,6 +45,20 @@ create table token_commit (
     uniqueness_hash VARCHAR NOT NULL,
     CONSTRAINT unique_leak_hash UNIQUE(uniqueness_hash)
 );
+create table vmt_report (
+    vuln_id VARCHAR,
+    token_owner_email VARCHAR,
+    token_type VARCHAR,
+    vulnerability VARCHAR,
+    pusher_email VARCHAR,
+    committer_email VARCHAR,
+    author_email VARCHAR,
+    date_last_tested TIMESTAMPTZ,
+    date_remediated TIMESTAMPTZ,
+    security_focals VARCHAR,
+    repo_public BOOLEAN,
+    repo_private BOOLEAN
+);
 -- user_def = {
 --     read_only:
 --         (

@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
           - name: pi-cleaner
-            image: us.icr.io/git-defenders/dss:latest
+            image: ibmcom/detect-secrets-stream:latest
             imagePullPolicy: IfNotPresent
             command: ["python"]
             args: ["-m", "detect_secrets_stream.pi_cleaner.pi_cleaner"]

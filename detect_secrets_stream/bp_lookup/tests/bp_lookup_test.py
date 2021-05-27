@@ -4,13 +4,14 @@ from unittest import TestCase
 import responses
 
 from detect_secrets_stream.bp_lookup.bp_lookup import GHElookup
+from detect_secrets_stream.util.conf import ConfUtil
 
 
 class TestGHElookup(TestCase):
 
     def setUp(self):
         self.ghe_lookup = GHElookup()
-        self.github_host = 'github.company.com'
+        self.github_host = ConfUtil.load_github_conf()['host']
 
     @responses.activate
     def test_lookup_ghe_email(self):
