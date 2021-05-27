@@ -176,7 +176,7 @@
         },
         "detect-secrets": {
             "git": "https://github.com/ibm/detect-secrets.git",
-            "ref": "2ee2a2df36c224825ea40998dafd597ce0806f59"
+            "ref": "380bd3d2d56d6f1054dfd53a7b8a70c649559c2e"
         },
         "flask": {
             "hashes": [

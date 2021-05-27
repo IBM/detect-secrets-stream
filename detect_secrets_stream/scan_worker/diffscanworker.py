@@ -134,14 +134,14 @@ class DiffScanWorker(object):
         """
 
         bash_command = (
-            'detect-secrets scan --no-keyword-scan --no-private-key-scan '
+            'detect-secrets scan --db2-scan --no-keyword-scan --no-private-key-scan '
             '--no-basic-auth-scan --no-twilio-key-scan --no-base64-string-scan --no-hex-string-scan '
             f'--no-jwt-scan --output-raw --ghe-instance {self.github_host} {self.diff_filename}'
         )
         # for test code...
         if not verify:
             bash_command = (
-                'detect-secrets scan --no-verify --no-keyword-scan '
+                'detect-secrets scan --no-verify --db2-scan --no-keyword-scan '
                 '--no-private-key-scan --no-basic-auth-scan --no-twilio-key-scan '
                 '--no-base64-string-scan --no-hex-string-scan --no-jwt-scan '
                 f'--output-raw --ghe-instance {self.github_host} {self.diff_filename}'
