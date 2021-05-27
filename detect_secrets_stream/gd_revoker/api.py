@@ -27,7 +27,7 @@ github_host = ConfUtil.load_github_conf()['host']
 
 ERROR_MESSAGE = (
     'Invalid API call. Check the documentation for correct API syntax: '
-    f'https://{github_host}/git-defenders/detect-secrets-stream'
+    f'https://github.com/IBM/detect-secrets-stream'
     '/blob/master/detect_secrets_stream/gd_revoker/usage.md'
 )
 
