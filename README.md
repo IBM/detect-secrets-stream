@@ -46,7 +46,7 @@ brew install kustomize skaffold container-structure-test pipenv
 
 ## Secrets
 
-Example secrets are in [secrets.template](./secret.template/) (more doc coming). For local dev env, some secrets are auto generated. For prod env, you would need to supply the real secrets.
+Example secrets are in [secrets.template](./secrets.template/) (more doc coming). For local dev env, some secrets are auto generated. For prod env, you would need to supply the real secrets.
 ### Local dev secrets
 
 To set up your local dev secrets, first run `./kustomize_envs/dev/gen-secret.sh`. It will create two hidden folders under `/kustomize_envs/dev/`:
