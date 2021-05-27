@@ -136,7 +136,7 @@ class DiffScanWorker(object):
         bash_command = (
             'detect-secrets scan --no-keyword-scan --no-private-key-scan '
             '--no-basic-auth-scan --no-twilio-key-scan --no-base64-string-scan --no-hex-string-scan '
-            '--no-jwt-scan --output-raw %s' % self.diff_filename
+            f'--no-jwt-scan --output-raw {self.diff_filename} --ghe-instance {self.github_host}'
         )
         # for test code...
         if not verify:
@@ -144,7 +144,7 @@ class DiffScanWorker(object):
                 'detect-secrets scan --no-verify --no-keyword-scan '
                 '--no-private-key-scan --no-basic-auth-scan --no-twilio-key-scan '
                 '--no-base64-string-scan --no-hex-string-scan --no-jwt-scan '
-                '--output-raw %s' % self.diff_filename
+                f'--output-raw {self.diff_filename} --ghe-instance {self.github_host}'
             )
         process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
         output, error = process.communicate()
