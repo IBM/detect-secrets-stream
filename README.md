@@ -1,4 +1,4 @@
-# Detect Secrets Stream [![Build Status](https://travis.ibm.com/git-defenders/detect-secrets-stream.svg?token=tSTYkwXezbKBusqJ3V4L&branch=master)](https://travis.ibm.com/git-defenders/detect-secrets-stream)
+# Detect Secrets Stream [![Build Status](https://travis-ci.com/IBM/detect-secrets-stream.svg?branch=main)](https://travis-ci.com/IBM/detect-secrets-stream.svg?branch=main)
 
 ## Description
 
@@ -44,7 +44,10 @@ brew install kustomize skaffold container-structure-test pipenv
 - Install python dependencies with `pipenv install --dev`
 - Initialize the pre-commit tool with `pre-commit install`
 
-## Local dev secrets
+## Secrets
+
+Example secrets are in [secrets.template](./secret.template/) (more doc coming). For local dev env, some secrets are auto generated. For prod env, you would need to supply the real secrets.
+### Local dev secrets
 
 To set up your local dev secrets, first run `./kustomize_envs/dev/gen-secret.sh`. It will create two hidden folders under `/kustomize_envs/dev/`:
 
@@ -63,6 +66,20 @@ This table contains information on what the values of the manually-entered secre
 | `iam.conf` | The IBM Cloud IAM API key for an admin account which can resolve an IBM Cloud IAM token owner. |
 | `kafka.conf` | `brokers_sasl` - comma-separated Kafka broker list. For example `broker-1:9093,broker-2:9093,broker-3:9093`. `api_key` - Kafka API key to publish and consume from the queue. When using [IBM Cloud Events Stream service](https://www.ibm.com/cloud/event-streams), you can obtain such value from the Events Stream console by navigating to the Service credentials panel and creating a new service credential. `brokers_sasl` is the value of `kafka_brokers_sasl` (without `"` or spaces) from your service credential. `api_key` is the value of `api_key` from your service credential. |
 | `revoker_urls.conf` | Replace `github.mycompany.com` with your company's GHE URL, `artifactory` with your company's artifactory URL, and `jenkins` with your company's Jenkins URL, which should contain a Jenkins job to revoke the GHE token. |
+
+### Prod secrets
+
+Besides the secrets mentioned from [Local dev secrets](#local-dev-secrets), for production env, you also need to prepare secrets which are auto-generated in dev env.
+
+This table contains information on what the values of the dev secrets should be set to:
+| File name | Value |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `basic_auth.conf` | Basic auth info for ingestion and revoker layer. |
+| `dc_iv_file` and `dc_key_file` | The key file used for deterministic encryption. This would be replaced by non-deterministic encryption later. |
+| `gd_db.conf` | Database related secrets. |
+| `hmac.key` | HMAC key used in hashing algorithm. |
+| `encryption.key` and `encryption.key.pub` | Encryption key used in non-deterministic encryption. |
+| `vault.conf` | Vault related secrets. DSS uses approle for auth and KV v1 as secret engine. |
 
 ## Tests
 
