@@ -118,8 +118,7 @@ def connect_db():
     """ collect env vars & connect to corpus """
     try:
         db_conf = ConfUtil.load_db_conf()
-        # Creds from:
-        # https://cloud.ibm.com/services/databases-for-postgresql/crn:v1:bluemix:public:databases-for-postgresql:us-east:a%2f26bb005a5183cf92d5694dd5e93c03c2:9f5cefd3-2130-430b-8e28-bee3a0f8e105::?paneId=credentials
+        # Creds from PostgreSQL database 
         gd_db_database = db_conf['database']
         gd_db_hostname = db_conf['hostname']
         gd_db_port = db_conf['port']
