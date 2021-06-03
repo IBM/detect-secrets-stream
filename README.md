@@ -2,16 +2,16 @@
 
 ## Description
 
-Detect secrets stream is the server tool which ingests meta data of all (public repo by default, private repo opt-in) git pushes happened on github.ibm.com. For each push, it [scans](https://github.ibm.com/Whitewater/whitewater-detect-secrets/wiki/About-Detect-Secrets#what-file-content-do-you-scan) the push content for secrets. Once found and verified, secrets will be stored in db (meta data) and SoS vault (raw secret).
+Detect secrets stream is the server tool which ingests metadata of all (public repo by default, private repo opt-in) git pushes happening on your company's github server. For each push, it [scans](./docs/about-detect-secrets.md#what-file-content-do-you-scan) the push content for secrets. Once found and verified, secrets will be stored in db (meta data) and SoS vault (raw secret).
 
-The live secrets are reported to Vulnerability Management team (VMT). Currently the reporting is through csv file uploaded in shared box folder. We are about to change to [report through read-only DB table](https://github.ibm.com/git-defenders/detect-secrets-discuss/issues/310).
+The live secrets are reported to Vulnerability Management team (VMT). Currently, the reporting is through csv file uploaded in shared box folder. We are about it to change to report through a read-only DB table.
 
-There is another companion [Admin tool](https://github.ibm.com/Whitewater/whitewater-detect-secrets/wiki/Admin-Tool-FAQ) which enables org admin to
+There is a companion Admin tool which enables org admin to:
 
 - opt-in their private repo for scanning
 - add security folk for leak token notification.
 
-Under the hood, server tool uses developer tool to scan for secrets. Read [Whitewater/whitewater-detect-secrets](https://github.ibm.com/Whitewater/whitewater-detect-secrets) for more info about developer tool.
+Under the hood, server tool uses developer tool to scan for secrets. Read [IBM/detect-secrets](https://github.com/IBM/detect-secrets) for more info about developer tool.
 
 ## Architecture
 
@@ -253,12 +253,8 @@ CREATE USER vmt_user WITH IN GROUP vmt_role PASSWORD [redacted]
 | `repo_public`       | BOOLEAN     | Whether the token has been leaked in at least one public repository      |
 | `repo_private`      | BOOLEAN     | Whether the token has been leaked in at least one private repository     |
 
-## Wiki
+## Docs
 
-See our [wiki](https://github.ibm.com/git-defenders/detect-secrets-discuss/wiki) for more useful information on managing this repo.
-
-- [infrastructure info](https://github.ibm.com/git-defenders/detect-secrets-discuss/wiki/%5BAdmin%5D-Infrastructure-Information)
-- [Operation guide](https://github.ibm.com/git-defenders/detect-secrets-discuss/wiki/%5BAdmin%5D-Operation-guide)
-- [Admin Tool FAQ](https://github.ibm.com/git-defenders/detect-secrets-discuss/wiki/%5BAdmin%5D-DSS-Admin-FAQ), including the section about how to review [git-defenders/dss-config PRs](https://github.ibm.com/git-defenders/dss-config/pulls)
-
-User facing doc are in [here](https://github.ibm.com/Whitewater/whitewater-detect-secrets/wiki)
+See our docs for more useful information:
+- [Detect Secrets](./docs/about-detect-secrets.md)
+- [Developer Tool FAQ](./docs/developer-tool-faq.md)
