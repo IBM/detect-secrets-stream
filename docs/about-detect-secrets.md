@@ -63,10 +63,6 @@ To <REVOKED>.git
    ae785e1..37be0f6  master -> master
 ```
 
-### How does this affect the current detect-secrets app?
-
-This does _not_ affect the current Github app in any way. Both services follow different flows and can be run concurrently without any issues.
-
 ### What is a pre-receive hook?
 
 Pre-receive hooks are designed to enforce rules before commits are pushed to a repository. They run tests to ensure commits meet repository or organization policy.
