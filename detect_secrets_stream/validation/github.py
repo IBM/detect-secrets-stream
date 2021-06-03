@@ -62,8 +62,7 @@ class GHEValidator(BaseValidator):
 
     @staticmethod
     def hash_token(token: str) -> str:
-        """ Matches GHE hashing as seen here: https://github.ibm.com/chris-waldon/gh-hash.
-        Encodes token to binary, hashes with sha256, then base64 encodes. """
+        """ Matches GHE hashing. Encodes token to binary, hashes with sha256, then base64 encodes. """
         hasher = sha256()
         hasher.update(token.encode('ascii'))
         hashed_result = hasher.digest()
