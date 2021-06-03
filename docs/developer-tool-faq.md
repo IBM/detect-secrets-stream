@@ -31,7 +31,7 @@
       - [Cause 2: Verifiable token is verified as false](#cause-2-verifiable-token-is-verified-as-false)
       - [Cause 3: Entropy threshold is too high for entropy based plugins](#cause-3-entropy-threshold-is-too-high-for-entropy-based-plugins)
       - [Cause 4: Unsupported token type](#cause-4-unsupported-token-type)
-  - [Why `detect-secrets` is the pre-commit output messed up with multiple headings and footers?](#why-detect-secrets-is-the-pre-commit-output-messed-up-with-multiple-headings-and-footers)
+  - [Why is the `detect-secrets` pre-commit output messed up with multiple headings and footers?](#why-is-the-detect-secrets-pre-commit-output-messed-up-with-multiple-headings-and-footers)
   - [How do I configure the `detect-secrets` pre-commit hook with NodeJs’s husky library?](#how-do-i-configure-the-detect-secrets-pre-commit-hook-with-nodejss-husky-library)
   - [How do I use inline allowlisting?](#how-do-i-use-inline-allowlisting)
   - [Why does my scan get stuck](#why-does-my-scan-get-stuck)
@@ -57,7 +57,7 @@ If adding `--user` does not resolve the issue, there are some cases where backle
 pip install --user --upgrade pip
 ```
 
-Then perform the `detect-secrets` install again.
+Then perform the `detect-secrets` install again.∂
 
 ## I cannot find the `detect-secrets` binary after installation
 
