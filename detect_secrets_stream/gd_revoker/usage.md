@@ -2,7 +2,7 @@
 
 **Verify Token**
 
-*Note: replace `<host_suffix>` with your company-specific `gd-revoker` host suffix noted in the `ingress.gd_revoker.yaml` file.*
+>Note: replace `<host_suffix>` with your company-specific `gd-revoker` host suffix noted in the `ingress.gd_revoker.yaml` file.
 
 `curl -X POST https://gd-revoker.<host_suffix>./api/v1/token/<uuid>/verify`
 
@@ -17,7 +17,7 @@ Response content type is `application/json`.
 
 **Revoke Token**
 
-*Note: replace `<host_suffix>` with your company-specific `gd-revoker` host suffix noted in the `ingress.gd_revoker.yaml` file.*
+>Note: replace `<host_suffix>` with your company-specific `gd-revoker` host suffix noted in the `ingress.gd_revoker.yaml` file.
 
 `curl -X POST https://gd-revoker.<host_suffix>/api/v1/token/<uuid>/revoke`
 
