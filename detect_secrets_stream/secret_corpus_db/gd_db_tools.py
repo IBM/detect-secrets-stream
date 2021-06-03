@@ -118,7 +118,7 @@ def connect_db():
     """ collect env vars & connect to corpus """
     try:
         db_conf = ConfUtil.load_db_conf()
-        # Creds from PostgreSQL database 
+        # Creds from PostgreSQL database
         gd_db_database = db_conf['database']
         gd_db_hostname = db_conf['hostname']
         gd_db_port = db_conf['port']
