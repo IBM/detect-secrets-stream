@@ -126,7 +126,7 @@ For your own CI/CD issues please refer to your GitHub Organization owner.
 
 ### What token types do you scan?
 
-Please view [this page](./developer-tool-faq.md#what-kind-of-tokens-does-detect-secrets-find) for details.
+Please view [this page](https://github.com/IBM/detect-secrets/blob/master/docs/developer-tool-faq.md) for details.
 
 ### What file content do you scan?
 

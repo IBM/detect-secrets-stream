@@ -259,4 +259,3 @@ CREATE USER vmt_user WITH IN GROUP vmt_role PASSWORD [redacted]
 See our docs for more useful information:
 
 - [Detect Secrets](./docs/about-detect-secrets.md)
-- [Developer Tool FAQ](./docs/developer-tool-faq.md)
