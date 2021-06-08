@@ -1,6 +1,6 @@
 ## Process for Supporting a New Secret Type in detect-secrets-stream
 
-After a new secret detector has been developed in `IBM/detect-secrets` (see [instructions](https://github.com/IBM/detect-secrets/blob/master/CONTRIBUTING.md)), additional functionality must be developed in this repo in order to support the new secret type as part of the server side detection pipeline. This involves creating a validator class containing the functions `secret_type_name()`, `verify()`, `resolve_owner()` and `revoke()`, at a minumum.
+After a new secret detector has been developed in `IBM/detect-secrets` (see [instructions](https://github.com/IBM/detect-secrets/blob/master/CONTRIBUTING.md)), additional functionality must be developed in this repository in order to support the new secret type as part of the server side detection pipeline. This involves creating a validator class containing the functions `secret_type_name()`, `verify()`, `resolve_owner()` and `revoke()`, at a minumum.
 
 First, be sure to run `pipenv update` to retrieve the new detector and any other recent changes from `detect-secrets`. Then, follow the steps below:
 
