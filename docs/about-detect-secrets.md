@@ -139,4 +139,4 @@ If your repo hasn't been pushed for long time, detect-secrets-suite server won't
 The different type of scans are:
 
 - Delta (diff) scan: scan the delta piece of any file modified or added by a commit. Suppose you have a file containing 1000 lines and your edits one line in it, it will only scan several lines surrounding the modified line. This is the behavior for detect-secrets-suite pre-receive scan.
-- Shallow scan: scan all (non-binary) files at current commit. This is the default behavior for detect-secrets-suite developer tool.
+- Shallow scan: scan all (non-binary) files at current commit. This is the default behavior for the detect-secrets-suite [developer](https://github.com/IBM/detect-secrets) tool.
