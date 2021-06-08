@@ -130,9 +130,7 @@ Please view [this page](https://github.com/IBM/detect-secrets/blob/master/docs/d
 
 ### What file content do you scan?
 
-detect-secrets-suite server runs delta (diff) scan for each commit included in the git push. If many commits included, it will scan up to 250 commits per branch. For example, if your push only contains 4 commits, then all these 4 would be scanned. In another example, if you make a new branch of master which includes thousands of existing commits, then pushed the new branch, then 250 recent commits within that new branch would be scanned.
-
-If your repo hasn't been pushed for long time, detect-secrets-suite server won't be able to catch old tokens in it.
+detect-secrets-suite server runs a delta (diff) scan for each commit included in the git push.
 
 ### What's delta (diff) scan? are there any other scan types?
 
