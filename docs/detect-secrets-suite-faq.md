@@ -34,13 +34,13 @@ Under the hood, it uses a non-blocking [pre-receive hook](#what-is-a-pre-receive
 
 ### What information do you track for each push?
 
-The collected information includes information about the commit author, whats has been committed, and the time of push to Github. The complete list of information we track can be found [here](https://help.github.com/en/enterprise/2.16/admin/developer-workflow/creating-a-pre-receive-hook-script#writing-a-pre-receive-hook-script.)
+The collected information includes information about the commit author, whats has been committed, and the time of push to Github. The complete list of information we track can be found [here](https://help.github.com/en/enterprise/2.16/admin/developer-workflow/creating-a-pre-receive-hook-script#writing-a-pre-receive-hook-script).
 
 ### Do you also scan private repositories?
 
 By default, we only scan public repositories. For private repositories, we will ask for your permission through a Github App. Don't worry, we won't peek into your source code without asking.
 
-Please note, the pre-receive trigger is in place enterprise-wide for _every_ repo. The scanning code checks a repository's privacy status before scanning it. It does not scan a private repository unless the `detect-secrets-suite` GitHub App is in place to give it permission to proceed.
+Please note, the pre-receive trigger is in place enterprise-wide for _every_ repo. The scanning code checks a repository's privacy status before scanning it. It will not scan a private repository unless the `detect-secrets-suite` GitHub App is in place to give it permission to proceed.
 
 ### How does `detect-secrets-suite` affect my interactions with Github?
 
@@ -70,11 +70,11 @@ Pre-receive hooks are designed to enforce rules before commits are pushed to a r
 
 _\*Pre-receive hooks have a time limit. If the processing can't finish within 5 seconds, the push will fail._ It's not currently possible to complete a full scan of a push's entire contents in that time frame, so `detect-secrets-suite` will queue a request for an asynchronous scan.
 
-[more about pre-receive hooks](https://help.github.com/en/enterprise/2.16/admin/developer-workflow/about-pre-receive-hooks)
+You can find more information about pre-receive hooks [here](https://help.github.com/en/enterprise/2.16/admin/developer-workflow/about-pre-receive-hooks).
 
 ### Will my pushes and PR merges be blocked?
 
-No, the pre-receive script is designed to ensure it will always finish successfully within 5 seconds, no matter if the push info is sent successfully or not. It's intended not to block users from pushing due to server errors. If you have any experiences to the contrary, please submit an issue.
+No, the pre-receive script is designed to ensure that it will always finish successfully within 5 seconds, no matter if the push info is sent successfully or not. It's intended not to block users from pushing due to server errors. If you have any experiences to the contrary, please submit an issue.
 
 ### Which of the pre-receive hooks should I use?
 
@@ -90,7 +90,7 @@ After the pre-receive hook has been enabled for a repository, there is [one addi
 
 Testing has been performed across the most common CI systems and patches have been applied for error conditions that have been discovered. However, if a CI system does not recognize this value, it may result in unexpected behaviors such as the build not triggering.
 
-Both Travis CI and Jenkins have been tested. Additionaly, it's been verified that popular plugins such as Github Organizations and Multi-branches are not been affected.
+Both Travis CI and Jenkins have been tested. Additionaly, it's been verified that popular plugins such as Github Organizations and Multi-branches have not been affected.
 
 If your CI system behaves strangely after you've enabled the pre-receive hook, check with your CI vendor to validate if the new value in the `mergeable_state` field is the culprit. In any case, please open a GitHub issue.
 
@@ -105,25 +105,25 @@ To <REDACTED>/secret-corpus-db !
 [remote rejected] gen-db-tool -> gen-db-tool (pre-receive hook declined)
 ```
 
-Although the pre-receive hook should not fail by design, there have been rare circumstances where it does. If so, the development team will be aware that it has timed out; There is no need to report this.
+Although the pre-receive hook should not fail by design, there have been rare instances where it does. If so, the development team will be aware that it has timed out; There is no need to report this.
 
 Please re-attempt the push unaltered. If it continues to fail, please open a GitHub issue.
 
 ### My push has slowed down, what should I do?
 
-There should be minimal delay to your push introduced by triggering the `detect-secrets` asynchronous scan. If this is not the case for you, please open an issue in this repository.
+There should be minimal delay to your push introduced by triggering the `detect-secrets` asynchronous scan. If this is not the case for you, please open a GitHub issue.
 
 ### My push was made but my CI / CD didn't trigger or execute?
 
 Please take care to distinguish between the `detect-secrets-suite` service and other CI/CD.
 e.g.:
 
-- your org / repo's CI/CD
+- Your organization / repository's CI/CD
 - CI/CD secret checking
 - GitHub Apps
-- pre-commit hooks you have installed locally
+- Pre-commit hooks you have installed locally
 
-For your own CI/CD issues please refer to your GitHub Organization owner.
+For your own CI/CD issues, please refer to your GitHub Organization owner.
 
 ### What token types do you scan?
 
@@ -133,9 +133,9 @@ Please see [this](https://github.com/IBM/detect-secrets/blob/master/docs/develop
 
 `detect-secrets-suite` server runs a delta (diff) scan for each commit included in the git push.
 
-### What is delta (diff) scan? Are there any other scan types?
+### What is a delta (diff) scan? Are there any other scan types?
 
 The different types of scans are:
 
-- Delta (diff) scan: scans the delta piece of any file modified or added by a commit. Suppose you have a file containing 1000 lines and you edit one line in it, it will only scan several lines surrounding the modified line. This is the behavior for `detect-secrets-suite` the pre-receive scan.
-- Shallow scan: scan all (non-binary) files at the current commit. This is the default behavior for the `detect-secrets-suite` [developer](https://github.com/IBM/detect-secrets) tool.
+- Delta (diff) scan: scans the delta piece of any file modified or added by a commit. Suppose you have a file containing 1000 lines and you edit one line, only several lines surrounding the modified line will be scanned. This is the behavior for the `detect-secrets-suite` pre-receive scan.
+- Shallow scan: scans all (non-binary) files at the current commit. This is the default behavior for the `detect-secrets-suite` [developer](https://github.com/IBM/detect-secrets) tool.
