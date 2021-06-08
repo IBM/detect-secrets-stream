@@ -28,7 +28,7 @@ This documentation is intended for GitHub Enterprise end users. The rest of the 
 
 ### What is detect-secrets-suite?
 
-`detect-secrets-suite` is the next generation of the Detect Secrets service. It uses are using [IBM Cloud](http://cloud.ibm.com)'s streaming and analysis capabilities to find secrets (tokens, keys, etc) in source code.
+`detect-secrets-suite` is the next generation of the Detect Secrets service. It uses [IBM Cloud](http://cloud.ibm.com)'s streaming and analysis capabilities to find secrets (tokens, keys, etc) in source code.
 
 Under the hood, it uses a non-blocking [pre-receive hook](#what-is-a-pre-receive-hook) to track [push information](#what-information-do-you-track-for-each-push). This queues an asynchronous scan request for potential secrets, for each commit in turn.
 

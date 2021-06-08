@@ -26,7 +26,7 @@ The steps below would deploy a test instance of detect-secrets-stream in a kube 
 To install kind, run `brew install kind`.
 
 ```shell
-# create a kube cluster, we are using kind
+# create a kube cluster using kind
 kind create cluster
 kubectl config current-context # make sure you are on the kind cluster
 
