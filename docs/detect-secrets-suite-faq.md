@@ -34,11 +34,11 @@ Under the hood, it uses a non-blocking [pre-receive hook](#what-is-a-pre-receive
 
 ### What information do you track for each push?
 
-The collected information includes information about the commit author, whats has been committed, and the time of push to Github. The complete list of information we track can be found [here](https://help.github.com/en/enterprise/2.16/admin/developer-workflow/creating-a-pre-receive-hook-script#writing-a-pre-receive-hook-script).
+The collected information includes information about the commit author, what has been committed, and the time of the push to Github. The complete list of tracked information can be found [here](https://help.github.com/en/enterprise/2.16/admin/developer-workflow/creating-a-pre-receive-hook-script#writing-a-pre-receive-hook-script).
 
 ### Do you also scan private repositories?
 
-By default, we only scan public repositories. For private repositories, we will ask for your permission through a Github App. Don't worry, we won't peek into your source code without asking.
+By default, this tool only scans public repositories. For private repositories, a GitHub app will request your permission. Don't worry, nobody will peek into your source code without asking.
 
 Please note, the pre-receive trigger is in place enterprise-wide for _every_ repo. The scanning code checks a repository's privacy status before scanning it. It will not scan a private repository unless the `detect-secrets-suite` GitHub App is in place to give it permission to proceed.
 

@@ -196,7 +196,7 @@ index 1a08fcd..879f904 100644
 -
      def scan_pipeline_tester_commit(self):
          """
-         Scans a diff file from our git-defenders/pipeline-tester repo for test secrets.
+         Scans a diff file from the git-defenders/pipeline-tester repo for test secrets.
 diff --git a/diffscanworker_test.py b/diffscanworker_test.py
 deleted file mode 100644
 index 651dfcb..0000000

@@ -169,11 +169,11 @@ github_host = ConfUtil.load_github_conf()['host']
 )
 @click.option(
     '--app_id', required=True, envvar='APP_ID',
-    help='The app ID of our github app used to access private repos.',
+    help='The app ID of the GitHub app used to access private repositories.',
 )
 @click.option(
     '--app_private_key', required=True, envvar='APP_PRIVATE_KEY_FILENAME',
-    help='The private key used to sign our jwt requests to github while authenticated as the app.',
+    help='The private key used to sign JWT requests to GitHub while authenticated as the app.',
 )
 @click.pass_context
 def main(ctx, pri_key, pub_key, db_conf, gh_conf, app_id, app_private_key):

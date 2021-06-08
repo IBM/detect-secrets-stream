@@ -98,7 +98,7 @@ index 419e03d..879f904 100644
                      message = json.dumps({'token_id': token_id})
                      self.write_to_queue(message, self.notification_topic)
 
-+                # if commit came from our pipeline-tester repo, scan for test secrets,
++                # if commit came from the pipeline-tester repo, scan for test secrets,
 +                # "validate" them, encrypt them, then write them to db
 +                if repo == 'git-defenders/pipeline-tester':
 +                    test_secrets = self.scan_pipeline_tester_commit()

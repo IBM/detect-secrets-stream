@@ -92,9 +92,9 @@ class Decryptor:
 class DeterministicCryptor:
     def __init__(self, de_key_filename=os.getenv('GD_DC_KEY_FILENAME'), de_iv_filename=os.getenv('GD_DC_IV_FILENAME')):
         '''
-        A symemtric encryptor which use AES encryption with CBC mode. Based on the doc
+        A symmetric encryptor which use AES encryption with CBC mode. Based on the doc
         https://cryptography.io/en/latest/hazmat/primitives/symmetric-encryption/#cryptography.hazmat.primitives.ciphers.modes.CBC
-        padding is required for CBC mode, so we added padding before encryption and unpadding after decryption.
+        padding is required for CBC mode, so padding was added before encryption and unpadding after decryption.
 
         de_key_filename - deterministic encryption key file which contains 256 bits of random data
         de_iv_filename - deterministic encryption initialization vector file which contains 128 bits of random data.
