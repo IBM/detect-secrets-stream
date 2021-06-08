@@ -110,13 +110,13 @@ make test-unit-pi_cleaner
 
 ### End 2 end test
 
-This requires personal or staging environment. See [kustomize_envs/dev/README.md](kustomize_envs/dev/README.md) for more details.
+This requires a personal or staging environment. See [kustomize_envs/dev/README.md](kustomize_envs/dev/README.md) for more details.
 
 ## Utilities
 
 This repo has provided a utility module which enables an admin to do many routine tasks. The utility is invoked though `python -m detect_secrets_stream.util.secret_util`
 
-Running the utility requires several environment variables. You will first unlock secrets with `git-crypt` (secret management section above), then export the required environment variables. One example environment variable file (`.env.example`) has been prepared to help you.
+Running the utility requires several environment variables. You will first need to unlock secrets using `git-crypt`, then export the required environment variables. An example environment variable file (`.env.example`) has been prepared to help you.
 
 From a `fish` shell, you can do something like below
 
@@ -165,7 +165,7 @@ Manually add a commit to the `diff-scan` queue.
 
 Note: must set `KAFKA_CLIENT_ID` , `GD_KAFKA_CONF` environment variables.
 
-`KAFKA_CLIENT_ID` is the name of Kafka client used in manual ingestion. It can be anything, such as `manual-ingest`
+`KAFKA_CLIENT_ID` is the name of the Kafka client used for manual ingestion. It can be anything, such as `manual-ingest`
 `GD_KAFKA_CONF` points to the Kafka configuration file. The production config is stored under `kustomize_envs/prod-secrets/secret/kafka.conf`. The one below is an example of what should be contained in the config file.
 
 ```conf
@@ -254,7 +254,7 @@ CREATE USER vmt_user WITH IN GROUP vmt_role PASSWORD [redacted]
 
 ## Docs
 
-See our docs for more useful information:
+See the additional docs for more information:
 
 - [Detect Secrets](./docs/about-detect-secrets.md)
 - [Running a local end 2 end test](./kustomize_envs/dev/README.md)

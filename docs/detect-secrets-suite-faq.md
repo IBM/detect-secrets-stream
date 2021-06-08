@@ -74,7 +74,7 @@ _\*Pre-receive hooks have a time limit. If the processing can't finish within 5 
 
 ### Will my pushes and PR merges be blocked?
 
-No, our pre-receive script is designed to ensure it will always finish successfully within 5 seconds, no matter if the push info is sent successfully or not. It's intended not to block users from pushing due to server errors. If you have any experiences to the contrary, please submit an issue.
+No, the pre-receive script is designed to ensure it will always finish successfully within 5 seconds, no matter if the push info is sent successfully or not. It's intended not to block users from pushing due to server errors. If you have any experiences to the contrary, please submit an issue.
 
 ### Which of the pre-receive hooks should I use?
 
