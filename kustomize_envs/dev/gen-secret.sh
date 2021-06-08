@@ -72,6 +72,7 @@ test -s "${GD_GHE_FILENAME}" || cat > "${GD_GHE_FILENAME}" << EOF
 [github]
 tokens = pat_for_public_repos
 host = github.mycompany.com
+admin_config = https://%(host)s/api/v3/repos/<org>/<repo>/contents/org_set_config
 EOF
 
 GD_IAM_FILENAME=${SECRET_MANUAL_DIR}/iam.conf

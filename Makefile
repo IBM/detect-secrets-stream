@@ -90,7 +90,7 @@ create-unit-test-secrets: create-common-test-secrets
 	yes | ssh-keygen -q -t rsa -f "$(APP_PRIVATE_KEY_FILENAME)" -N ""  -C "$(TEST_SECRET_COMMENT)" -m pem
 	echo "test-token-12345" > "$(GHE_REVOCATION_TOKEN_FILENAME)"
 	printf "[iam]\nadmin_apikey = testnotarealtoken123456789" >> "$(GD_IAM_CONF_FILENAME)"
-	printf "[github]\ntokens = someRandomTestToken1,someRandomTestToken2,someRandomTestToken3\nhost = github.company.com" >> "$(GD_GITHUB_CONF)"
+	printf "[github]\ntokens = someRandomTestToken1,someRandomTestToken2,someRandomTestToken3\nhost = github.company.com\nadmin_config = https://%%(host)s/api/v3/repos/admin-org/admin-repo/contents/org_set_config" >> "$(GD_GITHUB_CONF)"
 	printf "[revoker-urls]\nartifactory-revocation = http://test\nartifactory-owner-resolution = http://test\ngithub-revocation = http://test\ngithub-owner-resolution = http://test" >> "$(GD_REVOKER_URLS_CONF)"
 	printf "[email]\ninternal_email_regex = [A-Z0-9.\-_]+@([A-Z0-9]+\.)*(test.test)$$" >> $(GD_EMAIL_CONF)
 

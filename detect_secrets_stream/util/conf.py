@@ -12,7 +12,7 @@ class ConfUtil():
             config = ConfUtil._load_conf(config_file_name)
             return config['github']
         except Exception:
-            return {'tokens': '', 'host': ''}
+            return {'tokens': '', 'host': '', 'admin_config': ''}
 
     @staticmethod
     @lru_cache()

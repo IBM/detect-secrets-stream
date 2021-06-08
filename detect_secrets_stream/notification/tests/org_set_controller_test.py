@@ -16,7 +16,11 @@ class TestOrgSetController(TestCase):
     def setUp(self, mock_load_org_set):
         self.org_set_controller = OrgSetController()
         self.github_host = ConfUtil.load_github_conf()['host']
+        self.admin_config = ConfUtil.load_github_conf()['admin_config']
         self.email_domain = 'test.test'
+
+    def test_admin_config_contains_gh_host(self):
+        assert self.github_host in self.admin_config
 
     def test_get_security_focal_emails_for_repo(self):
         test_repo_slug = 'test-org/test-repo'
@@ -66,7 +70,7 @@ class TestOrgSetController(TestCase):
     def test_load_org_sets_from_config_files(self):
         responses.add(
             responses.GET,
-            f'https://{self.github_host}/api/v3/repos/git-defenders/dss-config/contents/org_set_config',
+            f'{self.admin_config}',
             status=200,
             body=(
                 '[{"name": "config1.yaml", "type": "file", '
@@ -121,7 +125,7 @@ class TestOrgSetController(TestCase):
     def test_load_org_sets_from_config_files_org_in_multiple_sets(self):
         responses.add(
             responses.GET,
-            f'https://{self.github_host}/api/v3/repos/git-defenders/dss-config/contents/org_set_config',
+            f'{self.admin_config}',
             status=200,
             body=(
                 '[{"name": "config1.yaml", "type": "file", '
@@ -178,7 +182,7 @@ class TestOrgSetController(TestCase):
     def test_load_org_sets_from_config_files_one_config_is_misformatted(self):
         responses.add(
             responses.GET,
-            f'https://{self.github_host}/api/v3/repos/git-defenders/dss-config/contents/org_set_config',
+            f'{self.admin_config}',
             status=200,
             body=(
                 '[{"name": "config1.yaml", "type": "file", '
@@ -223,7 +227,7 @@ class TestOrgSetController(TestCase):
     def test_load_org_sets_from_config_files_bad_request(self):
         responses.add(
             responses.GET,
-            f'https://{self.github_host}/api/v3/repos/git-defenders/dss-config/contents/org_set_config',
+            f'{self.admin_config}',
             status=404,
         )
         with pytest.raises(HTTPError):

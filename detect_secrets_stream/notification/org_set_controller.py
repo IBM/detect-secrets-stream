@@ -9,11 +9,12 @@ from ..util.conf import ConfUtil
 
 class OrgSetController(object):
 
-    def __init__(self):
+    def __init__(self, admin_config=ConfUtil.load_github_conf()['admin_config']):
         self._logger = logging.getLogger(__name__)
         # {<org_name>: {'security_focal_emails': [<email_1>,...,<email_n>]}}
         self._org_mappings = {}
         self._github_host = ConfUtil.load_github_conf()['host']
+        self._admin_config = admin_config
         self.load_org_sets_from_config_files()
 
     @property
@@ -59,10 +60,9 @@ class OrgSetController(object):
         }
         """
         try:
-            url = f'https://{self._github_host}/api/v3/repos/git-defenders/dss-config/contents/org_set_config'
             headers = {'Accept': 'application/json'}
             github = GitHub()
-            response = github.get(url=url, headers=headers).json()
+            response = github.get(url=self._admin_config, headers=headers).json()
             for item in response:
                 if item['type'] == 'file':
                     filename = item['name']
