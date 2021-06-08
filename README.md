@@ -4,8 +4,6 @@
 
 Detect secrets stream is the server tool which ingests metadata of all (public repo by default, private repo opt-in) git pushes which happen on your company's github server. For each push, it [scans](./docs/about-detect-secrets.md#what-file-content-do-you-scan) the push content for secrets. Once found and verified, secrets will be stored in db (meta data) and SoS vault (raw secret).
 
-The live secrets are reported to the Vulnerability Management team (VMT). Currently, the reporting is through csv file uploaded in shared box folder. We are about to make a change to report through a read-only DB table.
-
 There is a companion Admin tool which enables org admin to:
 
 - opt-in their private repo for scanning
