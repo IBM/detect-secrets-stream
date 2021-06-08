@@ -2,14 +2,14 @@
 
 ## Description
 
-Detect secrets stream is the server tool which ingests metadata of all (public repo by default, private repo opt-in) git pushes which happen on your company's github server. For each push, it [scans](./docs/detect-secrets-suite-faq.md#what-file-content-do-you-scan) the push content for secrets. Once found and verified, secrets will be stored in db (meta data) and SoS vault (raw secret).
+`detect-secrets-stream` is a server tool which ingests metadata of all (public repositories by default, private repositories are opt-in only) git pushes on your company's GitHub server. For each push, it [scans](./docs/detect-secrets-suite-faq.md#what-file-content-do-you-scan) the push contents for secrets. Once found and verified, secrets metadata will be stored in a database, and the raw secret will be stored in SOS Vault.
 
-There is a companion Admin tool which enables org admin to:
+There is a companion Admin tool which enables org admins to:
 
-- opt-in their private repo for scanning
-- add security folk for leak token notification.
+- Opt-in their private repository for scanning
+- Add security folks to be notified of leaked tokens
 
-Under the hood, server tool uses developer tool to scan for secrets. Read [IBM/detect-secrets](https://github.com/IBM/detect-secrets) for more info about developer tool.
+Under the hood, the server tool uses the developer tool to scan for secrets. Read [IBM/detect-secrets](https://github.com/IBM/detect-secrets) for more info about developer tool.
 
 ## Architecture
 
@@ -19,15 +19,15 @@ Under the hood, server tool uses developer tool to scan for secrets. Read [IBM/d
 
 ### Tool dependencies
 
-- python3
-  - If you are using macOs, you can use `pyenv` to install Python 3 `brew install pyenv; pyenv install 3.8.5;`
-  - Optionally, you can setup your system default Python as Python 3 `pyenv global 3.8.5`. Then restart your shell. Run `python --version` to validate the default python is 3 now.
-- docker https://docs.docker.com/get-docker/
-- docker-compose installed along with docker
-- skaffold, v1.12.1 and above
-- kustomize, v3.8.1 and above. Do **NOT** use the version bundled with kubectl, it does not support some options we use (e.g. replicas).
-- container-structure-test, used for docker image validation - [installation](https://github.com/GoogleContainerTools/container-structure-test#installation).
-- pipenv, used to manage all Python dependencies.
+- `python3`
+  - If you are using macOs, you can use `pyenv` to install Python 3: `brew install pyenv; pyenv install 3.8.5;`
+  - Optionally, you can set your system's default Python to Python 3 `pyenv global 3.8.5`. Then restart your shell. Run `python --version` to validate the default Python version is 3.
+- `docker` https://docs.docker.com/get-docker/
+- `docker-compose` installed along with docker
+- `skaffold`, v1.12.1 and above
+- `kustomize`, v3.8.1 and above. Do **NOT** use the version bundled with `kubectl`, as it does not support some options we use (e.g. replicas).
+- `container-structure-test`, used for docker image validation - [installation](https://github.com/GoogleContainerTools/container-structure-test#installation).
+- `pipenv`, used to manage all Python dependencies.
 
 You can install all the tools except docker and python 3 with one liner below
 
@@ -37,14 +37,14 @@ brew install kustomize skaffold container-structure-test pipenv
 
 ### Python package dependencies
 
-- Navigate into the clone repo
-- Start pipenv shell with `pipenv shell`
-- Install python dependencies with `pipenv install --dev`
-- Initialize the pre-commit tool with `pre-commit install`
+- Navigate into the cloned repo
+- Start the `pipenv` shell with `pipenv shell`
+- Install Python dependencies with `pipenv install --dev`
+- Initialize the `pre-commit` tool with `pre-commit install`
 
 ## Secrets
 
-Example secrets are in [secrets.template](./secrets.template/) (more doc coming). For local dev env, some secrets are auto generated. For prod env, you would need to supply the real secrets.
+Example secrets can be found in [secrets.template](./secrets.template/) (more docs coming). For your local dev environment, some secrets are auto-generated. For prod environments, you will need to supply the real secrets.
 
 ### Local dev secrets
 
@@ -68,7 +68,7 @@ This table contains information on what the values of the manually-entered secre
 
 ### Prod secrets
 
-Besides the secrets mentioned from [Local dev secrets](#local-dev-secrets), for production env, you also need to prepare secrets which are auto-generated in dev env.
+Besides the secrets mentioned from [Local dev secrets](#local-dev-secrets), for production environments, you also need to prepare secrets which are auto-generated in the dev environment.
 
 This table contains information on what the values of the dev secrets should be set to:
 | File name | Value |
@@ -90,15 +90,15 @@ You don't need to unlock secrets when running unit tests.
 make test
 ```
 
-#### Run just unit test
+#### Run just unit tests
 
 ```shell
 make test-unit
 ```
 
-#### Run a subset of unit tests.
+#### Run a subset of the unit tests
 
-It provides faster feedback if you are just writing code for a module.
+This provides faster feedback if you are just writing code for a module.
 
 ```shell
 # The part after last dash (-) corresponding to folder name under detect_secrets_stream
@@ -110,15 +110,15 @@ make test-unit-pi_cleaner
 
 ### End 2 end test
 
-This requires a personal env or staging env. See [kustomize_envs/dev/README.md](kustomize_envs/dev/README.md) for more details.
+This requires personal or staging environment. See [kustomize_envs/dev/README.md](kustomize_envs/dev/README.md) for more details.
 
 ## Utilities
 
-This repo has provided a utility module which enables admin to do many routine tasks. The utility is invoked though `python -m detect_secrets_stream.util.secret_util`
+This repo has provided a utility module which enables an admin to do many routine tasks. The utility is invoked though `python -m detect_secrets_stream.util.secret_util`
 
-Running the utility requires several environment variables. You would first unlock secrets with `git-crypt` (secret management section above), then export required environment variables. One example env var file `.env.example` has been prepared to help you.
+Running the utility requires several environment variables. You will first unlock secrets with `git-crypt` (secret management section above), then export the required environment variables. One example environment variable file (`.env.example`) has been prepared to help you.
 
-In `fish` shell, you can do something like below
+From a `fish` shell, you can do something like below
 
 ```shell
 cp .env.example .env.prod
@@ -165,8 +165,8 @@ Manually add a commit to the `diff-scan` queue.
 
 Note: must set `KAFKA_CLIENT_ID` , `GD_KAFKA_CONF` environment variables.
 
-`KAFKA_CLIENT_ID` is the name of kafka client used in manual ingestion. It can be anything, such as `manual-ingest`
-`GD_KAFKA_CONF` points to the Kafka configuration file. The production config is stored under `kustomize_envs/prod-secrets/secret/kafka.conf`. The one below is an example of what should be contained in the conf file.
+`KAFKA_CLIENT_ID` is the name of Kafka client used in manual ingestion. It can be anything, such as `manual-ingest`
+`GD_KAFKA_CONF` points to the Kafka configuration file. The production config is stored under `kustomize_envs/prod-secrets/secret/kafka.conf`. The one below is an example of what should be contained in the config file.
 
 ```conf
 [kafka]
@@ -181,8 +181,8 @@ Sample usage:
 python -m detect_secrets_stream.util.secret_util ingest-commit -r <repo> -c <commit>
 ```
 
-More options: running the command above with `--help` will reveal help info on more options. For example, if you know the branch and repo visibility, you can also supply these.
-By default it assumes the commit is from master granch and repo visibility is public.
+More options: running the command above with `--help` will reveal help info on more options. For example, if you know the branch and repository's visibility, you can also supply these.
+By default, it assumes the commit is from the master branch and the repository's visibility is public.
 
 ### and more...
 
@@ -257,3 +257,4 @@ CREATE USER vmt_user WITH IN GROUP vmt_role PASSWORD [redacted]
 See our docs for more useful information:
 
 - [Detect Secrets](./docs/about-detect-secrets.md)
+- [Running a local end 2 end test](./kustomize_envs/dev/README.md)
