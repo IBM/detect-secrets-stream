@@ -2,7 +2,7 @@
 
 ## Description
 
-Detect Secrets Stream is a server tool which ingests metadata of all (public repositories by default, private repositories are opt-in only) git pushes on your company's GitHub server. For each push, it [scans](./docs/detect-secrets-suite-faq.md#what-file-content-do-you-scan) the push contents for secrets. Once found and verified, secrets metadata will be stored in a database, and the raw secret will be stored in SOS Vault.
+Detect Secrets Stream is a server tool which ingests metadata of all (public repositories by default, private repositories are opt-in only) git pushes on your company's GitHub Enterprise server. For each push, it [scans](./docs/detect-secrets-suite-faq.md#what-file-content-do-you-scan) the push contents for secrets. Once found and verified, secrets metadata will be stored in a database, and the raw secret will be stored in Vault.
 
 There is a companion Admin tool which enables org admins to:
 
