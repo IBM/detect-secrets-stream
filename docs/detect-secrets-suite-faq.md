@@ -1,6 +1,6 @@
-# Welcome to `detect-secrets-suite`!
+# Detect Secrets Stream FAQ
 
-This documentation is intended for GitHub Enterprise end users. The rest of the documentation in this repository is intended for developers managing the Detect Secrets Stream tool.
+This documentation is intended for GitHub Enterprise end users.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->

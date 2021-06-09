@@ -2,7 +2,7 @@
 
 ## Description
 
-Detect Secrets Stream is a server tool which ingests metadata of all (public repositories by default, private repositories are opt-in only) git pushes on your company's GitHub server. For each push, it [scans](./docs/detect-secrets-suite-faq.md#what-file-content-do-you-scan) the push contents for secrets. Once found and verified, secrets metadata will be stored in a database, and the raw secret will be stored in SOS Vault.
+Detect Secrets Stream is a server tool which ingests metadata of all (public repositories by default, private repositories are opt-in only) git pushes on your company's GitHub Enterprise server. For each push, it [scans](./docs/detect-secrets-suite-faq.md#what-file-content-do-you-scan) the push contents for secrets. Once found and verified, secrets metadata will be stored in a database, and the raw secret will be stored in Vault.
 
 There is a companion Admin tool which enables org admins to:
 
@@ -116,7 +116,7 @@ This requires a personal or staging environment. See [kustomize_envs/dev/README.
 
 This repo has provided a utility module which enables an admin to do many routine tasks. The utility is invoked though `python -m detect_secrets_stream.util.secret_util`
 
-Running the utility requires several environment variables. You will first need to unlock secrets using `git-crypt`, then export the required environment variables. An example environment variable file (`.env.example`) has been prepared to help you.
+Running the utility requires several environment variables. An example environment variable file (`.env.example`) has been provided.
 
 From a `fish` shell, you can do something like below
 
