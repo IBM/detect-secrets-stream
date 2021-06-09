@@ -19,7 +19,7 @@ Response content type is `application/json`.
 
 >Note: replace `<host_suffix>` with your company-specific `gd-revoker` host suffix noted in the `ingress.gd_revoker.yaml` file.
 
-`curl -X POST https://gd-revoker.<host_suffix>/api/v1/token/<uuid>/revoke`
+`curl -X POST https://<server>/api/v1/token/<uuid>/revoke`
 
 Possible return values...
 - `200`, `{'success': true, 'message': 'Token with uuid <UUID> has been revoked'}` if token was revoked
