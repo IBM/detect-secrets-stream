@@ -17,10 +17,9 @@ This documentation is intended for GitHub Enterprise end users. The rest of the 
   - [Why is my pull request no longer triggering CI after I've enabled the pre-receive hook?](#why-is-my-pull-request-no-longer-triggering-ci-after-ive-enabled-the-pre-receive-hook)
   - [My push has timed out, what should I do?](#my-push-has-timed-out-what-should-i-do)
   - [My push has slowed down, what should I do?](#my-push-has-slowed-down-what-should-i-do)
-  - [My push was made but my CI / CD didn't trigger or execute?](#my-push-was-made-but-my-ci--cd-didnt-trigger-or-execute)
   - [What token types do you scan?](#what-token-types-do-you-scan)
   - [What file contents do you scan?](#what-file-contents-do-you-scan)
-  - [What is delta (diff) scan? Are there any other scan types?](#what-is-delta-diff-scan-are-there-any-other-scan-types)
+  - [What is a delta (diff) scan? Are there any other scan types?](#what-is-a-delta-diff-scan-are-there-any-other-scan-types)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -112,19 +111,6 @@ Please re-attempt the push unaltered. If it continues to fail, please open a Git
 ### My push has slowed down, what should I do?
 
 There should be minimal delay to your push introduced by triggering the `detect-secrets` asynchronous scan. If this is not the case for you, please open a GitHub issue.
-
-### My push was made but my CI / CD didn't trigger or execute?
-
-Please take care to distinguish between the `detect-secrets-suite` service and other CI/CD.
-e.g.:
-
-- Your organization / repository's CI/CD
-- CI/CD secret checking
-- GitHub Apps
-- Pre-commit hooks you have installed locally
-
-For your own CI/CD issues, please refer to your GitHub Organization owner.
-
 ### What token types do you scan?
 
 Please see [this](https://github.com/IBM/detect-secrets/blob/master/docs/developer-tool-faq.md) page for details.
