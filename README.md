@@ -116,7 +116,7 @@ This requires a personal or staging environment. See [kustomize_envs/dev/README.
 
 This repo has provided a utility module which enables an admin to do many routine tasks. The utility is invoked though `python -m detect_secrets_stream.util.secret_util`
 
-Running the utility requires several environment variables. You will first need to unlock secrets using `git-crypt`, then export the required environment variables. An example environment variable file (`.env.example`) has been prepared to help you.
+Running the utility requires several environment variables. An example environment variable file (`.env.example`) has been provided.
 
 From a `fish` shell, you can do something like below
 
