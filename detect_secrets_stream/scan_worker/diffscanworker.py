@@ -30,6 +30,7 @@ from opentracing.propagation import Format
 from requests.exceptions import HTTPError
 
 from ..bp_lookup.bp_lookup import GHElookup
+from ..gd_ingest.commitparser import CommitParser
 from ..github_client.github import GitHub
 from ..github_client.github_app import GitHubApp
 from ..github_client.installation_id_request_exception import InstallationIDRequestException
@@ -523,13 +524,41 @@ class DiffScanWorker(object):
 
                 json_message = msg.value().decode('utf-8')
                 json_payload = json.loads(json_message)
-                try:
-                    self.process_message(json_payload)
-                except Exception:
-                    self.logger.error(
-                        f'Failed to process message {json_payload}',
-                        exc_info=1,
-                    )
+                if 'oldCommit' in json_payload and 'newCommit' in json_payload and 'commitHash' not in json_payload:
+                    old_commit = json_payload['oldCommit']
+                    new_commit = json_payload['newCommit']
+                    repo_slug = json_payload['repoSlug']
+                    repo_public = json_payload['repoPublic']
+                    try:
+                        commit_parser = CommitParser(max_commits_to_pull=25)
+                        commits = commit_parser.get_intermediate_commits(
+                            repo_slug, old_commit, new_commit, repo_public,
+                        )
+                    except InstallationIDRequestException:
+                        self.logger.error(
+                            (
+                                f'Failed to process commits from private repo {repo_slug}. '
+                                'App is likely not installed.'
+                            ),
+                            exc_info=1,
+                        )
+                    for commit_hash in commits:
+                        json_payload['commitHash'] = commit_hash
+                        try:
+                            self.process_message(json_payload)
+                        except Exception:
+                            self.logger.error(
+                                f'Failed to process message {json_payload}',
+                                exc_info=1,
+                            )
+                elif 'commitHash' in json_payload:
+                    try:
+                        self.process_message(json_payload)
+                    except Exception:
+                        self.logger.error(
+                            f'Failed to process message {json_payload}',
+                            exc_info=1,
+                        )
 
             else:
                 yield from asyncio.sleep(self.async_sleep_time)
