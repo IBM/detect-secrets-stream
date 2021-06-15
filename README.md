@@ -257,4 +257,5 @@ CREATE USER vmt_user WITH IN GROUP vmt_role PASSWORD [redacted]
 See the additional docs for more information:
 
 - [Detect Secrets Stream FAQ](./docs/detect-secrets-stream-faq.md)
+- [Admin Tool FAQ](./docs/admin-tool-faq.md)
 - [Running a local end 2 end test](./kustomize_envs/dev/README.md)
