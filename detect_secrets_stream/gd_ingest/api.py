@@ -165,6 +165,7 @@ def pre_receive_webhook_v1():
                 if new_commit == '0000000000000000000000000000000000000000':
                     continue
 
+                # ignore tags
                 if ref_name and ref_name.startswith('refs/tags/'):
                     continue
 
