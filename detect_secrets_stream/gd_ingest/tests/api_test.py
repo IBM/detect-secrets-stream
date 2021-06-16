@@ -155,6 +155,7 @@ class TestIngest:
         resp_json = response.get_json()
         assert resp_json['success'] is True
         assert mock_add_msg.call_count == 1
+        mock_add_msg.assert_any_call(message=mock.ANY, topic_name='diff-scan')
 
     def test_payload_success_private(self, ingest_app, api_payload_private):
         api, app, config = (ingest_app)
@@ -170,6 +171,7 @@ class TestIngest:
         resp_json = response.get_json()
         assert resp_json['success'] is True
         assert mock_add_msg.call_count == 1
+        mock_add_msg.assert_any_call(message=mock.ANY, topic_name='diff-scan')
 
     def test_skip_tags(self, ingest_app, api_payload):
         api, app, config = (ingest_app)

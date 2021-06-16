@@ -62,6 +62,14 @@ class DiffScanWorkerTest (TestCase):
             'githubUser': self.test_user,
             'repoPublic': 'false',
         }
+        self.test_json_payload_commit_range = {
+            'oldCommit': self.test_commit,
+            'newCommit': self.test_commit,
+            'repoSlug': self.test_repo,
+            'branchName': self.test_branch,
+            'githubUser': self.test_user,
+            'repoPublic': 'true',
+        }
 
     def tearDown(self):
         if os.path.exists(self.diff_filename):
@@ -592,6 +600,16 @@ class DiffScanWorkerTest (TestCase):
         self.diffscanworker.producer.poll.assert_called()
         self.diffscanworker.producer.flush.assert_called()
         mock_error.assert_not_called()
+
+    @patch('detect_secrets_stream.scan_worker.commitparser.CommitParser.get_intermediate_commits')
+    def test_get_commits_from_payload(self, mock_inter_commits):
+        intermediate_commits = ['commit_1', 'commit_2']
+        mock_inter_commits.return_value = intermediate_commits
+
+        commits = self.diffscanworker.get_commits_from_payload(self.test_json_payload_commit_range)
+
+        assert mock_inter_commits.called is True
+        assert commits == ['commit_1', 'commit_2']
 
     @pytest.mark.asyncio
     def test_run_no_messages(self):
