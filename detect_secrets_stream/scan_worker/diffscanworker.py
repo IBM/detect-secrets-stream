@@ -529,6 +529,7 @@ class DiffScanWorker(object):
                     new_commit = json_payload['newCommit']
                     repo_slug = json_payload['repoSlug']
                     repo_public = json_payload['repoPublic']
+                    commits = []
                     try:
                         commit_parser = CommitParser(max_commits_to_pull=25)
                         commits = commit_parser.get_intermediate_commits(
