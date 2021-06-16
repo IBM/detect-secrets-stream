@@ -161,6 +161,7 @@ def pre_receive_webhook_v1():
                 old_commit = branch.get('old_value')
                 new_commit = branch.get('new_value')
 
+                # ignore branch deletion
                 if new_commit == '0000000000000000000000000000000000000000':
                     continue
 
