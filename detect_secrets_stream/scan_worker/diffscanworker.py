@@ -30,7 +30,6 @@ from opentracing.propagation import Format
 from requests.exceptions import HTTPError
 
 from ..bp_lookup.bp_lookup import GHElookup
-from ..gd_ingest.commitparser import CommitParser
 from ..github_client.github import GitHub
 from ..github_client.github_app import GitHubApp
 from ..github_client.installation_id_request_exception import InstallationIDRequestException
@@ -42,6 +41,7 @@ from ..secret_corpus_db.gd_db_tools import get_token_id_by_type_hash
 from ..secret_corpus_db.vault import Vault
 from ..util.conf import ConfUtil
 from .commit import Commit
+from .commitparser import CommitParser
 from .diffextractor import DiffExtractor
 from .secret import Secret
 # from .wds_experiments import WDSExperiments

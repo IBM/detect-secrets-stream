@@ -5,9 +5,9 @@ from unittest.mock import patch
 import pytest
 import responses
 
-from detect_secrets_stream.gd_ingest.commitparser import CommitParser
 from detect_secrets_stream.github_client.github import GitHub
 from detect_secrets_stream.github_client.installation_id_request_exception import InstallationIDRequestException
+from detect_secrets_stream.scan_worker.commitparser import CommitParser
 from detect_secrets_stream.util.conf import ConfUtil
 
 
