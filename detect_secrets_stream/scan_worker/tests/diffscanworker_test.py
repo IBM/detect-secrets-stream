@@ -726,3 +726,15 @@ class DiffScanWorkerTest (TestCase):
         self.diffscanworker.lookup_additional_github_info.assert_called()
         self.diffscanworker.write_to_db.assert_called()
         self.diffscanworker.write_messages_to_queue.assert_called()
+
+    def test_process_message_safe(self):
+        self.diffscanworker.process_message = MagicMock()
+        self.diffscanworker.process_message_safe(self.test_json_payload)
+        self.diffscanworker.process_message.assert_called_with(self.test_json_payload)
+
+    @patch('logging.Logger.error')
+    def test_process_message_safe_error(self, mock):
+        self.diffscanworker.process_message = MagicMock()
+        self.diffscanworker.process_message.side_effect = Exception
+        self.diffscanworker.process_message_safe(self.test_json_payload)
+        mock.assert_called()
