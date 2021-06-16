@@ -62,6 +62,7 @@ class DiffScanWorker(object):
         self.async_sleep_time = async_sleep_time
         self.logger = logging.getLogger(__name__)
         self.github_host = ConfUtil.load_github_conf()['host']
+        self.commit_parser = CommitParser(max_commits_to_pull=25)
 
         self.github = GitHub()
         self.github_app = GitHubApp()
@@ -404,8 +405,7 @@ class DiffScanWorker(object):
         repo_public = json_payload['repoPublic']
         commits = []
         try:
-            commit_parser = CommitParser(max_commits_to_pull=25)
-            commits = commit_parser.get_intermediate_commits(
+            commits = self.commit_parser.get_intermediate_commits(
                 repo_slug, old_commit, new_commit, repo_public,
             )
         except InstallationIDRequestException:
