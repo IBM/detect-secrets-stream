@@ -20,6 +20,7 @@ EOF
 cat > "${GD_VAULT_FILENAME}" << EOF
 [vault]
 gd_vault_url=http://vault:8200
+gd_vault_verify=True
 gd_vault_approle_id=$(uuidgen)
 gd_vault_secret_id=$(uuidgen)
 mount_point=generic
