@@ -17,7 +17,7 @@ class Vault(BaseVaultBackend):
         vault_conf = ConfUtil.load_vault_conf()
         self.token_path = vault_conf['token_path']
         self.mount_point = vault_conf['mount_point']
-        self.client = hvac.Client(url=vault_conf['gd_vault_url'], verify=vault_conf['gd_vault_url'] or True)
+        self.client = hvac.Client(url=vault_conf['gd_vault_url'], verify=vault_conf.get('gd_vault_verify', True))
         self.client.auth.approle.login(
             role_id=vault_conf['gd_vault_approle_id'],
             secret_id=vault_conf['gd_vault_secret_id'],
