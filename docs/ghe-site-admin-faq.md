@@ -1,6 +1,6 @@
 # GitHub Enterprise Site Admin FAQ
 
-This documentation is intended for maintainers of Detect Secrets Stream.
+This documentation is intended for Detect Secrets Stream admins.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
