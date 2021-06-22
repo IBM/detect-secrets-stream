@@ -13,8 +13,6 @@ This documentation is intended for Detect Secrets Stream admins.
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-TODO: add more info here and below
-
 ## As a site admin, how do I enable/disable the pre-receive hook?
 
 First, login to your company GitHub Enterprise instance as a site admin. Navigate to the Hooks page by clicking "Site Admin" -> "Admin Center -> "Hooks".
