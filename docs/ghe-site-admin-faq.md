@@ -5,11 +5,10 @@ This documentation is intended for Detect Secrets Stream admins.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
-
 - [As a site admin, how do I enable/disable the pre-receive hook?](#as-a-site-admin-how-do-i-enabledisable-the-pre-receive-hook)
 - [How do I fix `Token pool exhausted` errors?](#how-do-i-fix-token-pool-exhausted-errors)
-- [How do I review PRs in dss-config?](#how-do-i-review-prs-in-dss-config)
+  - [Process for increasing pool](#process-for-increasing-pool)
+- [How do I review PRs in the detect secrets stream configuration repository?](#how-do-i-review-prs-in-the-detect-secrets-stream-configuration-repository)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -42,7 +41,7 @@ In the monitoring channel, you may occasionally notice an alert along the lines 
 
 This means that more GHE API tokens must be added to our token pool in order for DSS to be able to make all the requests it needs to make each hour without running into the cumulative rate limit. The API tokens we use are from the service account `gheadmin`. It is important to immediately increase the size of the pool upon seeing this alert, in order to ensure that we scan all commits as they come into GHE.
 
-Process for increasing pool
+### Process for increasing pool
 
 - Acquire more GHE API tokens using the GHE admin service account
 - Add the tokens to the GHE production secrets
