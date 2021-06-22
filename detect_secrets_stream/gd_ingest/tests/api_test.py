@@ -130,7 +130,6 @@ class TestIngest:
         api_payload['stdin'][0]['new_value'] = '0000000000000000000000000000000000000000'
 
         api.gd_ingest.add_message_to_queue = mock_add_msg = mock.MagicMock()
-        api.commit_parser.get_intermediate_commits = mock_inter_commits = mock.MagicMock()
         response = app.post(
             '/api/v1/webhook/pre-receive',
             data=json.dumps(api_payload),
@@ -141,15 +140,11 @@ class TestIngest:
         resp_json = response.get_json()
         assert resp_json['success'] is True
         assert mock_add_msg.called is False
-        assert mock_inter_commits.called is False
 
     def test_payload_success(self, ingest_app, api_payload):
         api, app, config = (ingest_app)
 
-        intermediate_commits = ['commit_1', 'commit_2']
         api.gd_ingest.add_message_to_queue = mock_add_msg = mock.MagicMock()
-        api.commit_parser.get_intermediate_commits = mock_inter_commits = mock.MagicMock()
-        mock_inter_commits.return_value = intermediate_commits
         response = app.post(
             '/api/v1/webhook/pre-receive',
             data=json.dumps(api_payload),
@@ -159,18 +154,13 @@ class TestIngest:
         assert 200 == response.status_code
         resp_json = response.get_json()
         assert resp_json['success'] is True
-        assert mock_add_msg.call_count == len(intermediate_commits)
-        assert mock_inter_commits.called is True
-        for commit in intermediate_commits:
-            mock_add_msg.assert_any_call(message=mock.ANY, topic_name='diff-scan')
+        assert mock_add_msg.call_count == 1
+        mock_add_msg.assert_any_call(message=mock.ANY, topic_name='diff-scan')
 
     def test_payload_success_private(self, ingest_app, api_payload_private):
         api, app, config = (ingest_app)
 
-        intermediate_commits = ['commit_1', 'commit_2']
         api.gd_ingest.add_message_to_queue = mock_add_msg = mock.MagicMock()
-        api.commit_parser.get_intermediate_commits = mock_inter_commits = mock.MagicMock()
-        mock_inter_commits.return_value = intermediate_commits
         response = app.post(
             '/api/v1/webhook/pre-receive',
             data=json.dumps(api_payload_private),
@@ -180,16 +170,13 @@ class TestIngest:
         assert 200 == response.status_code
         resp_json = response.get_json()
         assert resp_json['success'] is True
-        assert mock_add_msg.call_count == len(intermediate_commits)
-        assert mock_inter_commits.called is True
-        for commit in intermediate_commits:
-            mock_add_msg.assert_any_call(message=mock.ANY, topic_name='diff-scan')
+        assert mock_add_msg.call_count == 1
+        mock_add_msg.assert_any_call(message=mock.ANY, topic_name='diff-scan')
 
     def test_skip_tags(self, ingest_app, api_payload):
         api, app, config = (ingest_app)
 
         api.gd_ingest.add_message_to_queue = mock_add_msg = mock.MagicMock()
-        api.commit_parser.get_intermediate_commits = mock_inter_commits = mock.MagicMock()
 
         api_payload['stdin'][0]['ref_name'] = 'refs/tags/ignore'
         response = app.post(
@@ -200,14 +187,12 @@ class TestIngest:
         )
         assert 200 == response.status_code
         assert mock_add_msg.called is False
-        assert mock_inter_commits.called is False
 
     def test_skip_non_public_or_private_repo(self, ingest_app, api_payload):
         api, app, config = (ingest_app)
         repo_visibility = ''
 
         api.gd_ingest.add_message_to_queue = mock_add_msg = mock.MagicMock()
-        api.commit_parser.get_intermediate_commits = mock_inter_commits = mock.MagicMock()
 
         api_payload['GITHUB_REPO_PUBLIC'] = repo_visibility
         response = app.post(
@@ -218,7 +203,6 @@ class TestIngest:
         )
         assert 200 == response.status_code
         assert mock_add_msg.called is False
-        assert mock_inter_commits.called is False
 
     def test_invalid_login(self, ingest_app, api_payload):
         api, app, config = (ingest_app)

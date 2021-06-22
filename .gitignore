@@ -112,3 +112,4 @@ venv.bak/
 
 # sample file
 sample.csv
+.envrc

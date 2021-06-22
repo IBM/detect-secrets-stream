@@ -41,6 +41,7 @@ from ..secret_corpus_db.gd_db_tools import get_token_id_by_type_hash
 from ..secret_corpus_db.vault import Vault
 from ..util.conf import ConfUtil
 from .commit import Commit
+from .commitparser import CommitParser
 from .diffextractor import DiffExtractor
 from .secret import Secret
 # from .wds_experiments import WDSExperiments
@@ -61,6 +62,7 @@ class DiffScanWorker(object):
         self.async_sleep_time = async_sleep_time
         self.logger = logging.getLogger(__name__)
         self.github_host = ConfUtil.load_github_conf()['host']
+        self.commit_parser = CommitParser(max_commits_to_pull=25)
 
         self.github = GitHub()
         self.github_app = GitHubApp()
@@ -396,6 +398,26 @@ class DiffScanWorker(object):
 
         return secret_list
 
+    def get_commits_from_payload(self, json_payload):
+        old_commit = json_payload['oldCommit']
+        new_commit = json_payload['newCommit']
+        repo_slug = json_payload['repoSlug']
+        repo_public = json_payload['repoPublic']
+        commits = []
+        try:
+            commits = self.commit_parser.get_intermediate_commits(
+                repo_slug, old_commit, new_commit, repo_public,
+            )
+        except InstallationIDRequestException:
+            self.logger.error(
+                (
+                    f'Failed to process commits from private repo {repo_slug}. '
+                    'App is likely not installed.'
+                ),
+                exc_info=1,
+            )
+        return commits
+
     def process_message(self, json_payload):
         # get repo name, user id, commit hash, branch name from kafka message
         commit_hash = json_payload['commitHash']
@@ -501,6 +523,15 @@ class DiffScanWorker(object):
         ):
             self.write_messages_to_queue(token_ids)
 
+    def process_message_safe(self, json_payload):
+        try:
+            self.process_message(json_payload)
+        except Exception:
+            self.logger.error(
+                f'Failed to process message {json_payload}',
+                exc_info=1,
+            )
+
     @asyncio.coroutine
     def run(self):
         self.logger.info('The diff scan worker has started')
@@ -523,13 +554,14 @@ class DiffScanWorker(object):
 
                 json_message = msg.value().decode('utf-8')
                 json_payload = json.loads(json_message)
-                try:
-                    self.process_message(json_payload)
-                except Exception:
-                    self.logger.error(
-                        f'Failed to process message {json_payload}',
-                        exc_info=1,
-                    )
+                if 'commitHash' in json_payload:
+                    # commit already extracted
+                    self.process_message_safe(json_payload)
+                elif 'oldCommit' in json_payload and 'newCommit' in json_payload:
+                    commits = self.get_commits_from_payload(json_payload)
+                    for commit_hash in commits:
+                        json_payload['commitHash'] = commit_hash
+                        self.process_message_safe(json_payload)
 
             else:
                 yield from asyncio.sleep(self.async_sleep_time)

@@ -15,6 +15,7 @@ class VaultTest(TestCase):
     def setUp(self, mock_load_vault_conf, mock_hvac):
         mock_vault_conf = {
             'gd_vault_url': 'test_url',
+            'gd_vault_verify': False,
             'gd_vault_approle_id': 'test_app_id',
             'gd_vault_secret_id': 'test_sec_id',
             'mount_point': 'generic',

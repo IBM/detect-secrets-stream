@@ -9,12 +9,9 @@ from functools import wraps
 from flask import Flask
 from flask import jsonify
 from flask import request
-from opentracing.propagation import Format
 
-from ..github_client.installation_id_request_exception import InstallationIDRequestException
 from ..util.conf import ConfUtil
 from ..util.log_util import LogUtil
-from .commitparser import CommitParser
 from .gd_ingest import GDIngest
 
 
@@ -57,8 +54,6 @@ try:
 
     # Create a gd_ingest object
     gd_ingest = GDIngest(kafka_config)
-
-    commit_parser = CommitParser(max_commits_to_pull=25)
 
     tracer = gd_ingest.init_tracer()
 
@@ -130,78 +125,62 @@ def healthz():
 @app.route('/api/v1/webhook/pre-receive', methods=['POST'])
 @requires_auth
 def pre_receive_webhook_v1():
-    with tracer.start_active_span('gd-Ingest pre_receive_webhook_v1') as scope:
-        try:
+    try:
+        logger.info(
+            'In pre_receive_webhook_v1.  Request JSON: %s.  Remote address: %s' % (
+                request.json, request.remote_addr,
+            ),
+        )
+
+        req_json = request.json
+        if not is_payload_valid(req_json):
+            raise Exception('Invalid payload')
+
+        repo_slug = req_json.get('GITHUB_REPO_NAME')
+        repo_public = req_json.get('GITHUB_REPO_PUBLIC')
+        if repo_public != 'true' and repo_public != 'false':
             logger.info(
-                'In pre_receive_webhook_v1.  Request JSON: %s.  Remote address: %s' % (
-                    request.json, request.remote_addr,
+                'Received a unknown repo type %s for %s, ignoring...' % (
+                    repo_public, repo_slug,
                 ),
             )
-
-            req_json = request.json
-            if not is_payload_valid(req_json):
-                raise Exception('Invalid payload')
-
-            repo_slug = req_json.get('GITHUB_REPO_NAME')
-            repo_public = req_json.get('GITHUB_REPO_PUBLIC')
-            if repo_public != 'true' and repo_public != 'false':
-                logger.info(
-                    'Received a unknown repo type %s for %s, ignoring...' % (
-                        repo_public, repo_slug,
-                    ),
-                )
-            else:
-                logger.info(
-                    'Received a public/private repo %s, adding to the scan queue...' % (
-                        repo_slug
-                    ),
-                )
-                github_user = req_json.get('GITHUB_USER_LOGIN')
-                json_payload = {
-                    'repoSlug': repo_slug,
-                    'githubUser': github_user,
-                    'repoPublic': repo_public,
-                }
-                for branch in req_json.get('stdin'):
-                    json_payload['branchName'] = ref_name = branch.get('ref_name')
-                    old_commit = branch.get('old_value')
-                    new_commit = branch.get('new_value')
-
-                    if new_commit == '0000000000000000000000000000000000000000':
-                        continue
-
-                    if ref_name and ref_name.startswith('refs/tags/'):
-                        continue
-
-                    try:
-                        commits = commit_parser.get_intermediate_commits(
-                            repo_slug, old_commit, new_commit, repo_public,
-                        )
-                    except InstallationIDRequestException:
-                        logger.error(
-                            (
-                                f'Failed to process commits from private repo {repo_slug}. '
-                                'App is likely not installed.'
-                            ),
-                            exc_info=1,
-                        )
-                        break
-
-                    for commit_hash in commits:
-                        json_payload['commitHash'] = commit_hash
-                        scope.span.set_tag('commitHash', commit_hash)
-                        tracer.inject(
-                            scope.span, Format.TEXT_MAP, json_payload,
-                        )
-                        gd_ingest.add_message_to_queue(
-                            topic_name='diff-scan', message=json.dumps(json_payload),
-                        )
-            return jsonify({'success': True}), 200
-        except Exception:
-            logger.error(
-                'Exception while processing the pre-receive webhook.', exc_info=1,
+        else:
+            logger.info(
+                'Received a public/private repo %s, adding to the scan queue...' % (
+                    repo_slug
+                ),
             )
-            return jsonify({'success': False}), 500
+            github_user = req_json.get('GITHUB_USER_LOGIN')
+            json_payload = {
+                'repoSlug': repo_slug,
+                'githubUser': github_user,
+                'repoPublic': repo_public,
+            }
+            for branch in req_json.get('stdin'):
+                json_payload['branchName'] = ref_name = branch.get('ref_name')
+                old_commit = branch.get('old_value')
+                new_commit = branch.get('new_value')
+
+                # ignore branch deletion
+                if new_commit == '0000000000000000000000000000000000000000':
+                    continue
+
+                # ignore tags
+                if ref_name and ref_name.startswith('refs/tags/'):
+                    continue
+
+                json_payload['oldCommit'] = old_commit
+                json_payload['newCommit'] = new_commit
+
+                gd_ingest.add_message_to_queue(
+                    topic_name='diff-scan', message=json.dumps(json_payload),
+                )
+        return jsonify({'success': True}), 200
+    except Exception:
+        logger.error(
+            'Exception while processing the pre-receive webhook.', exc_info=1,
+        )
+        return jsonify({'success': False}), 500
 
 
 # Start the api server and set a signal handler to gracefully handle pod terminations
