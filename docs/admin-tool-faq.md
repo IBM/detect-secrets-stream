@@ -22,8 +22,8 @@ The Admin Tool provides security focals with a unified view of all secret leaks 
 
 In order for the Admin Tool to function, it needs to:
 
--   **Gain permission to scan private repositories**
--   **Associate security focals to organizations**, so the security focals can be subscribed to token leak communications, such as ServiceNow and email notifications.
+- **Gain permission to scan private repositories**
+- **Associate security focals to organizations**, so the security focals can be subscribed to token leak communications, such as ServiceNow and email notifications.
 
 > Why have I been asked to install the Detect Secrets Admin Tool GitHub App?
 
@@ -41,17 +41,17 @@ When reviewing PRs in `dss-config`, it is important to verify that all the `secu
 
 Permission from an organization admin is required.
 
--   Go to `<github_host>/organizations/<org-name>/settings/installations`
--   In the Installed Github App list, click the `Configure` button next to `Detect Secrets Admin Tool`
--   Under `Repository access`, choose `Only select repositories`, then click the `x` next to the repository you want to remove the app from
+- Go to `<github_host>/organizations/<org-name>/settings/installations`
+- In the Installed Github App list, click the `Configure` button next to `Detect Secrets Admin Tool`
+- Under `Repository access`, choose `Only select repositories`, then click the `x` next to the repository you want to remove the app from
 
 ## How can I remove the Detect Secrets Admin Tool Github App from my organization?
 
 Permission from an organization admin is required.
 
--   Go to `<github_host>/organizations/<org-name>/settings/installations`
--   In the Installed Github App list, click the `Configure` button next to `Detect Secrets Admin Tool`
--   Under `Uninstall Detect Secrets Admin Tool`, click the `Uninstall` button
+- Go to `<github_host>/organizations/<org-name>/settings/installations`
+- In the Installed Github App list, click the `Configure` button next to `Detect Secrets Admin Tool`
+- Under `Uninstall Detect Secrets Admin Tool`, click the `Uninstall` button
 
 ## Does the Detect Secrets Admin Tool provide status checks on commits?
 
