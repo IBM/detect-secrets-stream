@@ -40,12 +40,12 @@ In the monitoring channel, you may occasionally notice an alert along the lines 
 
 `Token pool exhausted. Remaining rate limit under # for all # tokens.`
 
-This means that more GHE API tokens must be added to our token pool in order for DSS to be able to make all the requests it needs to make each hour without running into the cumulative rate limit. The API tokens we use are from the service account `gheadmin`. It is important to immediately increase the size of the pool upon seeing this alert, in order to ensure that we don't miss scanning commits as they come into GHE.
+This means that more GHE API tokens must be added to our token pool in order for DSS to be able to make all the requests it needs to make each hour without running into the cumulative rate limit. The API tokens we use are from the service account `gheadmin`. It is important to immediately increase the size of the pool upon seeing this alert, in order to ensure that we scan all commits as they come into GHE.
 
 Process for increasing pool
 
-- Contact SRE to acquire more GHE API tokens from the `gheadmin` service account
-- Add the tokens to the `secret/github.conf` file in git-defenders/detect-secrets-stream
+- Acquire more GHE API tokens using the GHE admin service account
+- Add the tokens to the GHE production secrets
 
 ## How do I review PRs in the detect secrets stream configuration repository?
 
