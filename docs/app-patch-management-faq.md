@@ -40,8 +40,8 @@ When images are generated in CI builds, [`trivy`](https://github.com/aquasecurit
 
 | Artifacts                                                       | OS dep vulnerabilities                                                    | App dep vulnerabilities                                                   |
 | --------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| server: dss images                                              | **detection**: trivy + issue<br/> **fix**: manual       | **detection**: issue<br/>**fix**: renovate bot |
-| server: support images(we don't manage)<br/><br/>sysdig, logdna | **detection**: trivy + issue<br/>**fix**: manual       | **detection**: trivy + issue<br/>**fix**: manual       |
+| server: dss images                                              | **detection**: trivy + issue<br/> **fix**: manual                         | **detection**: issue<br/>**fix**: renovate bot                            |
+| server: support images(we don't manage)<br/><br/>sysdig, logdna | **detection**: trivy + issue<br/>**fix**: manual                          | **detection**: trivy + issue<br/>**fix**: manual                          |
 | server: support images (we manage)<br/><br/>kafka-exporter      | same as "dss images"                                                      | same as "dss images"                                                      |
 | dev tool: docker images                                         | **detection**: detect-secrets-updater<br/>**fix**: detect-secrets-updater | **detection**: detect-secrets-updater<br/>**fix**: detect-secrets-updater |
 | dev tool: pip pkg                                               | **n/a**                                                                   | **n/a**<br/>lib pkg always use latest dep                                 |
