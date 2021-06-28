@@ -39,7 +39,7 @@ In the monitoring channel, you may occasionally notice an alert along the lines 
 
 `Token pool exhausted. Remaining rate limit under # for all # tokens.`
 
-This means that more GHE API tokens must be added to our token pool in order for DSS to be able to make all the requests it needs to make each hour without running into the cumulative rate limit. The API tokens we use are from the service account `gheadmin`. It is important to immediately increase the size of the pool upon seeing this alert, in order to ensure that we scan all commits as they come into GHE.
+This means the API calls needed by DSS for every hour has exceeded the combined allowed API requests for all tokens in token pool. Add more tokens to the token pool.
 
 ### Process for increasing pool
 
