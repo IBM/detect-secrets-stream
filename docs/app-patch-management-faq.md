@@ -33,7 +33,7 @@ When images are generated in CI builds, [`trivy`](https://github.com/aquasecurit
 
 ### Fix
 
-- `renovate bot`, `git-defender version`: runs a daily scan for app-level vulnerabilities based on Pipenv lockfile and Dockerfiles. It automatically opens PRs for vulnerability resolution.
+- `renovate bot`: runs a daily scan for app-level vulnerabilities based on Pipenv lockfile and Dockerfiles. It automatically opens PRs for vulnerability resolution.
 - `detect-secrets-updater`: runs daily to scan for vulnerabilities in published Docker image with `latest` and latest version tag.
 
 ## Detection and fix matrix
