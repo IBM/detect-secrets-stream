@@ -8,7 +8,7 @@ This documentation is intended for Detect Secrets Stream admins.
 - [As a site admin, how do I enable/disable the pre-receive hook?](#as-a-site-admin-how-do-i-enabledisable-the-pre-receive-hook)
 - [How do I fix `Token pool exhausted` errors?](#how-do-i-fix-token-pool-exhausted-errors)
   - [Process for increasing pool](#process-for-increasing-pool)
-- [How do I review PRs in the detect secrets stream configuration repository?](#how-do-i-review-prs-in-the-detect-secrets-stream-configuration-repository)
+- [As DSS admin, how do I review PRs in the detect secrets stream configuration repository?](#as-dss-admin-how-do-i-review-prs-in-the-detect-secrets-stream-configuration-repository)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
