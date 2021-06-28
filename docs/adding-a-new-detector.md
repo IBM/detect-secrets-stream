@@ -5,7 +5,7 @@ Adding a new type of detector to detect-secrets-suite is a multi-stage process. 
 - Understand the secret signature and use cases; What is it's format and how does it appear in code?
 - Understand the secret verification, owner resolution, and revocation process.
 - Develop a detector which becomes part of [`IBM/detect-secrets`](https://github.com/IBM/detect-secrets)
-- Enable the new detector in [`IBM/detect-secrets-stream`](https://github.com/IBM/detect-secrets) by supporting verification, owner resolution, and with the approval of the token type's internal service owner, revocation.
+- Enable the new detector in [`IBM/detect-secrets-stream`](https://github.com/IBM/detect-secrets-stream) by supporting verification, owner resolution, and with the approval of the token type's internal service owner, revocation.
 - [optional] Contribute the new detector to the upstream project `Yelp/detect-secrets` on github.com.
 
 ## Skills Required
