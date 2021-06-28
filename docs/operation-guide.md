@@ -19,7 +19,7 @@ This documentation is intended for maintainers of Detect Secrets Stream.
 
 ## Making changes to the production database
 
-1. Before altering the production database, scale down services which may block the change, as they are continuously using this database.
+1. Before altering the production database, scale down services which may block the change, as they are continuously using this database
 
     ```sh
     kubectl scale --replicas=0 deployment/scan-worker 
@@ -63,15 +63,15 @@ It's recommended to use the [IBM Cloud Events Stream service](https://www.ibm.co
 1. Download the kafka CLI from <https://kafka.apache.org/downloads>
 1. Extract the downloaded package into a local directory
 1. Obtain the configuration and Bootstrap server
-    1. If using IBM Cloud Events Stream, go to the IBM Cloud account, event stream instance page, click `Launch Dashboard` -> `Consumer groups`, then click `Connect to this service` at right top
+    1. If using IBM Cloud Events Stream, go to the IBM Cloud account, event stream instance page, click `Launch Dashboard` -> `Consumer groups`, then click `Connect to this service` on the top right
     1. `Connect a client` -> `Bootstrap server`
     1. `Sample code` -> `Sample configuration properties`. Copy the configuration.
 1. Obtain an API key
-    1. From the IBM Cloud account, locate `gd-event-streams` from the resources list, and click on it
+    1. From the IBM Cloud account, locate the Events Stream resource from the resources list, and click on it
     1. On the left pane, click `Service credentials` -> `New credential`
     1. Once created, click on the newly created credential, then `View Credentials`, copy the `apikey` field from the JSON output
 1. Go to your local directory and create an admin config file (`config/admin.properties`) and paste the previously copied configuration into it
-1. Test that the CLI is working properly by listing all topics with `bin/kafka-topics.sh --bootstrap-server <bootstrap-server> --command-config config/admin.properties --list`
+1. Test that the CLI works properly by listing all topics in the queue by running `bin/kafka-topics.sh --bootstrap-server <bootstrap-server> --command-config config/admin.properties --list`
     1. (Optional) Set `KAFKA_HEAP_OPTS="-Xms512m -Xmx1g"` if JVM runs into OOM when connecting Kafka
     1. (Optional) Update `config/tools-log4j.properties` to change the log level
 
