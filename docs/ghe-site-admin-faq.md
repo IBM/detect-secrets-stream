@@ -46,7 +46,7 @@ This means the API calls needed by DSS for every hour has exceeded the combined 
 - Acquire more GHE personal access tokens using the service account
 - Add the personal access token to the DSS secrets
 
-## How do I review PRs in the detect secrets stream configuration repository?
+## As DSS admin, how do I review PRs in the detect secrets stream configuration repository?
 
 See "PR Approval Requirements" in the PR template, and check the following requirements:
 
