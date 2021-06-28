@@ -43,8 +43,8 @@ This means the API calls needed by DSS for every hour has exceeded the combined 
 
 ### Process for increasing pool
 
-- Acquire more GHE API tokens using the GHE admin service account
-- Add the tokens to the GHE production secrets
+- Acquire more GHE personal access tokens using the service account
+- Add the personal access token to the DSS secrets
 
 ## How do I review PRs in the detect secrets stream configuration repository?
 
