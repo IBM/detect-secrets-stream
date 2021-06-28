@@ -260,3 +260,4 @@ See the additional docs for more information:
 - [Admin Tool FAQ](./docs/admin-tool-faq.md)
 - [Adding a New Detector](./docs/adding-a-new-detector.md)
 - [Running a local end 2 end test](./kustomize_envs/dev/README.md)
+- [Operation Guide](./docs/operation-guide)
