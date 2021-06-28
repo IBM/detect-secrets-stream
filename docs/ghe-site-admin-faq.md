@@ -16,22 +16,21 @@ This documentation is intended for Detect Secrets Stream admins.
 
 First, log in to your company GitHub Enterprise instance as a site admin. Navigate to the Hooks page by clicking "Site Admin" -> "Admin Center -> "Hooks".
 
-**For a site admin to enable the pre-receive hook** (already configured):
+**For a site admin to enable the pre-receive hook:**
 
-- check `Use the exit-status to accept or reject pushes`
-- uncheck `Enable this pre-receive hook on all repositories by default`
-- check `Administrators can enable and disable this hook`
+1. Uncheck `Use the exit-status to accept or reject pushes`
+2. Uncheck `Enable this pre-receive hook on all repositories by default` (automatically unchecked after step 1)
+3. Uncheck `Administrators can enable and disable this hook` (automatically unchecked after step 1)
+
+This results in the hook being set to testing mode:
+
+![Pre-receive hook](../images/pre-receive-hook.png)
+
+_Note: testing mode is non-blocking._
 
 **For a site admin to disable the pre-receive hook**:
 
-- uncheck `Use the exit-status to accept or reject pushes`
-- uncheck `Enable this pre-receive hook on all repositories by default`
-- uncheck `Administrators can enable and disable this hook`
-
-**For a site admin to disable the pre-receive hook** (alternative methods). If the above disable option is not working as expected, you can try a couple more things:
-
-- a) Publish a new version of the pre-receive hook with empty content. Through this method, it should never hit 5 second limit.
-- b) Delete the pre-receive hook.
+The only way to disable the pre-receive hook is to delete it.
 
 ## How do I fix `Token pool exhausted` errors?
 
