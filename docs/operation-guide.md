@@ -71,8 +71,8 @@ It's recommended to use the [IBM Cloud Events Stream service](https://www.ibm.co
     1. On the left pane, click `Service credentials` -> `New credential`
     1. Once created, click on the newly created credential, then `View Credentials`, copy the `apikey` field from the JSON output
 1. Go to your local directory and create an admin config file (`config/admin.properties`) and paste the previously copied configuration into it
-1. Test that the CLI works properly by listing all topics in the queue by running `bin/kafka-topics.sh --bootstrap-server <bootstrap-server> --command-config config/admin.properties --list`
-    1. (Optional) Set `KAFKA_HEAP_OPTS="-Xms512m -Xmx1g"` if JVM runs into OOM when connecting Kafka
+1. Test that the CLI works properly by listing all topics in the queue with `bin/kafka-topics.sh --bootstrap-server <bootstrap-server> --command-config config/admin.properties --list`
+    1. (Optional) Set `KAFKA_HEAP_OPTS="-Xms512m -Xmx1g"` if the JVM runs out of memory when connecting to Kafka
     1. (Optional) Update `config/tools-log4j.properties` to change the log level
 
 ### Increase partitions for a topic
@@ -90,5 +90,5 @@ It's recommended to use the [IBM Cloud Events Stream service](https://www.ibm.co
 ### Consume or produce a message using the CLI
 
 1. Follow steps in [Connect to Kafka using kafka CLI](#connect-to-kafka-using-the-kafka-cli) to set up the CLI
-    1. For consume, instead of creating `config/admin.properties`, create `config/consumer.properties`. Then use `bin/kafka-console-consumer.sh`.
-    1. For produce, Instead of creating `config/admin.properties`, create `config/producer.properties`. Then use `bin/kafka-console-producer.sh`.
+    1. For consuming messages: instead of creating `config/admin.properties`, create `config/consumer.properties`. Then use `bin/kafka-console-consumer.sh`.
+    1. For producing messages: instead of creating `config/admin.properties`, create `config/producer.properties`. Then use `bin/kafka-console-producer.sh`.
