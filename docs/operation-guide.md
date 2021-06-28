@@ -13,7 +13,7 @@ This documentation is intended for maintainers of Detect Secrets Stream.
   - [Connect to Kafka using the kafka CLI](#connect-to-kafka-using-the-kafka-cli)
   - [Increase partitions for a topic](#increase-partitions-for-a-topic)
   - [Display partition offset](#display-partition-offset)
-  - [Consume or produce message using CLI](#consume-or-produce-message-using-cli)
+  - [Consume or produce a message using the CLI](#consume-or-produce-a-message-using-the-cli)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -87,7 +87,7 @@ It's recommended to use the [IBM Cloud Events Stream service](https://www.ibm.co
 1. `bin/kafka-consumer-groups.sh --bootstrap-server <bootstrap-server> --command-config config/admin.properties --group <consumer_group_name> --describe --offsets`
     1. The offset is based on the consumer group. Each consumer group will have a different offset.
 
-### Consume or produce message using CLI
+### Consume or produce a message using the CLI
 
 1. Follow steps in [Connect to Kafka using kafka CLI](#connect-to-kafka-using-the-kafka-cli) to set up the CLI
     1. For consume, instead of creating `config/admin.properties`, create `config/consumer.properties`. Then use `bin/kafka-console-consumer.sh`.
