@@ -43,16 +43,15 @@ GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO scan_worker_role;
 GRANT TRUNCATE ON TABLE public.vmt_report TO scan_worker_role;
 ```
 
-### Add a role for VMT
+### Add a role for token metadata viewer
 
 ```qsql
-CREATE ROLE vmt_role WITH LOGIN;
-GRANT CONNECT ON DATABASE ibmclouddb TO vmt_role;
-GRANT USAGE ON SCHEMA public TO vmt_role;
-GRANT SELECT ON public.vmt_report TO vmt_role;
+CREATE ROLE token_viewer_role WITH LOGIN;
+GRANT CONNECT ON DATABASE dss TO token_viewer_role;
+GRANT USAGE ON SCHEMA public TO token_viewer_role;
+GRANT SELECT ON public.vmt_report TO token_viewer_role;
 
-CREATE USER vmt_user WITH IN GROUP vmt_role PASSWORD [redacted]
-```
+CREATE USER token_viewer WITH IN GROUP token_viewer_role PASSWORD [redacted]
 
 ## Kafka
 
