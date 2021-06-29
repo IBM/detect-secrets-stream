@@ -30,7 +30,7 @@ This documentation is intended for maintainers of Detect Secrets Stream.
 1. Scale services back up
 
     ```sh
-    kubectl scale --replicas=12 deployment/scan-worker 
+    kubectl scale --replicas=<number_of_replica> deployment/scan-worker 
     kubectl scale --replicas=1 deployment/sqlexporter 
     ```
 
