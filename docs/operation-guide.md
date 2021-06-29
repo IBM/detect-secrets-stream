@@ -8,6 +8,11 @@ This documentation is intended for maintainers of Detect Secrets Stream.
 - [Making changes to the production database](#making-changes-to-the-production-database)
 - [Add database roles](#add-database-roles)
   - [Add a role for token metadata viewer](#add-a-role-for-token-metadata-viewer)
+- [Kafka](#kafka)
+  - [Connect to Kafka using the kafka CLI](#connect-to-kafka-using-the-kafka-cli)
+  - [Increase partitions for a topic](#increase-partitions-for-a-topic)
+  - [Display partition offset](#display-partition-offset)
+  - [Consume or produce a message using the CLI](#consume-or-produce-a-message-using-the-cli)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -46,6 +51,7 @@ GRANT USAGE ON SCHEMA public TO token_viewer_role;
 GRANT SELECT ON public.vmt_report TO token_viewer_role;
 
 CREATE USER token_viewer WITH IN GROUP token_viewer_role PASSWORD [redacted]
+```
 
 ## Kafka
 
@@ -82,7 +88,6 @@ It's recommended to use the [IBM Cloud Events Stream service](https://www.ibm.co
 
 ### Consume or produce a message using the CLI
 
-1. Follow steps in [Connect to Kafka using kafka CLI](#connect-to-kafka-using-the-kafka-cli) to set up the CLI
+1. Follow the steps in [Connect to Kafka using kafka CLI](#connect-to-kafka-using-the-kafka-cli) to set up the CLI
     1. For consuming messages: instead of creating `config/admin.properties`, create `config/consumer.properties`. Then use `bin/kafka-console-consumer.sh`.
     1. For producing messages: instead of creating `config/admin.properties`, create `config/producer.properties`. Then use `bin/kafka-console-producer.sh`.
-```
