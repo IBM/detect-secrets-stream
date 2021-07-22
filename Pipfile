@@ -34,6 +34,7 @@ gevent = "==21.1.2"
 pyjwt = "==1.7.1"
 ibm-db = "==3.0.4"
 detect-secrets = {git = "https://github.com/ibm/detect-secrets.git", ref = "master"}
+pytest-cov = "==2.12.1"
 
 [requires]
 python_version = "3.8"
