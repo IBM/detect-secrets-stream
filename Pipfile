@@ -12,7 +12,7 @@ pre-commit = "==2.12.1"
 flake8 = "==3.9.1"
 autopep8 = "==1.5.6"
 pipenv = "==2020.11.15"
-pep8-naming = "==0.11.1"
+pep8-naming = "==0.12.0"
 pytest-cov = "==2.12.1"
 
 [packages]
