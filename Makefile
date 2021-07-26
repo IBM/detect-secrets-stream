@@ -134,7 +134,9 @@ ifdef TRAVIS
 	pipenv clean --dry-run
 	pipenv clean
 endif
-	env PIPENV_PYUP_API_KEY=$(PIPENV_PYUP_API_KEY) pipenv check
+	# ignore 41002: coverage <6.0b1 resolved (5.5 installed)! it's part of pytest-cov
+	# which does not have a version containing the fix.
+	env PIPENV_PYUP_API_KEY=$(PIPENV_PYUP_API_KEY) pipenv check --ignore 41002
 	pre-commit run --all-files --show-diff-on-failure
 
 .PHONY: start-db_metrics

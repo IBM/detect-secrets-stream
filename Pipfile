@@ -7,13 +7,13 @@ verify_ssl = true
 pytest = "==6.2.3"
 responses = "==0.13.2"
 mock = "==4.0.3"
-pytest-cov = "==2.11.1"
 unittest2 = "==1.1.0"
 pre-commit = "==2.12.1"
 flake8 = "==3.9.1"
 autopep8 = "==1.5.6"
 pipenv = "==2020.11.15"
 pep8-naming = "==0.11.1"
+pytest-cov = "==2.12.1"
 
 [packages]
 logmatic-python = "==0.1.7"
