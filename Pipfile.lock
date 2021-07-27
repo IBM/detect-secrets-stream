@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "af9537921358e6baf83fcfaaec34ff38ecb4970272af3e9e631e64e0bb3989d7"
+            "sha256": "1b50ec9a03e58aaac513f1ad6c089eb91b8e0d8bfb83d454b4e5a91a209b4b1f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -877,11 +877,11 @@
         },
         "pipenv": {
             "hashes": [
-                "sha256:4ab2f60742184d851ac44b9e1d423afe71dc2ea7a68bde07eb890c8b4ce5a420",
-                "sha256:8253fe6f9cfb3791a54da8a0571f73c918cb3457dd908684c1800a13a06ec4c1"
+                "sha256:05958fadcd70b2de6a27542fcd2bd72dd5c59c6d35307fdac3e06361fb06e30e",
+                "sha256:d180f5be4775c552fd5e69ae18a9d6099d9dafb462efe54f11c72cb5f4d5e977"
             ],
             "index": "pypi",
-            "version": "==2020.11.15"
+            "version": "==2021.5.29"
         },
         "platformdirs": {
             "hashes": [
@@ -1055,11 +1055,11 @@
         },
         "virtualenv-clone": {
             "hashes": [
-                "sha256:29c6fe43bc6d40f836f47e9a40bf6fbe9527aac11e92c76ace195580d22588bb",
-                "sha256:fa23525c4fcc7ff91248beeee53317dd6ac5e74c0e5c66c1807c1b0b7d948ab6"
+                "sha256:997c7d225eabc4d09e77672461f4bdf9f3a8ea9dc9e4a847b0e83dc8bad9573a",
+                "sha256:997fc0d8fd2aa60f6b76af6c1c42ef64fa82b0c5478745b1337bec06d1075076"
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
-            "version": "==0.5.5"
+            "version": "==0.5.6"
         }
     }
 }
