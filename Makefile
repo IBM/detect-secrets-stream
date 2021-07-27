@@ -66,8 +66,7 @@ setup-deploy-tools:
 .PHONY: setup
 setup: setup-trivy setup-deploy-tools
 	pip install --upgrade pip
-	# lock pipenv version due to https://github.com/pypa/pipenv/issues/4273
-	pip install pipenv==2018.11.26
+	pip install pipenv
 	PIP_IGNORE_INSTALLED=1 pipenv install --dev --deploy --ignore-pipfile
 
 .PHONY: start-local-test-db
