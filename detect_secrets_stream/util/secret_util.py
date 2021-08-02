@@ -11,6 +11,7 @@ import click
 import psycopg2
 import requests
 
+from ..bp_lookup.bp_lookup import GHElookup
 from ..gd_ingest.gd_ingest import GDIngest
 from ..github_client.github import GitHub
 from ..github_client.github_app import GitHubApp
@@ -551,6 +552,35 @@ def update_uniqueness_hash_for_all_commits(ctx, dry_run):
             DbBiz().update_commit_in_db(commit)
         else:
             print(f'commit_id {commit.commit_id} uniqueness_hash {commit.uniqueness_hash}')
+
+
+@main.command()
+@click.argument('token_uuid')
+@click.option(
+    '--dry-run', type=bool, default=False, required=False, is_flag=True,
+    help='Only print out commit missing pusher email, but not update',
+)
+@click.pass_context
+def update_pusher_email_for_commits_by_token_uuid(ctx, token_uuid, dry_run):
+    print(f'Dryrun={dry_run}')
+    db = DbBiz()
+    ghe_lookup = GHElookup()
+
+    secret = db.get_secret_from_db_by_uuid(token_uuid)
+    commits = db.get_commits_by_token_id_from_db(secret.id)
+    for commit in commits:
+        if commit.pusher_username != '' and commit.pusher_email == '':
+            print(
+                f'Found commit_id={commit.commit_id} pusher_username={commit.pusher_username}'
+                f'pusher_email={commit.pusher_email}',
+            )
+            commit.pusher_email = ghe_lookup.ghe_email_lookup(commit.pusher_username)
+            if not dry_run:
+                # look up owner
+                db.update_commit_in_db(commit)
+                print(f'Updated pusher email to {commit.pusher_email}')
+            else:
+                print(f'will update pusher email to {commit.pusher_email}')
 
 
 @main.command()
