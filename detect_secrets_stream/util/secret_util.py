@@ -584,6 +584,26 @@ def update_pusher_email_for_commits_by_token_uuid(ctx, token_uuid, dry_run):
 
 
 @main.command()
+@click.argument('token_uuid')
+@click.pass_context
+def get_commits_by_token_uuid(ctx, token_uuid):
+    """
+    List out all commits assocaited with one token by UUID
+    """
+    db = DbBiz()
+    secret = db.get_secret_from_db_by_uuid(token_uuid)
+    commits = db.get_commits_by_token_id_from_db(secret.id)
+    for commit in commits:
+        print(
+            f'commit_id={commit.commit_id} '
+            f'pusher_username={commit.pusher_username} pusher_email={commit.pusher_email}  '
+            f'author_name={commit.author_name} author_email={commit.author_email} '
+            f'committer_name={commit.committer_name} committer_email={commit.committer_email} '
+            f'location_url={commit.location_url} filename={commit.filename} linenumber={commit.linenumber}',
+        )
+
+
+@main.command()
 @click.option(
     '--dry-run', type=bool, default=False, required=False, is_flag=True,
     help='Only print out hash, but not update',
