@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c45c9bb2625cf579f56c976d5f7b14bbb11e2bdc27248532e2b2d3852162bfd9"
+            "sha256": "04a18680b16a4accafa15f8ad3357ecbef0e3ad55cad486bfb1042e49f8c6320"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -177,7 +177,7 @@
         },
         "detect-secrets": {
             "git": "https://github.com/ibm/detect-secrets.git",
-            "ref": "af3466703b2bdc02169a092bc71c850127b2fb6f"
+            "ref": "1488150ff47bdb96b68416e449b5671caf87ff7b"
         },
         "flask": {
             "hashes": [
@@ -316,10 +316,10 @@
         },
         "jaeger-client": {
             "hashes": [
-                "sha256:7b8490cb7e8e4b2eef93dd3130f5d872381c137f5a866f6f1690cc73d9521b4d"
+                "sha256:3bc27ad77e035efd0899f377a15f180467fec44b2afbf5be0660cc888a2a4ac3"
             ],
             "index": "pypi",
-            "version": "==4.6.0"
+            "version": "==4.6.1"
         },
         "jinja2": {
             "hashes": [
@@ -731,11 +731,11 @@
         },
         "cfgv": {
             "hashes": [
-                "sha256:9e600479b3b99e8af981ecdfc80a0296104ee610cab48a5ae4ffd0b668650eb1",
-                "sha256:b449c9c6118fe8cca7fa5e00b9ec60ba08145d281d52164230a69211c5d597a1"
+                "sha256:c6a0883f3917a037485059700b9e75da2464e6c27051014ad85ba6aaa5884426",
+                "sha256:f5a830efb9ce7a445376bb66ec94c638a9787422f96264c98edc6bdeed8ab736"
             ],
             "markers": "python_full_version >= '3.6.1'",
-            "version": "==3.3.0"
+            "version": "==3.3.1"
         },
         "charset-normalizer": {
             "hashes": [
