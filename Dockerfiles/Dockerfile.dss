@@ -1,7 +1,7 @@
 # Stage 1, create base
 # Reference from https://github.com/pypa/pipenv/issues/3160#issuecomment-510951442
 
-FROM python:3.9.6-slim AS base
+FROM python:3.9.7-slim AS base
 
 ENV PYROOT /pyroot
 ENV PYTHONUSERBASE $PYROOT
