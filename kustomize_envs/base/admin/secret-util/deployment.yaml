@@ -1,0 +1,139 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: secret-util
+spec:
+  selector:
+    matchLabels:
+      app: secret-util
+      name: secret-util
+  minReadySeconds: 10
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: secret-util
+        name: secret-util
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "14269"
+    spec:
+      containers:
+        - name: secret-util
+          image: ibmcom/detect-secrets-stream:v0.4.3
+          # Once exec into the container
+          # run "python -m detect_secrets_stream.util.secret_util" for help
+          command: ["sleep"]
+          args:
+            - "infinity"
+          stdin: true
+          stdinOnce: true
+          tty: true
+          resources:
+            requests:
+              cpu: 128m
+              memory: 128Mi
+            limits:
+              cpu: 512m
+              memory: 512Mi
+          env:
+            - name: GD_DB_CONF
+              value: "/gd-db-conf/gd_db.conf"
+            - name: GD_PUB_KEY_FILENAME
+              value: "/gd-pub-key/encryption.key.pub"
+            - name: GD_DC_IV_FILENAME
+              value: "/gd-dc-secret/dc_iv_file"
+            - name: GD_DC_KEY_FILENAME
+              value: "/gd-dc-secret/dc_key_file"
+            - name: KAFKA_CLIENT_ID
+              value: scan-worker
+            - name: KAFKA_GROUP_ID
+              value: scan-worker-group
+            - name: GD_KAFKA_CONF
+              value: "/gd-secret/kafka.conf"
+            - name: GD_GITHUB_CONF
+              value: "/gd-secret/github.conf"
+            - name: GD_IAM_CONF_FILENAME
+              value: "/gd-secret/iam.conf"
+            - name: GD_HMAC_KEY_FILENAME
+              value: "/gd-secret/hmac.key"
+            - name: GD_VAULT_CONF
+              value: "/gd-secret/vault.prod.conf"
+            - name: APP_PRIVATE_KEY_FILENAME
+              value: "/gd-secret/app.key"
+            - name: GD_REVOKER_URLS_CONF
+              value: "/gd-secret/revoker_urls.conf"
+            - name: GD_EMAIL_CONF
+              value: "/gd-secret/email.conf"
+            - name: APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: gd-secret-1.0.0
+                  key: APP_ID
+            - name: GD_PRI_KEY_FILENAME
+              value: "/gd-pri-key/encryption.key"
+          volumeMounts:
+          - name: gd-pri-key
+            mountPath: "/gd-pri-key"
+            readOnly: true
+          - name: gd-pub-key
+            mountPath: "/gd-pub-key"
+            readOnly: true
+          - name: gd-dc-secret
+            mountPath: "/gd-dc-secret"
+            readOnly: true
+          - name: gd-db-conf
+            mountPath: "/gd-db-conf"
+            readOnly: true
+          - name: gd-secret
+            mountPath: "/gd-secret"
+            readOnly: true
+      volumes:
+        - name: gd-pri-key
+          secret:
+            secretName: gd-pri-key
+            items:
+            - key: encryption.key
+              path: encryption.key
+        - name: gd-pub-key
+          secret:
+            secretName: gd-pub-key
+            items:
+            - key: encryption.key.pub
+              path: encryption.key.pub
+        - name: gd-dc-secret
+          secret:
+            secretName: gd-dc-secret
+            items:
+            - key: dc_iv_file
+              path: dc_iv_file
+            - key: dc_key_file
+              path: dc_key_file
+        - name: gd-db-conf
+          secret:
+            secretName: gd-db-conf
+            items:
+            - key: gd_db.conf
+              path: gd_db.conf
+        - name: gd-secret
+          secret:
+            secretName: gd-secret-1.0.0
+            items:
+            - key: kafka_conf
+              path: kafka.conf
+            - key: github_conf
+              path: github.conf
+            - key: hmac_key
+              path: hmac.key
+            - key: iam_conf
+              path: iam.conf
+            - key: vault_prod_conf
+              path: vault.prod.conf
+            - key: app_key
+              path: app.key
+            - key: db2_license
+              path: db2consv_zs.lic
+            - key: revoker_urls_conf
+              path: revoker_urls.conf
+            - key: email_conf
+              path: email.conf
