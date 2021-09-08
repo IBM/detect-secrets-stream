@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "dd4e48941edcc8633e7d9acdf4ca589417902a0df9c37b6fae95e6a05e8ba0f4"
+            "sha256": "3d6c2b3b2ca3bf5a0ed14f461410ed0b486391c146cda337cc31983286bfd754"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -177,7 +177,7 @@
         },
         "detect-secrets": {
             "git": "https://github.com/ibm/detect-secrets.git",
-            "ref": "51e986974227abe15426b88e785af46e5b19fa09"
+            "ref": "ec60c1ba9c09e47809dd618604f83f0c9dc75d0c"
         },
         "flask": {
             "hashes": [
@@ -1080,11 +1080,11 @@
         },
         "virtualenv-clone": {
             "hashes": [
-                "sha256:997c7d225eabc4d09e77672461f4bdf9f3a8ea9dc9e4a847b0e83dc8bad9573a",
-                "sha256:997fc0d8fd2aa60f6b76af6c1c42ef64fa82b0c5478745b1337bec06d1075076"
+                "sha256:418ee935c36152f8f153c79824bb93eaf6f0f7984bae31d3f48f350b9183501a",
+                "sha256:44d5263bceed0bac3e1424d64f798095233b64def1c5689afa43dc3223caf5b0"
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
-            "version": "==0.5.6"
+            "version": "==0.5.7"
         }
     }
 }
