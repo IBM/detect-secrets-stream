@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ad8a9fe820868a94512c0e47108532b146e7df114446e7e5d23b85fb14821bee"
+            "sha256": "c824f57670f946e6aedd95e8cf01825e36f8b55c7236e67d7b75f0b3292de444"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -316,10 +316,10 @@
         },
         "jaeger-client": {
             "hashes": [
-                "sha256:3bc27ad77e035efd0899f377a15f180467fec44b2afbf5be0660cc888a2a4ac3"
+                "sha256:0eb178fd065bbacce11073821c08b99463fff945de2d00f6cbd9d0a4976fb218"
             ],
             "index": "pypi",
-            "version": "==4.6.1"
+            "version": "==4.7.0"
         },
         "jinja2": {
             "hashes": [
