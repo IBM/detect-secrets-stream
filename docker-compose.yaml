@@ -1,14 +1,14 @@
 version: "3"
 services:
   db:
-    image: "postgres:13"
+    image: "postgres:14"
     container_name: "gd_test_postgres"
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "54320:5432"
   debug:
-    image: "postgres:13"
+    image: "postgres:14"
     container_name: "debug_gd_test_postgres"
     command: "psql 'host=db port=5432 user=postgres'"
     stdin_open: true
