@@ -24,15 +24,15 @@ psycopg2-binary = "==2.9.1"
 click = "==8.0.1"
 flask = "==2.0.1"
 backoff = "==1.11.1"
-boxsdk = {extras = ["jwt"],version = "==2.12.1"}
+boxsdk = {extras = ["jwt"],version = "==2.13.0"}
 cryptography = "==3.4.8"
-hvac = "==0.11.0"
+hvac = "==0.11.2"
 asyncio = "==3.4.3"
 requests = "==2.26.0"
 gunicorn = "==20.1.0"
 gevent = "==21.8.0"
 pyjwt = "==1.7.1"
-ibm-db = "==3.0.4"
+ibm-db = "==3.1.0"
 detect-secrets = {ref = "0.13.1+ibm.45.dss", git = "https://github.com/ibm/detect-secrets.git"}
 
 [requires]
