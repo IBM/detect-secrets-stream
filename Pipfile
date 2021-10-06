@@ -22,7 +22,7 @@ jaeger-client = "==4.8.0"
 prometheus-client = "==0.11.0"
 psycopg2-binary = "==2.9.1"
 click = "==8.0.1"
-flask = "==2.0.1"
+flask = "==2.0.2"
 backoff = "==1.11.1"
 boxsdk = {extras = ["jwt"],version = "==2.13.0"}
 cryptography = "==35.0.0"
