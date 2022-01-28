@@ -33,6 +33,7 @@ from ..bp_lookup.bp_lookup import GHElookup
 from ..github_client.github import GitHub
 from ..github_client.github_app import GitHubApp
 from ..github_client.installation_id_request_exception import InstallationIDRequestException
+from ..scan_worker.sanitizer import Sanitizer
 from ..secret_corpus_db.data_cleanliness_exception import DataCleanlinessException
 from ..secret_corpus_db.gd_db_tools import add_commit_row
 from ..secret_corpus_db.gd_db_tools import add_token_row
@@ -154,6 +155,7 @@ class DiffScanWorker(object):
 
         # sanitize raw secret before printing to logs
         try:
+            results = Sanitizer.use_old_ghe_secret_type(results)
             results_dict = json.loads(results)
             for filename in results_dict['results']:
                 for secret in results_dict['results'][filename]:
@@ -162,12 +164,11 @@ class DiffScanWorker(object):
                 'detect-secrets scan results for commit %s: %s' %
                 (commit, json.dumps(results_dict)),
             )
+            return results
         except Exception as e:
             self.logger.error(
                 'Error sanitizing detect-secrets output: %s' % e, exc_info=1,
             )
-
-        return results
 
     def validate_secrets(self, detect_secrets_output, commit):
         """

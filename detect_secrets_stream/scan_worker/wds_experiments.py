@@ -2,6 +2,8 @@ import json
 import logging
 import subprocess
 
+from ..scan_worker.sanitizer import Sanitizer
+
 
 class WDSExperiments(object):
 
@@ -21,7 +23,7 @@ class WDSExperiments(object):
         process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
         output, error = process.communicate()
         results = output.decode('utf-8')
-
+        results = Sanitizer.use_old_ghe_secret_type(results)
         return results
 
     def print_results(self, scan_results, secret_type, repo_slug, commit_hash):

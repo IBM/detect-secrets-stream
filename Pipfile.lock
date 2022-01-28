@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6387128f32b978a56bb12ffeae0e65755df4db9f6231bde5dd3ef36d1132057b"
+            "sha256": "584d7e41d509a8579ca9c56eeb4363e014def5b100025b93d03f4d31f8b6a9c3"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -185,7 +185,7 @@
         },
         "detect-secrets": {
             "git": "https://github.com/ibm/detect-secrets.git",
-            "ref": "ec60c1ba9c09e47809dd618604f83f0c9dc75d0c"
+            "ref": "cf61789af70f279272ad943e9f2e602c67b65aff"
         },
         "flask": {
             "hashes": [

@@ -5,7 +5,7 @@ from hashlib import sha256
 
 import requests
 from detect_secrets.core.constants import VerifiedResult
-from detect_secrets.plugins.gh import GheDetector
+from detect_secrets.plugins.github_enterprise import GheDetector
 
 from detect_secrets_stream.gd_revoker.revocation_exception import RevocationException
 from detect_secrets_stream.github_client.github import GitHub
@@ -22,7 +22,9 @@ class GHEValidator(BaseValidator):
 
     @staticmethod
     def secret_type_name():
-        return GheDetector.secret_type
+        # Use the secret type name prior to 0.13.1+ibm.47.dss
+        # to remain backwards compatibility for downstream app consumption
+        return 'GitHub Credentials'
 
     def validate(self, secret, other_factors=None):
         try:

@@ -22,14 +22,14 @@ class TestGHEValidator:
             (VerifiedResult.VERIFIED_FALSE, False),
         ],
     )
-    @patch('detect_secrets.plugins.gh.GheDetector.verify')
+    @patch('detect_secrets.plugins.github_enterprise.GheDetector.verify')
     def test_validate_ghe_token(self, mock_verify, result, expected_valid):
         mock_verify.return_value = result
         ghe_validator = GHEValidator()
         valid = ghe_validator.validate('test-token')
         assert valid is expected_valid
 
-    @patch('detect_secrets.plugins.gh.GheDetector.verify')
+    @patch('detect_secrets.plugins.github_enterprise.GheDetector.verify')
     def test_validate_ghe_token_unverifiable(self, mock_verify):
         mock_verify.return_value = VerifiedResult.UNVERIFIED
         ghe_validator = GHEValidator()
