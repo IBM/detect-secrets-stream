@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: gd-revoker
@@ -11,9 +11,12 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: gd-revoker
-          servicePort: 80
+          service:
+            name: gd-revoker
+            port:
+              number: 80
   tls:
   - hosts:
     - gd-revoker.mycompany.com
