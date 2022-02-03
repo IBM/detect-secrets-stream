@@ -3,6 +3,8 @@ SHELL = /bin/bash
 
 SKAFFOLD_VERBOSITY ?= info
 
+TEST_DB_CONTAINER_NAME ?= gd_test_postgres
+
 TEST_SECRET_BASE_DIR ?= ./temp
 TEST_SECRET_COMMENT ?= unit test
 GD_PUB_KEY_FILENAME := $(TEST_SECRET_BASE_DIR)/test.key.pub
@@ -69,19 +71,14 @@ setup: setup-trivy setup-deploy-tools
 	PIP_IGNORE_INSTALLED=1 pipenv install --dev --deploy --ignore-pipfile
 
 .PHONY: start-local-test-db
-start-local-test-db:
-	docker-compose up -d db
-	docker-compose ps
+start-local-test-db: stop-local-test-db
+	docker run -p 54320:5432 -d --name $(TEST_DB_CONTAINER_NAME) -e POSTGRES_HOST_AUTH_METHOD=trust postgres:10
 	@echo "username/password: postgres/postgres"
 
 .PHONY: stop-local-test-db
 stop-local-test-db:
-	docker-compose stop db
-	docker-compose rm -f db
-
-.PHONY: conn-local-test-db
-conn-local-test-db:
-	docker-compose run debug
+	docker ps | grep $(TEST_DB_CONTAINER_NAME) && docker stop $(TEST_DB_CONTAINER_NAME) || true
+	docker ps -a | grep $(TEST_DB_CONTAINER_NAME) && docker rm -f $(TEST_DB_CONTAINER_NAME) || true
 
 .PHONY: create-unit-test-secrets
 create-unit-test-secrets: create-common-test-secrets

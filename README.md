@@ -23,7 +23,6 @@ Under the hood, the server tool uses the developer tool to scan for secrets. Rea
   - If you are using macOs, you can use `pyenv` to install Python 3: `brew install pyenv; pyenv install 3.8.5;`
   - Optionally, you can set your system's default Python to Python 3 `pyenv global 3.8.5`. Then restart your shell. Run `python --version` to validate the default Python version is 3.
 - `docker` https://docs.docker.com/get-docker/
-- `docker-compose` installed along with docker
 - `skaffold`, v1.12.1 and above
 - `kustomize`, v3.8.1 and above. Do **NOT** use the version bundled with `kubectl`, as it does not support some options use by this project (e.g. replicas).
 - `container-structure-test`, used for docker image validation - [installation](https://github.com/GoogleContainerTools/container-structure-test#installation).
