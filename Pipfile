@@ -21,7 +21,7 @@ confluent-kafka = "==1.8.2"
 jaeger-client = "==4.8.0"
 prometheus-client = "==0.13.1"
 psycopg2-binary = "==2.9.3"
-click = "==8.0.3"
+click = "==8.0.4"
 flask = "==2.0.3"
 backoff = "==1.11.1"
 boxsdk = {extras = ["jwt"],version = "==2.13.0"}
