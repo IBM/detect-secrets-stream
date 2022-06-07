@@ -31,7 +31,7 @@ asyncio = "==3.4.3"
 requests = "==2.27.1"
 gunicorn = "==20.1.0"
 gevent = "==21.12.0"
-pyjwt = "==1.7.1"
+pyjwt = "==2.4.0"
 ibm-db = "==3.1.1"
 detect-secrets = {ref = "0.13.1+ibm.47.dss", git = "https://github.com/ibm/detect-secrets.git"}
 
