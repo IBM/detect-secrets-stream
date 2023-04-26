@@ -47,6 +47,7 @@ VERSION ?= dev
 DOCKER_REGISTRY_ICR := icr.io
 DOCKER_USER_ICR := iamapikey
 DOCKER_PASS_ICR := $(IBM_CLOUD_API_KEY)
+DOCKER_IMAGE_NAME := $(DOCKER_REGISTRY_ICR)/git-defenders/detect-secrets-stream
 
 # Trivy related
 TRIVY ?= trivy
@@ -198,13 +199,11 @@ quality-images:
 
 .PHONY: deploy
 deploy:
-	skaffold build;                                                             \
-	for image in $(shell skaffold build -q --dry-run | jq -r .builds[].tag); do \
-		@echo "Signing image" ${image}";                                        \
-		$(COSIGN) sign --key env://COSIGN_PRIVATE_KEY --yes $${image};          \
-		@echo "Verifying image ${image};                                        \
-		$(COSIGN) verify --key env://COSIGN_PUBLIC_KEY $${image};               \
-	done;                                                                       \
+	skaffold build
+	@echo "Signing image $(DOCKER_IMAGE_NAME)"
+	$(COSIGN) sign --key env://COSIGN_PRIVATE_KEY --yes $(DOCKER_IMAGE_NAME)
+	@echo "Verifying image $(DOCKER_IMAGE_NAME)"
+	$(COSIGN) verify --key env://COSIGN_PUBLIC_KEY $(DOCKER_IMAGE_NAME)
 
 .PHONY: clean
 clean:
