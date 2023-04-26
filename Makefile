@@ -198,14 +198,13 @@ quality-images:
 
 .PHONY: deploy
 deploy:
-	skaffold build
+	skaffold build;                                                             \
 	for image in $(shell skaffold build -q --dry-run | jq -r .builds[].tag); do \
-		@echo "Signing image $${image}"; \
-		$(COSIGN) sign --key env://COSIGN_PRIVATE_KEY --yes $${image}; \
-
-		@echo "Verifying image $${image}; \
-		$(COSIGN) verify --key env://COSIGN_PUBLIC_KEY $${image}; \
-	done;
+		@echo "Signing image" ${image}";                                        \
+		$(COSIGN) sign --key env://COSIGN_PRIVATE_KEY --yes $${image};          \
+		@echo "Verifying image ${image};                                        \
+		$(COSIGN) verify --key env://COSIGN_PUBLIC_KEY $${image};               \
+	done;                                                                       \
 
 .PHONY: clean
 clean:
