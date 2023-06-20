@@ -28,7 +28,7 @@ boxsdk = {extras = ["jwt"],version = "==3.2.0"}
 cryptography = "==41.0.0"
 hvac = "==0.11.2"
 asyncio = "==3.4.3"
-requests = "==2.30.0"
+requests = "==2.29.0"
 gunicorn = "==20.1.0"
 gevent = "==21.12.0"
 pyjwt = "==2.4.0"
