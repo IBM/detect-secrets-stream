@@ -1,11 +1,11 @@
-# import logging
+import logging
 # import os
 
 # import hvac
-
-# from ..util.conf import ConfUtil
-# from .base_vault_backend import BaseVaultBackend
-# from .vault_read_exception import VaultReadException
+import requests
+from ..util.conf import ConfUtil
+from .base_vault_backend import BaseVaultBackend
+from .vault_read_exception import VaultReadException
 
 from ibm_cloud_sdk_core import ApiException, read_external_sources
 import os
@@ -65,19 +65,19 @@ class Vault(BaseVaultBackend):
                  other_factors: dict, secondary multifactors to write
         Returns: requests.Response.status_code returned from vault. """
 
-        # secret_dict = {
-        #     'secret': secret,
-        #     'other_factors': other_factors,
-        # }
-        secret_name = "DSS-"+str(token_id)+"-DSS"
         secret_dict = {
+            'secret': secret,
+            'other_factors': other_factors,
+        }
+        secret_name = "DSS-"+str(token_id)+"-DSS"
+        secret_prototype_created = {
                 'custom_metadata': {'metadata_custom_key':'metadata_custom_value'},
                 'description': 'Description of my arbitrary secret.',
                 'labels': ['dss', 'us-south'],
                 'name': secret_name,
                 'secret_group_id': '1262ffb2-8921-3442-2e2b-cd35d4a1c838',
                 'secret_type': 'kv',
-                'data': {str(token_id): secret},
+                'data': secret_dict,
                 'version_custom_metadata': {'custom_version_key':'custom_version_value'}, # will need to add stuff for token other factors here I think
         }
         # create_response = self.client.secrets.kv.v1.create_or_update_secret(
@@ -87,15 +87,16 @@ class Vault(BaseVaultBackend):
         # )
         try:
             response = secrets_manager_service.create_secret(
-                    secret_prototype=secret_dict,
+                    secret_prototype=secret_prototype_created,
                 )
             secret = response.get_result()
-
+            r = requests.Response()
+            r.status_code = response.status_code
             print(json.dumps(secret, indent=2))
         except ApiException as e:
             pytest.fail(str(e))
 
-        return response  #!! will need to be revisted (need to check the return stuff) !!
+        return r  #!! will need to be revisted (need to check the return stuff) !!
     
     def read_secret(self, token_id: int):
         """ Reads the secret at the given path from vault.
@@ -137,8 +138,10 @@ class Vault(BaseVaultBackend):
             print('Name of the secret is', found_secret['name'])
             print('The ID of the secret is', found_secret['id'])
             ibm_cloud_secret_id = found_secret['id']
-        except ApiException as e:
-            pytest.fail(str(e))
+        except Exception:
+             raise VaultReadException('Error reading secret from vault. Secret might not be in vault.')
+        # except ApiException as e:
+        #     pytest.fail(str(e))
 
         try:
             print('\nget_secret() result:')
@@ -152,8 +155,10 @@ class Vault(BaseVaultBackend):
             print(secret['data'])
             # end-get_secret
 
-        except ApiException as e:
-            pytest.fail(str(e))
+        except Exception:
+             raise VaultReadException('Error reading secret from vault. Secret might not be in vault.')
+        # except ApiException as e:
+        #     pytest.fail(str(e))
         else:
             return secret['data']  # !! need to revisit what we have here, we will need to determine the other_factors
         
