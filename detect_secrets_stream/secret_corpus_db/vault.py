@@ -8,7 +8,7 @@ import os
 import pytest
 from ibm_secrets_manager_sdk.secrets_manager_v2 import *
 
-config_file = 'secrets_manager_v2.env'
+config_file = os.environ['GD_VAULT_CONF']
 secrets_manager_service = None
 config = None
 
@@ -59,8 +59,8 @@ class Vault(BaseVaultBackend):
                     secret_prototype=secret_prototype_created,
                 )
             # Creating a response type object to put the status code in 
-            return_response = requests.Response(status_code=create_response.status_code)
-            # return_response.status_code = create_response.status_code
+            return_response = requests.Response()
+            return_response.status_code = create_response.status_code
         except Exception:
              raise VaultReadException('Error writing secret to Secrets Manager. Something is wrong')
 
