@@ -38,7 +38,6 @@ class Vault(BaseVaultBackend):
     @needscredentials
     def create_or_update_secret(self, token_id: int, secret: str, other_factors=None):
         """ Creates secret if doesn't exist, updates it if it does.
-
         Accepts: token_id: int, corresponds with the token_id in database
                  secret: str, the secret to write
                  other_factors: dict, secondary multifactors to write
