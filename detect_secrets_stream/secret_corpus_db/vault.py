@@ -70,32 +70,14 @@ class Vault(BaseVaultBackend):
         """ Reads the secret at the given path from vault.
         Accepts: token_id: int, corresponds with the token_id in database
         Returns: dict containing secret, potentially other factors.
-        Throws: VaultReadException if secret not in vault or other error encountered.
-        """
+        Throws: VaultReadException if secret not in vault or other error encountered. """
         try:
-            # begin-list_secrets to and searching for the tokenID
-            all_results = []
-            secret_name = "DSS-"+str(token_id)+"-DSS"
-            pager = SecretsPager(
-                client=secrets_manager_service,
-                limit=10,
-                sort='created_at',  #sorting by created at (we expect only 1 secret)
-                search=secret_name,     # searching for the secret name 
-                groups=['1262ffb2-8921-3442-2e2b-cd35d4a1c838'],
-            )
-            all_results.extend(pager.get_next())
-            if pager.has_next():
-                raise VaultReadException('There was a collision in reading secrets from Secrets manager (more than one found)')
-            
-            found_secret = all_results[0] # Testing with naming convention ensures only 1 will return (max)
-            ibm_cloud_secret_id = found_secret['id']
-        except Exception:
-             raise VaultReadException('Error listing secrets from Secrets Manager. Could be an issue with secret group.')
-        
-        try:
-            # begin-get_secret for the ID we got earlier 
-            response = secrets_manager_service.get_secret(
-                id=ibm_cloud_secret_id,
+            # begin-get_secret for the ID we got earlier
+            secret_name = "DSS-"+str(token_id)+"-DSS" 
+            response = secrets_manager_service.get_secret_by_name_type(
+                secret_type = 'kv',
+                name = secret_name, 
+                secret_group_name = 'DSS-TEST'
             )
             secret = response.get_result()
             # end-get_secret
