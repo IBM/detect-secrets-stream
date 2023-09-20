@@ -10,7 +10,7 @@ from ..vault_read_exception import VaultReadException
 
 class VaultTest(TestCase):
 
-    @patch('detect_secrets_stream.secret_corpus_db.vault.SecretsManagerV2.new_instance')
+    @patch('detect_secrets_stream.secret_corpus_db.vault.SecretsManagerV2')
     @patch('detect_secrets_stream.util.conf.ConfUtil.load_vault_conf')
     def setUp(self, mock_load_vault_conf, mock_hvac):
         sourceFile = open('/home/travis/vault.prod.conf', 'w')
