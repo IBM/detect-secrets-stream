@@ -14,6 +14,7 @@ class VaultTest(TestCase):
     @patch('detect_secrets_stream.util.conf.ConfUtil.load_vault_conf')
     def setUp(self, mock_load_vault_conf, mock_hvac):
         sourceFile = open('/home/travis/vault.prod.conf', 'w')
+        mock_vault_conf = 'SECRETS_MANAGER_URL=https://instance.us-east.secrets-manager.appdomain.cloud\nSECRETS_MANAGER_AUTH_TYPE=iam\nSECRETS_MANAGER_APIKEY=key'
         print(mock_vault_conf, file = sourceFile)
         sourceFile.close()
         # mock_load_vault_conf.return_value = mock_vault_conf
