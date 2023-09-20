@@ -28,11 +28,7 @@ class Vault(BaseVaultBackend):
             # Load the configuration
             global config
             config = read_external_sources(SecretsManagerV2.DEFAULT_SERVICE_NAME)
-#function to throw issues if there's no configuration available
-    # needscredentials = pytest.mark.skipif(
-    #     not os.path.exists(config_file), reason="External configuration not available, skipping..."
-    # )
-    # @needscredentials
+
     def create_or_update_secret(self, token_id: int, secret: str, other_factors=None):
         """ Creates secret if doesn't exist, updates it if it does.
         Accepts: token_id: int, corresponds with the token_id in database
