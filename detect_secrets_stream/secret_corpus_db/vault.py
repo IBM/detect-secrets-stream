@@ -50,15 +50,45 @@ class Vault(BaseVaultBackend):
                 'secret_type': 'kv',
                 'data': secret_dict,
         }
+        #Look to see if the secret exists
+        read_status = 0 
+        return_response = requests.Response()
         try:
-            create_response = secrets_manager_service.create_secret(
-                    secret_prototype=secret_prototype_created,
+            print('attempting to read secret')
+            read_response = secrets_manager_service.get_secret_by_name_type(
+                    secret_type = 'kv',
+                    name = secret_name, 
+                    secret_group_name = 'DSS-TEST'
                 )
-            # Creating a response type object to put the status code in 
-            return_response = requests.Response()
-            return_response.status_code = create_response.status_code
-        except Exception:
-             raise VaultReadException('Error writing secret to Secrets Manager. Something is wrong')
+            result = read_response.get_result()
+            read_status = read_response.status_code
+        except:
+            pass
+        if read_status == 200:
+            print("we need to update the secret")
+            secret_prototype_updated = {
+                'data': secret_dict,
+            }
+            try:
+                update_response = secrets_manager_service.create_secret_version(
+                secret_id=result['id'],
+                secret_version_prototype=secret_prototype_updated,
+                ) 
+                
+                return_response.status_code = update_response.status_code
+            except Exception:
+                raise VaultReadException('Error updating secret to Secrets Manager. Something is wrong')
+    
+        else:
+            print("writing a new secret")
+            try:
+                create_response = secrets_manager_service.create_secret(
+                        secret_prototype=secret_prototype_created,
+                    )
+                # Creating a response type object to put the status code in 
+                return_response.status_code = create_response.status_code
+            except Exception:
+                raise VaultReadException('Error writing secret to Secrets Manager. Something is wrong')
 
         return return_response  
     
