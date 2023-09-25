@@ -41,12 +41,11 @@ class Vault(BaseVaultBackend):
             'other_factors': other_factors,
         }
         # Creating a new secret name to ensure theres no collisions in searching
-        secret_name = "DSS-"+str(token_id)+"-DSS"
         secret_prototype_created = {
                 'description': 'Secret Found in DSS',
                 'labels': ['dss', 'production'],
-                'name': secret_name,
-                'secret_group_id': '1262ffb2-8921-3442-2e2b-cd35d4a1c838', #ID of the DSS Group (TBC)
+                'name': "DSS-"+str(token_id),
+                'secret_group_id': '2d859db1-6884-c450-fd76-4dc6322328b4', #ID of the DSS Group (TBC)
                 'secret_type': 'kv',
                 'data': secret_dict,
         }
@@ -57,15 +56,14 @@ class Vault(BaseVaultBackend):
             print('attempting to read secret')
             read_response = secrets_manager_service.get_secret_by_name_type(
                     secret_type = 'kv',
-                    name = secret_name, 
-                    secret_group_name = 'DSS-TEST'
+                    name = "DSS-"+str(token_id), 
+                    secret_group_name = 'DSS-Test'
                 )
             result = read_response.get_result()
             read_status = read_response.status_code
         except:
             pass
         if read_status == 200:
-            print("we need to update the secret")
             secret_prototype_updated = {
                 'data': secret_dict,
             }
@@ -80,7 +78,6 @@ class Vault(BaseVaultBackend):
                 raise VaultReadException('Error updating secret to Secrets Manager. Something is wrong')
     
         else:
-            print("writing a new secret")
             try:
                 create_response = secrets_manager_service.create_secret(
                         secret_prototype=secret_prototype_created,
@@ -98,12 +95,11 @@ class Vault(BaseVaultBackend):
         Returns: dict containing secret, potentially other factors.
         Throws: VaultReadException if secret not in vault or other error encountered. """
         try:
-            # begin-get_secret for the ID we got earlier
-            secret_name = "DSS-"+str(token_id)+"-DSS" 
+            # begin-get_secret for the ID we got earlier 
             response = secrets_manager_service.get_secret_by_name_type(
                 secret_type = 'kv',
-                name = secret_name, 
-                secret_group_name = 'DSS-TEST'
+                name = "DSS-"+str(token_id), 
+                secret_group_name = 'DSS-Test'
             )
             secret = response.get_result()
             # end-get_secret
