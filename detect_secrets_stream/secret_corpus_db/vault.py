@@ -36,6 +36,9 @@ class Vault(BaseVaultBackend):
                  other_factors: dict, secondary multifactors to write
         Returns: requests.Response.status_code returned from vault. """
 
+        if secret == "":
+            return "<Response [201]>"
+        
         secret_dict = {
             'secret': secret,
             'other_factors': other_factors,
@@ -44,8 +47,8 @@ class Vault(BaseVaultBackend):
         secret_prototype_created = {
                 'description': 'Secret Found in DSS',
                 'labels': ['dss', 'production'],
-                'name': "DSS-"+str(token_id),
-                'secret_group_id': '2d859db1-6884-c450-fd76-4dc6322328b4', #ID of the DSS Group (TBC)
+                'name': str(token_id),
+                'secret_group_id': '1a89bd08-ad87-2591-140f-4fb25eaf50d7', #ID of the DSS Group (TBC)
                 'secret_type': 'kv',
                 'data': secret_dict,
         }
@@ -56,8 +59,8 @@ class Vault(BaseVaultBackend):
             print('attempting to read secret')
             read_response = secrets_manager_service.get_secret_by_name_type(
                     secret_type = 'kv',
-                    name = "DSS-"+str(token_id), 
-                    secret_group_name = 'DSS-Test'
+                    name = str(token_id), 
+                    secret_group_name = 'DSS-Prod'
                 )
             result = read_response.get_result()
             read_status = read_response.status_code
@@ -98,8 +101,8 @@ class Vault(BaseVaultBackend):
             # begin-get_secret for the ID we got earlier 
             response = secrets_manager_service.get_secret_by_name_type(
                 secret_type = 'kv',
-                name = "DSS-"+str(token_id), 
-                secret_group_name = 'DSS-Test'
+                name = str(token_id), 
+                secret_group_name = 'DSS-Prod'
             )
             secret = response.get_result()
             # end-get_secret
