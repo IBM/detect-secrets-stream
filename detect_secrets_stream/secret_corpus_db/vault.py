@@ -36,9 +36,6 @@ class Vault(BaseVaultBackend):
                  other_factors: dict, secondary multifactors to write
         Returns: requests.Response.status_code returned from vault. """
 
-        if secret == "":
-            return "<Response [201]>"
-        
         secret_dict = {
             'secret': secret,
             'other_factors': other_factors,
@@ -55,6 +52,11 @@ class Vault(BaseVaultBackend):
         #Look to see if the secret exists
         read_status = 0 
         return_response = requests.Response()
+        #If there's nothing in the secret we are not going to write it (for now)
+        if secret == "":
+            return_response.status_code=201
+            return return_response
+        
         try:
             print('attempting to read secret')
             read_response = secrets_manager_service.get_secret_by_name_type(
