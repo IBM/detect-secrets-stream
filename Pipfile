@@ -11,7 +11,7 @@ unittest2 = "==1.1.0"
 pre-commit = "==2.18.1"
 flake8 = "==4.0.1"
 autopep8 = "==1.6.0"
-pipenv = "==2023.4.20"
+pipenv = "==2023.11.17"
 pep8-naming = "==0.12.1"
 pytest-cov = "==3.0.0"
 
