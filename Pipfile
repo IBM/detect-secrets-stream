@@ -4,7 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pytest = "==7.2.0"
+pytest = "==8.1.1"
 responses = "==0.20.0"
 mock = "==4.0.3"
 unittest2 = "==1.1.0"
@@ -22,10 +22,10 @@ jaeger-client = "==4.8.0"
 prometheus-client = "==0.14.0"
 psycopg2-binary = "==2.9.3"
 click = "==8.1.2"
-flask = "==2.1.1"
+flask = "==2.2.5"
 backoff = "==1.11.1"
 boxsdk = {extras = ["jwt"],version = "==3.2.0"}
-cryptography = "==39.0.1"
+cryptography = "==41.0.5"
 hvac = "==0.11.2"
 asyncio = "==3.4.3"
 requests = "==2.27.1"
@@ -34,8 +34,8 @@ gevent = "==21.12.0"
 pyjwt = "==2.4.0"
 ibm-db = "==3.1.1"
 detect-secrets = {ref = "0.13.1+ibm.62.dss", git = "https://github.com/ibm/detect-secrets.git"}
-pytest = "==7.2.0"
-Werkzeug = "== 2.2.3"
+pytest = "==8.1.1"
+Werkzeug = "== 2.3.8"
 
 [requires]
 python_version = "3.9"
