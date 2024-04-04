@@ -2,8 +2,6 @@ os: linux
 language: python
 python:
   - "3.9.18" # Matches version in Dockerfiles/Dockerfile.dss
-virtualenv:
-  system_site_packages: true
 dist: bionic
 group: beta
 services:
