@@ -38,7 +38,7 @@ TEST_ENV_VARS := GD_DC_KEY_FILENAME=$(GD_DC_KEY_FILENAME)                \
 	GD_REVOKER_URLS_CONF=$(GD_REVOKER_URLS_CONF)                         \
 	GD_EMAIL_CONF=${GD_EMAIL_CONF}
 
-COVERAGE := PIPENV_IGNORE_VIRTUALENVS=1 pipenv run coverage
+COVERAGE := pipenv run coverage
 
 # Only set if not defined
 VERSION ?= dev
@@ -85,9 +85,9 @@ setup-deploy-tools:
 
 .PHONY: setup
 setup: setup-trivy setup-cosign setup-deploy-tools
-	PIP_IGNORE_INSTALLED=1 pip install --upgrade pip
-	PIP_IGNORE_INSTALLED=1 pip install "setuptools>=65.5.1" pipenv
-	PIP_IGNORE_INSTALLED=1 PIPENV_IGNORE_VIRTUALENVS=1 pipenv install --dev --deploy --ignore-pipfile
+	pip install --upgrade pip
+	pip install "setuptools>=65.5.1" pipenv
+	PIP_IGNORE_INSTALLED=1 pipenv install --dev --deploy --ignore-pipfile
 
 	# download and install a few ibm cloud cli tools
 	curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
@@ -151,12 +151,12 @@ cleanup-test: stop-local-test-db
 .PHONY: quality
 quality:
 ifdef TRAVIS
-	PIPENV_IGNORE_VIRTUALENVS=1 pipenv clean --dry-run
-	PIPENV_IGNORE_VIRTUALENVS=1 pipenv clean
+	pipenv clean --dry-run
+	pipenv clean
 endif
 	# ignore 41002: coverage <6.0b1 resolved (5.5 installed)! it's part of pytest-cov
 	# which does not have a version containing the fix.
-	PIPENV_IGNORE_VIRTUALENVS=1 pipenv check --ignore 41002 --ignore 51499
+	pipenv check --ignore 41002 --ignore 51499
 	pre-commit run --all-files --show-diff-on-failure
 
 .PHONY: start-db_metrics
