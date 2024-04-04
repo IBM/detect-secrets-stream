@@ -38,7 +38,7 @@ TEST_ENV_VARS := GD_DC_KEY_FILENAME=$(GD_DC_KEY_FILENAME)                \
 	GD_REVOKER_URLS_CONF=$(GD_REVOKER_URLS_CONF)                         \
 	GD_EMAIL_CONF=${GD_EMAIL_CONF}
 
-COVERAGE := pipenv run coverage
+COVERAGE := PIPENV_IGNORE_VIRTUALENVS=1 pipenv run coverage
 
 # Only set if not defined
 VERSION ?= dev
