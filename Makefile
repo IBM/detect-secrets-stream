@@ -85,8 +85,8 @@ setup-deploy-tools:
 
 .PHONY: setup
 setup: setup-trivy setup-cosign setup-deploy-tools
-	pip install --upgrade pip
-	pip install "setuptools>=65.5.1" pipenv
+	PIP_IGNORE_INSTALLED=1 pip install --upgrade pip
+	PIP_IGNORE_INSTALLED=1 pip install "setuptools>=65.5.1" pipenv
 	PIP_IGNORE_INSTALLED=1 PIPENV_IGNORE_VIRTUALENVS=1 pipenv install --dev --deploy --ignore-pipfile
 
 	# download and install a few ibm cloud cli tools
