@@ -39,4 +39,4 @@ Werkzeug = "== 2.3.8"
 pre-commit = "==3.7.0"
 
 [requires]
-python_version = "3.9"
+python_version = "3.9.18"

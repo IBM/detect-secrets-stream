@@ -20,7 +20,7 @@ RUN apt-get update && \
 # Stage 2
 FROM base AS builder
 # lock pipenv version due to https://github.com/pypa/pipenv/issues/4273
-RUN pip install pipenv==2023.12.1
+RUN pip install pipenv==2018.11.26
 COPY Pipfile* ./
 RUN PIP_USER=1 PIP_IGNORE_INSTALLED=1 pipenv install --system --deploy --ignore-pipfile
 
