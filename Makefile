@@ -55,7 +55,6 @@ TRIVY_VERSION := $(shell curl -s "https://api.github.com/repos/aquasecurity/triv
 TRIVY_OS := $(shell uname | sed 's/Darwin/macOS/' )
 TRIVY_ARCH := $(shell uname -m | cut -d_ -f2 )
 
-
 # Cosign related
 COSIGN ?= /tmp/cosign
 COSIGN_VERSION := $(shell curl -s "https://api.github.com/repos/sigstore/cosign/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
@@ -98,7 +97,7 @@ setup: setup-trivy setup-cosign setup-deploy-tools
 
 .PHONY: start-local-test-db
 start-local-test-db: stop-local-test-db
-	docker run -p 54320:5432 -d --name $(TEST_DB_CONTAINER_NAME) -e POSTGRES_HOST_AUTH_METHOD=trust postgres:10
+	docker run -p 54320:5432 -d --name $(TEST_DB_CONTAINER_NAME) -e POSTGRES_HOST_AUTH_METHOD=trust postgres:11
 	@echo "username/password: postgres/postgres"
 
 .PHONY: stop-local-test-db
