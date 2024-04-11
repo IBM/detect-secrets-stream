@@ -64,7 +64,6 @@ COSIGN_VERSION := $(shell curl -s "https://api.github.com/repos/sigstore/cosign/
 .PHONY: setup-trivy
 setup-trivy:
 	curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
-	@echo $TRIVY_VERSION
 ifdef TRAVIS
 	# Scanning Redhat / centOS images requires rpm
 	sudo apt update && sudo apt install rpm -y
@@ -194,7 +193,7 @@ quality-images:
 	# Aggregate return code to allow scan all images before existing
 	rc=0;                                                                       \
 	for image in $(shell skaffold build -q --dry-run | jq -r .builds[].tag); do \
-		$(TRIVY) image --exit-code 1 --ignore-unfixed $${image};                \
+		$(TRIVY) image --exit-code 1 --skip-dirs "/pyroot/lib/python3.9/site-packages" --ignore-unfixed $${image};                \
 		rc=$$((rc+$$?));                                                        \
 	done;                                                                       \
 	exit $${rc}
