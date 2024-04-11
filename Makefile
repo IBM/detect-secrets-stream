@@ -55,6 +55,7 @@ TRIVY_VERSION := $(shell curl -s "https://api.github.com/repos/aquasecurity/triv
 TRIVY_OS := $(shell uname | sed 's/Darwin/macOS/' )
 TRIVY_ARCH := $(shell uname -m | cut -d_ -f2 )
 
+
 # Cosign related
 COSIGN ?= /tmp/cosign
 COSIGN_VERSION := $(shell curl -s "https://api.github.com/repos/sigstore/cosign/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
@@ -63,6 +64,7 @@ COSIGN_VERSION := $(shell curl -s "https://api.github.com/repos/sigstore/cosign/
 .PHONY: setup-trivy
 setup-trivy:
 	curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
+	@echo $TRIVY_VERSION
 ifdef TRAVIS
 	# Scanning Redhat / centOS images requires rpm
 	sudo apt update && sudo apt install rpm -y
