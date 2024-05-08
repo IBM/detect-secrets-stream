@@ -1,11 +1,13 @@
 # Stage 1, create base
 # Reference from https://github.com/pypa/pipenv/issues/3160#issuecomment-510951442
 
-FROM python:3.9.7-slim AS base
+FROM python:3.9.18-slim AS base
 
 ENV PYROOT /pyroot
 ENV PYTHONUSERBASE $PYROOT
 ENV PATH $PATH:$PYROOT/bin
+
+RUN pip install pip==23.3
 
 RUN apt-get update && \
     apt-get upgrade -y && \
@@ -23,7 +25,6 @@ FROM base AS builder
 RUN pip install pipenv==2018.11.26
 COPY Pipfile* ./
 RUN PIP_USER=1 PIP_IGNORE_INSTALLED=1 pipenv install --system --deploy --ignore-pipfile
-
 # Stage 3
 FROM base
 
