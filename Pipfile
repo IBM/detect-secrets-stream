@@ -4,14 +4,14 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pytest = "==7.2.0"
+pytest = "==8.1.1"
 responses = "==0.20.0"
 mock = "==4.0.3"
 unittest2 = "==1.1.0"
-pre-commit = "==2.18.1"
+pre-commit = "==3.7.0"
 flake8 = "==4.0.1"
 autopep8 = "==1.6.0"
-pipenv = "==2023.4.20"
+pipenv = "==2023.12.1"
 pep8-naming = "==0.12.1"
 pytest-cov = "==3.0.0"
 
@@ -22,21 +22,23 @@ jaeger-client = "==4.8.0"
 prometheus-client = "==0.14.0"
 psycopg2-binary = "==2.9.3"
 click = "==8.1.2"
-flask = "==2.1.1"
+flask = "==2.2.5"
 backoff = "==1.11.1"
 boxsdk = {extras = ["jwt"],version = "==3.2.0"}
-cryptography = "==39.0.1"
 ibm-secrets-manager-sdk = "==2.1.0"
 ibm-cloud-sdk-core = "==3.16.7"
+cryptography = "==42.0.5"
+hvac = "==0.11.2"
 asyncio = "==3.4.3"
 requests = "==2.31.0"
 gunicorn = "==20.1.0"
-gevent = "==21.12.0"
-pyjwt = "==2.4.0"
+gevent = "==23.9.1"
+pyjwt = "==2.5.0"
 ibm-db = "==3.1.1"
-detect-secrets = {ref = "0.13.1+ibm.56.dss", git = "https://github.com/ibm/detect-secrets.git"}
-pytest = "==7.2.0"
-Werkzeug = "== 2.2.3"
+detect-secrets = {ref = "0.13.1+ibm.62.dss", git = "https://github.com/ibm/detect-secrets.git"}
+pytest = "==8.1.1"
+Werkzeug = "== 2.3.8"
+pre-commit = "==3.7.0"
 
 [requires]
 python_version = "3.9"
