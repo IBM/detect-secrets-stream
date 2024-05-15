@@ -31,13 +31,13 @@ cryptography = "==42.0.5"
 hvac = "==0.11.2"
 asyncio = "==3.4.3"
 requests = "==2.31.0"
-gunicorn = "==20.1.0"
+gunicorn = "==22.0.0"
 gevent = "==23.9.1"
 pyjwt = "==2.5.0"
 ibm-db = "==3.1.1"
 detect-secrets = {ref = "0.13.1+ibm.62.dss", git = "https://github.com/ibm/detect-secrets.git"}
 pytest = "==8.1.1"
-Werkzeug = "== 2.3.8"
+Werkzeug = "== 3.0.3"
 pre-commit = "==3.7.0"
 
 [requires]
