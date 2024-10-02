@@ -50,6 +50,8 @@ spec:
               path: iam.conf
             - key: vault_prod_conf
               path: vault.prod.conf
+            - key: sm_params_conf
+              path: secrets_manager_params.conf
             - key: app_key
               path: app.key
             - key: db2_license
@@ -99,6 +101,8 @@ spec:
             value: "/gd-secret/hmac.key"
           - name: GD_VAULT_CONF
             value: "/gd-secret/vault.prod.conf"
+          - name: GD_SECRETS_MANAGER_PARAMS
+            value: "/gd-secret/secrets_manager_params.conf"
           - name: APP_PRIVATE_KEY_FILENAME
             value: "/gd-secret/app.key"
           - name: GD_REVOKER_URLS_CONF

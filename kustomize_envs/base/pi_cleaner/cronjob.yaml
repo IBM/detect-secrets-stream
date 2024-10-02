@@ -31,6 +31,8 @@ spec:
                 value: "/gd-secret/hmac.key"
               - name: GD_VAULT_CONF
                 value: "/gd-secret/vault.prod.conf"
+              - name: GD_SECRETS_MANAGER_PARAMS
+                value: "/gd-secret/secrets_manager_params.conf"
               - name: DAYS_SINCE_REMEDIATION_TO_DELETE
                 value: "7"
             volumeMounts:
@@ -86,4 +88,6 @@ spec:
                 path: iam.conf
               - key: vault_prod_conf
                 path: vault.prod.conf
+              - key: sm_params_conf
+                path: secrets_manager_params.conf
           restartPolicy: OnFailure

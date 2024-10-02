@@ -3,7 +3,6 @@
 cur_dir=$(cd "$(dirname "$0")" && pwd)
 SECRET_DIR=${cur_dir}/secret_generated
 GD_BASIC_AUTH_FILENAME=${SECRET_DIR}/basic_auth.conf
-GD_VAULT_FILENAME=${SECRET_DIR}/vault.conf
 GD_DB_FILENAME=${SECRET_DIR}/gd_db.conf
 
 mkdir -p "${SECRET_DIR}"
@@ -15,16 +14,6 @@ cat > "${GD_BASIC_AUTH_FILENAME}" << EOF
 ingest = pre-receive:$(env LC_ALL=C tr -dc _A-Z-a-z-0-9 < /dev/urandom | head -c48)
 revoker = revoker:$(env LC_ALL=C tr -dc _A-Z-a-z-0-9 < /dev/urandom | head -c48)
 revoker-requires-auth = false
-EOF
-
-cat > "${GD_VAULT_FILENAME}" << EOF
-[vault]
-gd_vault_url=http://vault:8200
-gd_vault_verify=True
-gd_vault_approle_id=$(uuidgen)
-gd_vault_secret_id=$(uuidgen)
-mount_point=generic
-token_path=project/detect-secrets-stream/token
 EOF
 
 cat > "${GD_DB_FILENAME}" << EOF
@@ -96,6 +85,21 @@ artifactory-revocation = https://artifactory/revoke
 artifactory-owner-resolution = https://artifactory/artifactory/api/npm/auth
 github-revocation = https://jenkins/generic-webhook-trigger/invoke
 github-owner-resolution = https://github.mycompany.com/api/v3/user
+EOF
+
+GD_VAULT_FILENAME=${SECRET_MANUAL_DIR}/vault.conf
+cat > "${GD_VAULT_FILENAME}" << EOF
+SECRETS_MANAGER_URL=
+SECRETS_MANAGER_AUTH_TYPE=iam
+SECRETS_MANAGER_APIKEY=
+EOF
+
+SECRETS_MANAGER_FILENAME=${SECRET_MANUAL_DIR}/secrets_manager_params.conf
+cat > "${SECRETS_MANAGER_FILENAME}" << EOF
+[secrets-manager]
+SECRET_GROUP_ID=< add DSS-Test secret group ID>
+SECRET_GROUP_NAME='DSS-Test'
+LABEL='local-dev-test'
 EOF
 
 echo ""

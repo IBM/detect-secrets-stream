@@ -37,6 +37,8 @@ spec:
                 value: "/gd-secret/hmac.key"
               - name: GD_VAULT_CONF
                 value: "/gd-secret/vault.prod.conf"
+              - name: GD_SECRETS_MANAGER_PARAMS
+                value: "/gd-secret/secrets_manager_params.conf"
               - name: GD_GITHUB_CONF
                 value: "/gd-secret/github.conf"
               - name: FF_INCLUDE_SECURITY_FOCALS
@@ -107,6 +109,8 @@ spec:
                 path: iam.conf
               - key: vault_prod_conf
                 path: vault.prod.conf
+              - key: sm_params_conf
+                path: secrets_manager_params.conf
               - key: github_conf
                 path: github.conf
           restartPolicy: OnFailure

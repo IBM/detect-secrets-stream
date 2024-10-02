@@ -1,11 +1,9 @@
-import logging
 import requests
 from ..util.conf import ConfUtil
 from .base_vault_backend import BaseVaultBackend
 from .vault_read_exception import VaultReadException
 from ibm_cloud_sdk_core import ApiException, read_external_sources
 import os
-import pytest
 from ibm_secrets_manager_sdk.secrets_manager_v2 import *
 
 config_file = os.environ['GD_VAULT_CONF']
@@ -29,23 +27,28 @@ class Vault(BaseVaultBackend):
             global config
             config = read_external_sources(SecretsManagerV2.DEFAULT_SERVICE_NAME)
 
+            # Set secrets manager parameters
+            global sm_params
+            sm_params = ConfUtil.load_sm_conf()
+
     def create_or_update_secret(self, token_id: int, secret: str, other_factors=None):
         """ Creates secret if doesn't exist, updates it if it does.
         Accepts: token_id: int, corresponds with the token_id in database
                  secret: str, the secret to write
                  other_factors: dict, secondary multifactors to write
         Returns: requests.Response.status_code returned from vault. """
-
         secret_dict = {
             'secret': secret,
             'other_factors': other_factors,
         }
         # Creating a new secret name to ensure theres no collisions in searching
+        token_name = str(token_id) if sm_params['SECRET_GROUP_NAME'] == 'DSS-Prod' else f'DSS-TEST-{str(token_id)}'
         secret_prototype_created = {
                 'description': 'Secret Found in DSS',
-                'labels': ['dss', 'production'],
-                'name': str(token_id),
-                'secret_group_id': '1a89bd08-ad87-2591-140f-4fb25eaf50d7', #ID of the DSS Group (TBC)
+                'labels': ['dss', sm_params['LABEL']],
+                #'name': str(token_id),
+                'name': token_name,
+                'secret_group_id': sm_params['SECRET_GROUP_ID'], #ID of the DSS Group (TBC)
                 'secret_type': 'kv',
                 'data': secret_dict,
         }
@@ -61,8 +64,8 @@ class Vault(BaseVaultBackend):
             print('attempting to read secret')
             read_response = secrets_manager_service.get_secret_by_name_type(
                     secret_type = 'kv',
-                    name = str(token_id), 
-                    secret_group_name = 'DSS-Prod'
+                    name = token_name, 
+                    secret_group_name = sm_params['SECRET_GROUP_NAME']
                 )
             result = read_response.get_result()
             read_status = read_response.status_code
@@ -99,12 +102,13 @@ class Vault(BaseVaultBackend):
         Accepts: token_id: int, corresponds with the token_id in database
         Returns: dict containing secret, potentially other factors.
         Throws: VaultReadException if secret not in vault or other error encountered. """
+        token_name = str(token_id) if sm_params['SECRET_GROUP_NAME'] == 'DSS-Prod' else f'DSS-TEST-{str(token_id)}'
         try:
             # begin-get_secret for the ID we got earlier 
             response = secrets_manager_service.get_secret_by_name_type(
                 secret_type = 'kv',
-                name = str(token_id), 
-                secret_group_name = 'DSS-Prod'
+                name = token_name, 
+                secret_group_name = sm_params['SECRET_GROUP_NAME']
             )
             secret = response.get_result()
             # end-get_secret

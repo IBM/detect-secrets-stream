@@ -37,6 +37,12 @@ class ConfUtil():
     def load_vault_conf(config_file_name=os.getenv('GD_VAULT_CONF')):
         config = ConfUtil._load_conf(config_file_name)
         return config['vault']
+    
+    @staticmethod
+    @lru_cache()
+    def load_sm_conf(config_file_name=os.getenv('GD_SECRETS_MANAGER_PARAMS')):
+        config = ConfUtil._load_conf(config_file_name)
+        return config['secrets-manager']
 
     @staticmethod
     @lru_cache()

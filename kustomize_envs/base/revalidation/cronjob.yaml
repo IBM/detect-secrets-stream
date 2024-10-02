@@ -36,6 +36,8 @@ spec:
                 value: "/gd-secret/hmac.key"
               - name: GD_VAULT_CONF
                 value: "/gd-secret/vault.prod.conf"
+              - name: GD_SECRETS_MANAGER_PARAMS
+                value: "/gd-secret/secrets_manager_params.conf"
               - name: GD_REVOKER_URLS_CONF
                 value: "/gd-secret/revoker_urls.conf"
               - name: GD_EMAIL_CONF
@@ -93,6 +95,8 @@ spec:
                 path: iam.conf
               - key: vault_prod_conf
                 path: vault.prod.conf
+              - key: sm_params_conf
+                path: secrets_manager_params.conf
               - key: db2_license
                 path: db2consv_zs.lic
               - key: revoker_urls_conf

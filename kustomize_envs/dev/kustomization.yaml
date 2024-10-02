@@ -75,9 +75,6 @@ configMapGenerator:
 - name: postgres-init-db
   files:
   - init.sql
-- name: vault-init-script
-  files:
-  - vault_init.sh
 
 secretGenerator:
 - name: gd-pri-key
@@ -106,7 +103,8 @@ secretGenerator:
   - basic_auth_conf=secret_generated/basic_auth.conf # generated
   - github_conf=secret_manual/github.conf # manual, one GHE PAT
   - hmac_key=secret_generated/test-hmac.key # generated
-  - vault_prod_conf=secret_generated/vault.conf  # generated
+  - vault_prod_conf=secret_manual/vault.conf  # manual
+  - sm_params_conf=secret_manual/secrets_manager_params.conf # manual
   - db2_license=secret_manual/db2consv_zs.lic  # manual, a valid db2consv_zs.lic
   - ghe_revocation_token=secret_manual/ghe_revocation.token # manual
   - iam_conf=secret_manual/iam.conf # manual

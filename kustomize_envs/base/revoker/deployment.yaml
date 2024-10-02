@@ -60,6 +60,8 @@ spec:
             path: iam.conf
           - key: vault_prod_conf
             path: vault.prod.conf
+          - key: sm_params_conf
+            path: secrets_manager_params.conf
           - key: github_conf
             path: github.conf
           - key: ghe_revocation_token
@@ -96,6 +98,8 @@ spec:
               value: "/gd-secret/hmac.key"
             - name: GD_VAULT_CONF
               value: "/gd-secret/vault.prod.conf"
+            - name: GD_SECRETS_MANAGER_PARAMS
+              value: "/gd-secret/secrets_manager_params.conf"
             - name: GD_BASIC_AUTH_CONF
               value: "/gd-secret/basic_auth.conf"
             - name: GD_REVOKER_URLS_CONF
