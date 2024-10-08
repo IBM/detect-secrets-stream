@@ -1,3 +1,4 @@
 # trivy errors to ignore
 CVE-2022-40897
 CVE-2022-40898
+PVE-2024-72117

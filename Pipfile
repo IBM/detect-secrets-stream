@@ -11,13 +11,13 @@ unittest2 = "==1.1.0"
 pre-commit = "==3.7.0"
 flake8 = "==4.0.1"
 autopep8 = "==1.6.0"
-pipenv = "==2024.1.0"
+pipenv = "==2023.12.1"
 pep8-naming = "==0.12.1"
 pytest-cov = "==3.0.0"
 
 [packages]
 logmatic-python = "==0.1.7"
-confluent-kafka = "==2.0.2"
+confluent-kafka = "==1.8.2"
 jaeger-client = "==4.8.0"
 prometheus-client = "==0.14.0"
 psycopg2-binary = "==2.9.3"
@@ -37,6 +37,7 @@ detect-secrets = {ref = "0.13.1+ibm.62.dss", git = "https://github.com/ibm/detec
 pytest = "==8.1.1"
 Werkzeug = "== 3.0.3"
 pre-commit = "==3.7.0"
+
 
 [requires]
 python_version = "3.9"
