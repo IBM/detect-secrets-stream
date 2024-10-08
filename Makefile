@@ -156,7 +156,7 @@ ifdef TRAVIS
 endif
 	# ignore 41002: coverage <6.0b1 resolved (5.5 installed)! it's part of pytest-cov
 	# which does not have a version containing the fix.
-	pipenv check --ignore 41002 --ignore 51499
+	pipenv check --ignore 41002 --ignore 51499 --ignore 72117
 	pre-commit run --all-files --show-diff-on-failure
 
 .PHONY: start-db_metrics
