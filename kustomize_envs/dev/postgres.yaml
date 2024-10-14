@@ -23,7 +23,7 @@ spec:
       #     emptyDir: {}
       containers:
       - name: postgres
-        image: postgres:12-alpine
+        image: postgres:14-alpine
         resources:
           requests:
             cpu: 20m

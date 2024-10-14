@@ -97,7 +97,7 @@ setup: setup-trivy setup-cosign setup-deploy-tools
 
 .PHONY: start-local-test-db
 start-local-test-db: stop-local-test-db
-	docker run -p 54320:5432 -d --name $(TEST_DB_CONTAINER_NAME) -e POSTGRES_HOST_AUTH_METHOD=trust postgres:11
+	docker run -p 54320:5432 -d --name $(TEST_DB_CONTAINER_NAME) -e POSTGRES_HOST_AUTH_METHOD=trust postgres:14
 	@echo "username/password: postgres/postgres"
 
 .PHONY: stop-local-test-db
