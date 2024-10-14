@@ -17,7 +17,6 @@ This document describes how to use [`skaffold`](https://skaffold.dev/docs/refere
 The resources below will be automatically provisioned when you run [`skaffold`](https://skaffold.dev/docs/references/cli/):
 
 - postgres
-- vault
 
 ## Deploy a test instance
 
@@ -53,20 +52,11 @@ The ingest script reads payloads from `kustomize_envs/dev/test/ingest.payload.js
 kustomize_envs/dev/test/ingest.sh
 ```
 
-You can inspect the captured token in vault and postgres
+You can inspect the captured token in secrets manager and postgres
 
-### Inspect vault
-
-```shell
-# Run in local env
-# land into vault container first
-kubectl exec -n dev -it $(kubectl get pods -n dev -l app=vault -o jsonpath="{.items[0].metadata.name}") -c vault-client -- /bin/sh
-
-# Run inside of the container
-# show captured token
-vault kv list generic/project/detect-secrets-stream/token
-vault kv get generic/project/detect-secrets-stream/token/<token_id>
-```
+### Inspect Secrets Manager
+Go to the DSS Secrets Manager instance and filter secrets based on the test group you used.  
+You should see a new entry for `DSS-TEST-<number>` if you have tested a commit with a secret. 
 
 ### Inspect postgres
 
