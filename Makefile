@@ -85,6 +85,7 @@ setup-deploy-tools:
 
 .PHONY: setup
 setup: setup-trivy setup-cosign setup-deploy-tools
+	sudo apt install librdkafka-dev
 	pip install --upgrade pip
 	pip install "setuptools>=70.0" pipenv
 	PIP_IGNORE_INSTALLED=1 pipenv install --dev --deploy --ignore-pipfile
