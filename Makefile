@@ -85,7 +85,6 @@ setup-deploy-tools:
 
 .PHONY: setup
 setup: setup-trivy setup-cosign setup-deploy-tools
-	sudo apt install librdkafka-dev=2.6.1
 	pip install --upgrade pip
 	pip install confluent-kafka
 	pip install "setuptools>=70.0" pipenv
