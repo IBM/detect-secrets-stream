@@ -17,7 +17,7 @@ pytest-cov = "==3.0.0"
 
 [packages]
 logmatic-python = "==0.1.7"
-confluent-kafka = "==2.5.3"
+confluent-kafka = "==2.5.0"
 jaeger-client = "==4.8.0"
 prometheus-client = "==0.14.0"
 psycopg2-binary = "==2.9.3"
@@ -28,7 +28,7 @@ boxsdk = {extras = ["jwt"],version = "==3.2.0"}
 cryptography = "==43.0.1"
 hvac = "==0.11.2"
 asyncio = "==3.4.3"
-requests = "==2.32.0"
+requests = "==2.32.2"
 gunicorn = "==22.0.0"
 gevent = "==23.9.1"
 pyjwt = "==2.5.0"
