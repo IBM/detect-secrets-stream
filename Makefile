@@ -85,15 +85,6 @@ setup-deploy-tools:
 
 .PHONY: setup
 setup: setup-trivy setup-cosign setup-deploy-tools
-	sudo apt update -y && \
-    sudo apt install -y librdkafka1 \
-						krb5-user \
-						libsasl2-modules-gssapi-mit \
-						librdkafka-dev \
-						libsasl2-dev \
-						libkrb5-dev \
-						libssl-dev \
-						g++
 	pip install --upgrade pip
 	pip install "setuptools>=65.5.1" pipenv
 	PIP_IGNORE_INSTALLED=1 pipenv install --dev --deploy --ignore-pipfile
