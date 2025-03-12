@@ -3,7 +3,6 @@ language: python
 python:
   - "3.9.18" # Matches version in Dockerfiles/Dockerfile.dss
 dist: focal
-#group: beta
 services:
   - docker
 before_install:
