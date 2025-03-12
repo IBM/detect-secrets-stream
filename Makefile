@@ -85,7 +85,7 @@ setup-deploy-tools:
 
 .PHONY: setup
 setup: setup-trivy setup-cosign setup-deploy-tools
-	sudo apt update && apt -y install software-properties-common gcc
+	sudo apt update && sudo apt -y install software-properties-common gcc
 	git clone https://github.com/edenhill/librdkafka
 	cd librdkafka && ./configure && make && make install && ldconfig
 	pip install --upgrade pip
