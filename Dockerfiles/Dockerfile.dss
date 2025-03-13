@@ -8,6 +8,7 @@ ENV PYTHONUSERBASE $PYROOT
 ENV PATH $PATH:$PYROOT/bin
 
 RUN pip install pip==23.3
+RUN pip install setuptools==76.0.0
 
 RUN apt-get update && \
     apt-get upgrade -y && \

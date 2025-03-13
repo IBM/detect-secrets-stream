@@ -33,7 +33,7 @@ pip install psycopg2
 ## setting up a local instance of the DB
 
 spin up an instance of postgress in docker:
-`docker run -d --name my_postgres -v my_dbdata:/var/lib/postgresql/data -p 54320:5432 postgres:11`
+`docker run -d --name my_postgres -v my_dbdata:/var/lib/postgresql/data -p 54320:5432 postgres:14`
 
 install psql tool: (not required but helpful for setting up the DB & having another path into the DB - remotely too)
 `sudo dnf install psql`
