@@ -23,7 +23,7 @@ spec:
       #     emptyDir: {}
       containers:
       - name: postgres
-        image: postgres:11-alpine
+        image: quay.io/fedora/postgresql-14
         resources:
           requests:
             cpu: 20m
