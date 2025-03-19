@@ -25,7 +25,7 @@ click = "==8.1.2"
 flask = "==2.2.5"
 backoff = "==1.11.1"
 boxsdk = {extras = ["jwt"],version = "==3.2.0"}
-cryptography = "==43.0.1"
+cryptography = "==44.0.1"
 hvac = "==0.11.2"
 asyncio = "==3.4.3"
 requests = "==2.32.3"
@@ -39,4 +39,4 @@ Werkzeug = "== 3.0.6"
 pre-commit = "==3.7.0"
 
 [requires]
-python_version = "3.9"
+python_version = "3.10"

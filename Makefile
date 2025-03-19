@@ -192,7 +192,7 @@ quality-images:
 	# Aggregate return code to allow scan all images before existing
 	rc=0;                                                                       \
 	for image in $(shell skaffold build -q --dry-run | jq -r .builds[].tag); do \
-		$(TRIVY) image --exit-code 1 --skip-dirs "/pyroot/lib/python3.9/site-packages" --ignore-unfixed $${image};                \
+		$(TRIVY) image --exit-code 1 --skip-dirs "/pyroot/lib/python3.10/site-packages" --ignore-unfixed $${image};                \
 		rc=$$((rc+$$?));                                                        \
 	done;                                                                       \
 	exit $${rc}

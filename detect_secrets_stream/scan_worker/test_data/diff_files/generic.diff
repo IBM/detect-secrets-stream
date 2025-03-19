@@ -83,7 +83,6 @@ index 419e03d..879f904 100644
 +
 +        return json.dumps(test_secrets)
 
-     @asyncio.coroutine
      def run(self):
 @@ -185,7 +210,7 @@ def run(self):
                  user = jsonPayload['githubUser']
@@ -108,4 +107,4 @@ index 419e03d..879f904 100644
 +
              else:
                  print('No messages consumed.')
-                 yield from asyncio.sleep(2)
+                 await asyncio.sleep(2)

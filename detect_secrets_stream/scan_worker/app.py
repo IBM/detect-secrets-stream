@@ -78,8 +78,8 @@ class EventStreamsApp(object):
         if self.run_diff_scan_worker:
             self.diff_scan_worker.stop()
 
-    @asyncio.coroutine
-    def run_tasks(self):
+    #@asyncio.coroutine
+    async def run_tasks(self):
         tasks = []
         if self.run_diff_scan_worker:
             self.diff_scan_worker = DiffScanWorker(
@@ -90,7 +90,7 @@ class EventStreamsApp(object):
             )
             tasks.append(asyncio.ensure_future(self.diff_scan_worker.run()))
 
-        done, pending = yield from asyncio.wait(tasks)
+        done, pending = await asyncio.wait(tasks)
         for future in done | pending:
             future.result()
         sys.exit(0)
