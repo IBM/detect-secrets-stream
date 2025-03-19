@@ -78,7 +78,6 @@ class EventStreamsApp(object):
         if self.run_diff_scan_worker:
             self.diff_scan_worker.stop()
 
-    #@asyncio.coroutine
     async def run_tasks(self):
         tasks = []
         if self.run_diff_scan_worker:

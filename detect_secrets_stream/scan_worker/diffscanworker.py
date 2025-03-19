@@ -533,7 +533,6 @@ class DiffScanWorker(object):
                 exc_info=1,
             )
 
-    #@asyncio.coroutine
     async def run(self):
         self.logger.info('The diff scan worker has started')
         self.consumer.subscribe([self.diff_scan_topic])
