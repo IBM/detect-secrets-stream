@@ -1,14 +1,14 @@
 # Stage 1, create base
 # Reference from https://github.com/pypa/pipenv/issues/3160#issuecomment-510951442
 
-FROM python:3.9.18-slim AS base
+FROM --platform=linux/amd64 python:3.12-slim AS base
 
 ENV PYROOT /pyroot
 ENV PYTHONUSERBASE $PYROOT
 ENV PATH $PATH:$PYROOT/bin
 
-RUN pip install pip==23.3
-RUN pip install setuptools==76.0.0
+RUN pip install pip==25.3
+RUN pip install setuptools==78.1.1
 
 RUN apt-get update && \
     apt-get upgrade -y && \
@@ -16,16 +16,21 @@ RUN apt-get update && \
     # required tool
     git \
     # Required for compiling ibm-db package
-    build-essential libxml2 && \
+    build-essential libxml2 \
+    # Required for compiling gevent
+    python3-dev libev-dev libc-ares-dev && \
     apt-get clean && \
     apt-get autoclean
 
 # Stage 2
 FROM base AS builder
-# lock pipenv version due to https://github.com/pypa/pipenv/issues/4273
-RUN pip install pipenv==2018.11.26
+# Use newer pipenv version that works with modern Python packages
+RUN pip install pipenv==2024.4.0
 COPY Pipfile* ./
 RUN PIP_USER=1 PIP_IGNORE_INSTALLED=1 pipenv install --system --deploy --ignore-pipfile
+# Explicitly install packages that are sometimes skipped by pipenv
+# Use same PIP_USER=1 environment variable to install to /pyroot
+RUN PIP_USER=1 PIP_IGNORE_INSTALLED=1 pip install certifi==2024.12.14 typing-extensions==4.12.2 packaging==24.2 zope.interface==7.2 zope.event==5.0
 # Stage 3
 FROM base
 

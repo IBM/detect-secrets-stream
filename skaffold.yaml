@@ -35,10 +35,12 @@ profiles:
         context: .
         docker:
           dockerfile: Dockerfiles/Dockerfile.dss
+          buildArgs:
+            BUILDPLATFORM: linux/amd64
 
     deploy:
       kustomize:
-        paths: ["kustomize_envs/dev"]
+        paths: [ "kustomize_envs/dev" ]
 
     portForward:
     - resourceType: deployment
