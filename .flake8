@@ -1,6 +1,7 @@
 [flake8]
 per-file-ignores =
     */steps/*.py: F811
+    detect_secrets_stream/util/secret_util.py: E231
 
 # Set the maximum length that any line (with some exceptions) may be.
 max-line-length = 120
