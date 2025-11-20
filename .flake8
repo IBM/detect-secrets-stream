@@ -1,7 +1,10 @@
 [flake8]
 per-file-ignores =
     */steps/*.py: F811
-    detect_secrets_stream/util/secret_util.py: E231
+
+# Ignore E231 (missing whitespace after ':') globally due to false positives
+# with URL strings containing '://' and f-strings with dict access
+ignore = E231
 
 # Set the maximum length that any line (with some exceptions) may be.
 max-line-length = 120
