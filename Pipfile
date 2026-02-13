@@ -26,7 +26,7 @@ flask = "==2.2.5"
 backoff = "==1.11.1"
 boxsdk = {extras = ["jwt"],version = "==3.2.0"}
 cryptography = "==43.0.1"
-hvac = "==0.11.2"
+hvac = "==2.4.0"
 asyncio = "==3.4.3"
 requests = "==2.32.3"
 gunicorn = "==22.0.0"
