@@ -35,8 +35,6 @@ profiles:
         context: .
         docker:
           dockerfile: Dockerfiles/Dockerfile.dss
-          buildArgs:
-            BUILDPLATFORM: linux/amd64
 
     deploy:
       kustomize:
