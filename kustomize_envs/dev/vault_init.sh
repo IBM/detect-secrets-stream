@@ -3,8 +3,8 @@
 echo "Waiting for vault to become available"
 for i in {1..100}; do sleep 1; if nc 127.0.0.1 8200 -z; then break; fi; done;
 
-# Give vault a bit more time to fully initialize
-sleep 3
+# Give vault more time to fully initialize
+sleep 10
 
 role_name=dss
 role_id=$(grep approle_id $GD_VAULT_CONF | cut -d= -f2)
