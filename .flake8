@@ -2,5 +2,18 @@
 per-file-ignores =
     */steps/*.py: F811
 
+# Ignore multiple error codes that are either false positives or legacy code style
+# E231: missing whitespace after ':' (false positives with URLs and f-strings)
+# E126: continuation line over-indented for hanging indent
+# E223: tab before operator
+# E226: missing whitespace around arithmetic operator
+# E241: multiple spaces after ','
+# E272: multiple spaces before keyword
+# E702: multiple statements on one line (semicolon)
+# W503: line break before binary operator (conflicts with W504)
+# W504: line break after binary operator (conflicts with W503)
+# N818: exception name should be named with an Error suffix
+ignore = E231,E126,E223,E226,E241,E272,E702,W503,W504,N818
+
 # Set the maximum length that any line (with some exceptions) may be.
 max-line-length = 120
