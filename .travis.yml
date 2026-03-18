@@ -1,8 +1,9 @@
 os: linux
 language: python
 python:
-  - "3.12.12" # Matches version in Dockerfiles/Dockerfile.dss
-dist: focal
+  - "3.9.18" # Matches version in Dockerfiles/Dockerfile.dss
+dist: bionic
+group: beta
 services:
   - docker
 before_install:

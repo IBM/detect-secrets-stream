@@ -990,15 +990,15 @@ def ingest_commit(ctx, dry_run, repo, commit_hash, branch, repo_public, pusher, 
 
     if dry_run:
         print(
-            f"Will ingest commit={payload_json['commitHash']} repo={payload_json['repoSlug']} "
-            f"user={payload_json['githubUser']} branch={payload_json['branchName']} "
-            f"repoPublic={payload_json['repoPublic']}",
+            f'Will ingest commit={payload_json["commitHash"]} repo={payload_json["repoSlug"]} '
+            f'user={payload_json["githubUser"]} branch={payload_json["branchName"]} '
+            f'repoPublic={payload_json["repoPublic"]}',
         )
     else:
         print(
-            f"About to ingest commit={payload_json['commitHash']} repo={payload_json['repoSlug']} "
-            f"user={payload_json['githubUser']} branch={payload_json['branchName']} "
-            f"repoPublic={payload_json['repoPublic']}",
+            f'About to ingest commit={payload_json["commitHash"]} repo={payload_json["repoSlug"]} '
+            f'user={payload_json["githubUser"]} branch={payload_json["branchName"]} '
+            f'repoPublic={payload_json["repoPublic"]}',
         )
         rescan(
             payload_json['commitHash'],
@@ -1111,15 +1111,15 @@ def backfill(ctx, dry_run, from_time, to_time, log_levels, size, prefer, logdna_
 
             if dry_run:
                 print(
-                    f"Will rescan commit={line_json['commitHash']} repo={line_json['repoSlug']} "
-                    f"user={line_json['githubUser']} branch={line_json['branchName']} "
-                    f"repoPublic={line_json['repoPublic']}",
+                    f'Will rescan commit={line_json["commitHash"]} repo={line_json["repoSlug"]} '
+                    f'user={line_json["githubUser"]} branch={line_json["branchName"]} '
+                    f'repoPublic={line_json["repoPublic"]}',
                 )
             else:
                 print(
-                    f"About to rescan commit={line_json['commitHash']} repo={line_json['repoSlug']} "
-                    f"user={line_json['githubUser']} branch={line_json['branchName']} "
-                    f"repoPublic={line_json['repoPublic']}",
+                    f'About to rescan commit={line_json["commitHash"]} repo={line_json["repoSlug"]} '
+                    f'user={line_json["githubUser"]} branch={line_json["branchName"]} '
+                    f'repoPublic={line_json["repoPublic"]}',
                 )
                 rescan(
                     line_json['commitHash'],

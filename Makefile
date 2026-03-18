@@ -86,7 +86,7 @@ setup-deploy-tools:
 .PHONY: setup
 setup: setup-trivy setup-cosign setup-deploy-tools
 	pip install --upgrade pip
-	pip install "setuptools>=65.5.1" "pipenv==2024.4.0"
+	pip install "setuptools>=65.5.1" pipenv
 	PIP_IGNORE_INSTALLED=1 pipenv install --dev --deploy --ignore-pipfile
 
 	# download and install a few ibm cloud cli tools
@@ -97,7 +97,7 @@ setup: setup-trivy setup-cosign setup-deploy-tools
 
 .PHONY: start-local-test-db
 start-local-test-db: stop-local-test-db
-	docker run -p 54320:5432 -d --name $(TEST_DB_CONTAINER_NAME) -e POSTGRES_HOST_AUTH_METHOD=trust postgres:14
+	docker run -p 54320:5432 -d --name $(TEST_DB_CONTAINER_NAME) -e POSTGRES_HOST_AUTH_METHOD=trust postgres:11
 	@echo "username/password: postgres/postgres"
 
 .PHONY: stop-local-test-db
@@ -192,7 +192,7 @@ quality-images:
 	# Aggregate return code to allow scan all images before existing
 	rc=0;                                                                       \
 	for image in $(shell skaffold build -q --dry-run | jq -r .builds[].tag); do \
-		$(TRIVY) image --exit-code 1 --skip-dirs "/pyroot/lib/python3.12/site-packages" --ignore-unfixed $${image};                \
+		$(TRIVY) image --exit-code 1 --skip-dirs "/pyroot/lib/python3.9/site-packages" --ignore-unfixed $${image};                \
 		rc=$$((rc+$$?));                                                        \
 	done;                                                                       \
 	exit $${rc}

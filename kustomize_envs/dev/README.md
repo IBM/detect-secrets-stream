@@ -84,32 +84,3 @@ Allows running manual SQL commands against your postgresql database
 postgres=# \c dss
 dss=# SELECT * FROM token;
 ```
-
-### Verify Python Version
-
-Check that all services are running the correct Python version:
-
-```shell
-# Check Python version in scan-worker
-kubectl exec -n dev $(kubectl get pods -n dev -l app=scan-worker -o jsonpath="{.items[0].metadata.name}") -- python --version
-
-# Check Python version in gd-ingest
-kubectl exec -n dev $(kubectl get pods -n dev -l app=gd-ingest -o jsonpath="{.items[0].metadata.name}") -- python --version
-
-# Check Python version in gd-revoker
-kubectl exec -n dev $(kubectl get pods -n dev -l app=gd-revoker -o jsonpath="{.items[0].metadata.name}") -- python --version
-```
-
-### Test Health Endpoints
-
-Verify that services are responding to health checks:
-
-```shell
-# Test gd-revoker health endpoint (port 5002)
-curl http://127.0.0.1:5002/healthz
-# Expected output: Service operational
-
-# Test gd-ingest health endpoint (port 5003)
-curl http://127.0.0.1:5003/healthz
-# Expected output: Service operational
-```
