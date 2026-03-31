@@ -127,12 +127,12 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install "setuptools>=65.5.1" wheel
+          pip install "setuptools>=65.5.1" wheel pipenv==2024.4.0
+          # Install setuptools in pipenv's environment first
+          pipenv run pip install "setuptools>=65.5.1" wheel
           make setup
         env:
           TRAVIS: true  # Some Makefile targets check for this
-          PIP_NO_BUILD_ISOLATION: 0
-          SETUPTOOLS_USE_DISTUTILS: stdlib
 
       - name: Run tests and quality checks
         run: make travis-test
