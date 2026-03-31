@@ -1,0 +1,150 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - add-gh-actions
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - main
+
+env:
+  PYTHON_VERSION: '3.12.12'
+  CONTAINER_REGISTRY: icr.io
+  IBM_CLOUD_REGION: us-east
+  DOCKER_IMAGE_NAME: icr.io/git-defenders/detect-secrets-stream
+
+jobs:
+  test:
+    name: Test and Quality Checks
+    runs-on: ubuntu-20.04  # Equivalent to Travis 'focal'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Set VERSION environment variable
+        run: |
+          if [ -n "${{ github.ref_type == 'tag' && github.ref_name || '' }}" ]; then
+            echo "VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+          else
+            echo "VERSION=github-actions-${{ github.run_number }}-$(date +%Y%m%d-%H%M%S)" >> $GITHUB_ENV
+          fi
+
+      - name: Display build version
+        run: echo "Build Version=${{ env.VERSION }}"
+
+      - name: Cache Trivy
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/trivy
+          key: ${{ runner.os }}-trivy-${{ hashFiles('**/Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-trivy-
+
+      - name: Cache pre-commit
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pre-commit-
+
+      - name: Cache cosign
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/cosign
+          key: ${{ runner.os }}-cosign-${{ hashFiles('**/Makefile') }}
+          restore-keys: |
+            ${{ runner.os }}-cosign-
+
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: make setup
+        env:
+          TRAVIS: true  # Some Makefile targets check for this
+
+      - name: Run tests and quality checks
+        run: make travis-test
+        env:
+          TRAVIS: true
+
+  # deploy:
+  #   name: Deploy to Container Registry
+  #   runs-on: ubuntu-20.04
+  #   needs: test
+  #   if: |
+  #     github.event_name == 'push' && 
+  #     (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/'))
+    
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+
+  #     - name: Set up Python
+  #       uses: actions/setup-python@v5
+  #       with:
+  #         python-version: ${{ env.PYTHON_VERSION }}
+
+  #     - name: Set VERSION environment variable
+  #       run: |
+  #         if [ -n "${{ github.ref_type == 'tag' && github.ref_name || '' }}" ]; then
+  #           echo "VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+  #         else
+  #           echo "VERSION=github-actions-${{ github.run_number }}-$(date +%Y%m%d-%H%M%S)" >> $GITHUB_ENV
+  #         fi
+
+  #     - name: Display build version
+  #       run: echo "Build Version=${{ env.VERSION }}"
+
+  #     - name: Cache Trivy
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: ~/.cache/trivy
+  #         key: ${{ runner.os }}-trivy-${{ hashFiles('**/Pipfile.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-trivy-
+
+  #     - name: Cache cosign
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: ~/.cache/cosign
+  #         key: ${{ runner.os }}-cosign-${{ hashFiles('**/Makefile') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-cosign-
+
+  #     - name: Cache pip packages
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: ~/.cache/pip
+  #         key: ${{ runner.os }}-pip-${{ hashFiles('**/Pipfile.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-pip-
+
+  #     - name: Install deployment dependencies
+  #       run: make setup
+  #       env:
+  #         TRAVIS: true
+
+  #     - name: Deploy to registry
+  #       run: make travis-deploy
+  #       env:
+  #         IBM_CLOUD_API_KEY: ${{ secrets.IBM_CLOUD_API_KEY }}
+  #         COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+  #         COSIGN_PUBLIC_KEY: ${{ secrets.COSIGN_PUBLIC_KEY }}
+  #         VERSION: ${{ env.VERSION }}
