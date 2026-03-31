@@ -28,8 +28,19 @@ class VaultTest(TestCase):
         self.mock_hvac = mock_hvac
 
     def test_create_or_update_secret_200(self):
-        self.mock_hvac.return_value.secrets.kv.v1.create_or_update_secret.return_value = MagicMock(
-            status_code=200
+        # Mock get_secret_by_name_type to return existing secret
+        mock_get_response = MagicMock()
+        mock_get_response.status_code = 200
+        mock_get_response.get_result.return_value = {"id": "test-secret-id"}
+        self.mock_hvac.return_value.get_secret_by_name_type.return_value = (
+            mock_get_response
+        )
+
+        # Mock create_secret_version for update
+        mock_update_response = MagicMock()
+        mock_update_response.status_code = 200
+        self.mock_hvac.return_value.create_secret_version.return_value = (
+            mock_update_response
         )
 
         response = self.vault.create_or_update_secret(
@@ -39,23 +50,32 @@ class VaultTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_create_or_update_secret_404(self):
-        self.mock_hvac.return_value.secrets.kv.v1.create_or_update_secret.return_value = MagicMock(
-            status_code=404
+        # Mock get_secret_by_name_type to raise exception (secret doesn't exist)
+        self.mock_hvac.return_value.get_secret_by_name_type.side_effect = Exception(
+            "Not found"
         )
+
+        # Mock create_secret for new secret
+        mock_create_response = MagicMock()
+        mock_create_response.status_code = 201
+        self.mock_hvac.return_value.create_secret.return_value = mock_create_response
 
         response = self.vault.create_or_update_secret(
             1, "super_secret", {"another": "factor"}
         )
 
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 201)
 
     def test_read_secret(self):
-        self.mock_hvac.return_value.secrets.kv.v1.read_secret.return_value = {
+        # Mock get_secret_by_name_type response
+        mock_response = MagicMock()
+        mock_response.get_result.return_value = {
             "data": {
                 "secret": "super_secret",
                 "other_factors": {"another": "one"},
             },
         }
+        self.mock_hvac.return_value.get_secret_by_name_type.return_value = mock_response
 
         data = self.vault.read_secret(1)
 
@@ -64,7 +84,8 @@ class VaultTest(TestCase):
         )
 
     def test_read_secret_fails(self):
-        self.mock_hvac.return_value.secrets.kv.v1.read_secret.side_effect = Exception(
+        # Mock get_secret_by_name_type to raise exception
+        self.mock_hvac.return_value.get_secret_by_name_type.side_effect = Exception(
             "oops"
         )
 
