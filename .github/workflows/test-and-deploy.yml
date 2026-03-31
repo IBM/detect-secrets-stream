@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Test and Deploy DSS
 
 on:
   push:
@@ -20,7 +20,7 @@ env:
 jobs:
   test:
     name: Test and Quality Checks
-    runs-on: ubuntu-20.04  # Equivalent to Travis 'focal'
+    runs-on: ubuntu-24.04-ppc64le  # Self-hosted runner
     
     steps:
       - name: Checkout code
@@ -73,6 +73,56 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('**/Pipfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pip-
+
+      - name: Cache pipenv virtualenv
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pipenv-
+
+      - name: Cache IBM Cloud CLI
+        uses: actions/cache@v4
+        with:
+          path: |
+            /usr/local/bin/ibmcloud
+            ~/.bluemix
+          key: ${{ runner.os }}-ibmcloud-${{ hashFiles('**/Makefile') }}
+          restore-keys: |
+            ${{ runner.os }}-ibmcloud-
+
+      - name: Cache Skaffold
+        uses: actions/cache@v4
+        with:
+          path: /usr/local/bin/skaffold
+          key: ${{ runner.os }}-skaffold-latest
+          restore-keys: |
+            ${{ runner.os }}-skaffold-
+
+      - name: Cache Kustomize
+        uses: actions/cache@v4
+        with:
+          path: /usr/local/bin/kustomize
+          key: ${{ runner.os }}-kustomize-latest
+          restore-keys: |
+            ${{ runner.os }}-kustomize-
+
+      - name: Cache container-structure-test
+        uses: actions/cache@v4
+        with:
+          path: /usr/local/bin/container-structure-test
+          key: ${{ runner.os }}-container-structure-test-latest
+          restore-keys: |
+            ${{ runner.os }}-container-structure-test-
+
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
       - name: Install dependencies
         run: make setup
