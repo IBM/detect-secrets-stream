@@ -14,6 +14,9 @@ class VaultTest(TestCase):
     def setUp(self, mock_load_vault_conf, mock_hvac):
         import os
 
+        # Mock the DEFAULT_SERVICE_NAME to return a string instead of MagicMock
+        mock_hvac.DEFAULT_SERVICE_NAME = "secrets-manager"
+
         # Use environment variable or fallback to /tmp for compatibility
         vault_conf_path = os.environ.get("GD_VAULT_CONF", "/tmp/vault.prod.conf")
         sourceFile = open(vault_conf_path, "w")
