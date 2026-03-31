@@ -133,6 +133,7 @@ jobs:
         run: make travis-test
         env:
           TRAVIS: true
+          GD_VAULT_CONF: /home/runner/vault.prod.conf
 
   # deploy:
   #   name: Deploy to Container Registry
