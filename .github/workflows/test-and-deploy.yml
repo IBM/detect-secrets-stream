@@ -125,7 +125,10 @@ jobs:
             ${{ runner.os }}-buildx-
 
       - name: Install dependencies
-        run: make setup
+        run: |
+          pip install --upgrade pip
+          pip install "setuptools>=65.5.1" wheel
+          make setup
         env:
           TRAVIS: true  # Some Makefile targets check for this
 
