@@ -128,9 +128,15 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install "setuptools>=65.5.1" wheel pipenv==2024.4.0
-          # Install setuptools in pipenv's environment first
+          # Run setup targets except pipenv install
+          make setup-trivy setup-cosign setup-deploy-tools
+          # Install IBM Cloud CLI
+          curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+          ibmcloud plugin install container-service -f
+          ibmcloud plugin install container-registry
+          # Install Python packages with no build isolation
           pipenv run pip install "setuptools>=65.5.1" wheel
-          make setup
+          PIP_NO_BUILD_ISOLATION=1 pipenv install --dev --deploy --ignore-pipfile
         env:
           TRAVIS: true  # Some Makefile targets check for this
 
