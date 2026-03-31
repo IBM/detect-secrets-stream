@@ -136,9 +136,10 @@ jobs:
           ibmcloud plugin install container-registry
           # Install Python packages with no build isolation
           pipenv run pip install "setuptools>=65.5.1" wheel
-          PIP_NO_BUILD_ISOLATION=1 pipenv install --dev --deploy --ignore-pipfile
+          pipenv install --dev --deploy --ignore-pipfile
         env:
           TRAVIS: true  # Some Makefile targets check for this
+          PIP_NO_BUILD_ISOLATION: "1"
 
       - name: Run tests and quality checks
         run: make travis-test
