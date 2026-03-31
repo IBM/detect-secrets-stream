@@ -17,6 +17,10 @@ class VaultTest(TestCase):
         # Mock the DEFAULT_SERVICE_NAME to return a string instead of MagicMock
         mock_hvac.DEFAULT_SERVICE_NAME = "secrets-manager"
 
+        # Create a mock service instance
+        self.mock_service = MagicMock()
+        mock_hvac.new_instance.return_value = self.mock_service
+
         # Use environment variable or fallback to /tmp for compatibility
         vault_conf_path = os.environ.get("GD_VAULT_CONF", "/tmp/vault.prod.conf")
         sourceFile = open(vault_conf_path, "w")
@@ -32,16 +36,12 @@ class VaultTest(TestCase):
         mock_get_response = MagicMock()
         mock_get_response.status_code = 200
         mock_get_response.get_result.return_value = {"id": "test-secret-id"}
-        self.mock_hvac.return_value.get_secret_by_name_type.return_value = (
-            mock_get_response
-        )
+        self.mock_service.get_secret_by_name_type.return_value = mock_get_response
 
         # Mock create_secret_version for update
         mock_update_response = MagicMock()
         mock_update_response.status_code = 200
-        self.mock_hvac.return_value.create_secret_version.return_value = (
-            mock_update_response
-        )
+        self.mock_service.create_secret_version.return_value = mock_update_response
 
         response = self.vault.create_or_update_secret(
             1, "super_secret", {"another": "factor"}
@@ -51,14 +51,12 @@ class VaultTest(TestCase):
 
     def test_create_or_update_secret_404(self):
         # Mock get_secret_by_name_type to raise exception (secret doesn't exist)
-        self.mock_hvac.return_value.get_secret_by_name_type.side_effect = Exception(
-            "Not found"
-        )
+        self.mock_service.get_secret_by_name_type.side_effect = Exception("Not found")
 
         # Mock create_secret for new secret
         mock_create_response = MagicMock()
         mock_create_response.status_code = 201
-        self.mock_hvac.return_value.create_secret.return_value = mock_create_response
+        self.mock_service.create_secret.return_value = mock_create_response
 
         response = self.vault.create_or_update_secret(
             1, "super_secret", {"another": "factor"}
@@ -75,7 +73,7 @@ class VaultTest(TestCase):
                 "other_factors": {"another": "one"},
             },
         }
-        self.mock_hvac.return_value.get_secret_by_name_type.return_value = mock_response
+        self.mock_service.get_secret_by_name_type.return_value = mock_response
 
         data = self.vault.read_secret(1)
 
@@ -85,9 +83,7 @@ class VaultTest(TestCase):
 
     def test_read_secret_fails(self):
         # Mock get_secret_by_name_type to raise exception
-        self.mock_hvac.return_value.get_secret_by_name_type.side_effect = Exception(
-            "oops"
-        )
+        self.mock_service.get_secret_by_name_type.side_effect = Exception("oops")
 
         with pytest.raises(VaultReadException):
             # token doesn't exist
