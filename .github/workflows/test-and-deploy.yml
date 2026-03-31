@@ -125,21 +125,9 @@ jobs:
             ${{ runner.os }}-buildx-
 
       - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install "setuptools>=65.5.1" wheel pipenv==2024.4.0
-          # Run setup targets except pipenv install
-          make setup-trivy setup-cosign setup-deploy-tools
-          # Install IBM Cloud CLI
-          curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
-          ibmcloud plugin install container-service -f
-          ibmcloud plugin install container-registry
-          # Install Python packages with no build isolation
-          pipenv run pip install "setuptools>=65.5.1" wheel
-          pipenv install --dev --deploy --ignore-pipfile
+        run: make setup
         env:
           TRAVIS: true  # Some Makefile targets check for this
-          PIP_NO_BUILD_ISOLATION: "1"
 
       - name: Run tests and quality checks
         run: make travis-test
