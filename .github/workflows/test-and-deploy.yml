@@ -131,6 +131,8 @@ jobs:
           make setup
         env:
           TRAVIS: true  # Some Makefile targets check for this
+          PIP_NO_BUILD_ISOLATION: 0
+          SETUPTOOLS_USE_DISTUTILS: stdlib
 
       - name: Run tests and quality checks
         run: make travis-test
