@@ -36,10 +36,10 @@ gunicorn = "==23.0.0"
 gevent = "==24.11.1"
 zope.interface = "==7.2"
 zope.event = "==5.0"
-pyjwt = "==2.10.1"
+pyjwt = "==2.11.0"
 ibm-db = "==3.2.8"
-ibm-cloud-sdk-core = ">=3.20.0"
-ibm-secrets-manager-sdk = "*"
+ibm-cloud-sdk-core = "==3.24.4"
+ibm-secrets-manager-sdk = "==2.1.19"
 detect-secrets = {ref = "0.13.1+ibm.64.dss", git = "https://github.com/ibm/detect-secrets.git"}
 pytest = "==8.3.4"
 Werkzeug = "==3.1.5"
@@ -47,3 +47,4 @@ pre-commit = "==4.0.1"
 
 [requires]
 python_version = "3.12"
+
