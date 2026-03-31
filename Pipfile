@@ -44,10 +44,6 @@ detect-secrets = {ref = "0.13.1+ibm.64.dss", git = "https://github.com/ibm/detec
 pytest = "==8.3.4"
 Werkzeug = "==3.1.5"
 pre-commit = "==4.0.1"
-# Security fixes for transitive dependencies
-"jaraco.context" = ">=6.1.0"
-pip = ">=26.0"
-wheel = ">=0.46.2"
 
 [requires]
 python_version = "3.12"
