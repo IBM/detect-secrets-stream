@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "7ec233438dcb1e02a5456e8c754c1e5706093be332a6a89cabca2670885d51c9"
+            "sha256": "c823ea628bda9edc8144aced78fbd139ed4d930d27020b75e19ae4c0c3453d73"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -862,6 +862,14 @@
             "markers": "python_version >= '3.7'",
             "version": "==4.8.0"
         },
+        "jaraco.context": {
+            "hashes": [
+                "sha256:bf8150b79a2d5d91ae48629d8b427a8f7ba0e1097dd6202a9059f29a36379535",
+                "sha256:f1a6c9d391e661cc5b8d39861ff077a7dc24dc23833ccee564b234b81c82dfe3"
+            ],
+            "markers": "python_version >= '3.10'",
+            "version": "==6.1.2"
+        },
         "jinja2": {
             "hashes": [
                 "sha256:0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d",
@@ -1092,6 +1100,15 @@
             ],
             "markers": "python_version >= '3.10'",
             "version": "==6.5"
+        },
+        "pip": {
+            "hashes": [
+                "sha256:bdb1b08f4274833d62c1aa29e20907365a2ceb950410df15fc9521bad440122b",
+                "sha256:c4037d8a277c89b320abe636d59f91e6d0922d08a05b60e85e53b296613346d8"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.9'",
+            "version": "==26.0.1"
         },
         "platformdirs": {
             "hashes": [
@@ -1505,6 +1522,15 @@
             "index": "pypi",
             "markers": "python_version >= '3.9'",
             "version": "==3.1.5"
+        },
+        "wheel": {
+            "hashes": [
+                "sha256:4b399d56c9d9338230118d705d9737a2a468ccca63d5e813e2a4fc7815d8bc4d",
+                "sha256:e3e79874b07d776c40bd6033f8ddf76a7dad46a7b8aa1b2787a83083519a1803"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.9'",
+            "version": "==0.46.3"
         },
         "wsgiproxy2": {
             "hashes": [
