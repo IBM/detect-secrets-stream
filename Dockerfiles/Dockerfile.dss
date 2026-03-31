@@ -39,6 +39,9 @@ FROM base
 
 LABEL maintainer="squad:git-defenders" url="https://github.com/ibm/detect-secrets-stream"
 
+# Upgrade security-vulnerable packages in final image
+RUN pip install --upgrade wheel==0.46.2 "jaraco.context>=6.1.0"
+
 RUN groupadd -r --gid 2000 dss && useradd -r --uid 2000 -g dss dss && \
     mkdir -p /code && chown -R dss:dss /code
 
