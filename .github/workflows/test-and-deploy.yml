@@ -20,7 +20,7 @@ env:
 jobs:
   test:
     name: Test and Quality Checks
-    runs-on: ubuntu-24.04-ppc64le  # Self-hosted runner
+    runs-on: ubuntu-latest 
     
     steps:
       - name: Checkout code
