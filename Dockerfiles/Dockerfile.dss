@@ -32,6 +32,8 @@ RUN PIP_USER=1 PIP_IGNORE_INSTALLED=1 pipenv install --system --deploy --ignore-
 # Explicitly install packages that are sometimes skipped by pipenv
 # Use same PIP_USER=1 environment variable to install to /pyroot
 RUN PIP_USER=1 PIP_IGNORE_INSTALLED=1 pip install certifi==2024.12.14 typing-extensions==4.12.2 packaging==24.2 zope.interface==7.2 zope.event==5.0
+# Upgrade security-vulnerable packages after pipenv install
+RUN PIP_USER=1 pip install --upgrade wheel==0.46.2 "jaraco.context>=6.1.0"
 # Stage 3
 FROM base
 
