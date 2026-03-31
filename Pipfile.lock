@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3983ea39597b8be67aa56dff1675e872eeba6a05317b27ad93f3d3d6d6ca0c9b"
+            "sha256": "039e5350cddc1f0e5b6c573cc312dc90091bcbcde1608398e7657920491a7ec6"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -795,6 +795,14 @@
             ],
             "index": "pypi",
             "version": "==3.2.8"
+        },
+        "ibm-secrets-manager-sdk": {
+            "hashes": [
+                "sha256:722dfce50bfbfb39da25558bb7cbc69812024ef4d94930c68d098985e2e57480",
+                "sha256:c1b58fa1c4b1bd7bf3df6eb3b109f7ce11f6f79e9462e7121239a974c318c4fb"
+            ],
+            "index": "pypi",
+            "version": "==2.1.13"
         },
         "identify": {
             "hashes": [
