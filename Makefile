@@ -93,7 +93,7 @@ setup: setup-trivy setup-cosign setup-deploy-tools
 	curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
 	ibmcloud -v
 	ibmcloud plugin install container-service -f
-	ibmcloud plugin install container-registry
+	ibmcloud plugin install container-registry -f
 
 .PHONY: start-local-test-db
 start-local-test-db: stop-local-test-db
