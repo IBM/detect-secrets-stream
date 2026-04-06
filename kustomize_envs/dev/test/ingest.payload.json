@@ -1,8 +1,8 @@
  {
-     "GITHUB_USER_LOGIN": "Carlos-Cumpian",
+     "GITHUB_USER_LOGIN": "xianjun",
      "GIT_DIR": "/data/user/repositories/does_not_matter.git",
      "GITHUB_USER_IP": "0.0.0.0",
-     "GITHUB_REPO_NAME": "Win-Menu/test-repo2",
+     "GITHUB_REPO_NAME": "xianjun/dss-test-private",
      "GITHUB_PULL_REQUEST_AUTHOR_LOGIN": "",
      "GITHUB_REPO_PUBLIC": "false",
      "GITHUB_PUBLIC_KEY_FINGERPRINT": "does_not_matter",
@@ -13,8 +13,8 @@
      "GIT_PUSH_OPTION": [
      ],
      "stdin": [{
-         "old_value": "2581117fcf82bacc7cfd5139cfb7ab46a8204a2b",
-         "new_value": "e81dbe18862387b09ff96d13ceae21dd56329cab",
-         "ref_name": "refs/heads/main"
+         "old_value": "dc61840a29636970f0bb5ecc643e310510dcbe4c",
+         "new_value": "e712fb26d7c7e74ce03e43f89d18802e2160c2d6",
+         "ref_name": "refs/heads/master"
      }]
  }

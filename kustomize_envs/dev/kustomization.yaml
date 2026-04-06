@@ -24,7 +24,7 @@ resources:
 
   # dev dependencies
   - postgres.yaml
-  - vault.yaml
+  #- vault.yaml
 
 # Requires using 3.8.1 kustomize. It's not supported in "kubectl kustomize" yet
 replicas:
