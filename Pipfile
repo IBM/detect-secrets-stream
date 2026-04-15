@@ -25,7 +25,7 @@ click = "==8.1.8"
 flask = "==3.1.1"
 backoff = "==2.2.1"
 boxsdk = {extras = ["jwt"],version = "==3.12.0"}
-cryptography = "==46.0.5"
+cryptography = "==46.0.7"
 hvac = "==2.3.0"
 asyncio = "==3.4.3"
 requests = "==2.32.5"
