@@ -102,7 +102,7 @@ class DiffScanWorker(object):
         }
         try:
             response = github.get(
-                url=f'https://{self.github_host}/api/v3/repos/{repo}/commits/{commit}',
+                url=f'https://{self.github_host}/api/v3/repos/{repo}/commits/{commit}',  # noqa: E231
                 headers=headers,
             )
             # check response status code
@@ -533,8 +533,7 @@ class DiffScanWorker(object):
                 exc_info=1,
             )
 
-    @asyncio.coroutine
-    def run(self):
+    async def run(self):
         self.logger.info('The diff scan worker has started')
         self.consumer.subscribe([self.diff_scan_topic])
         while self.running:
@@ -565,6 +564,6 @@ class DiffScanWorker(object):
                         self.process_message_safe(json_payload)
 
             else:
-                yield from asyncio.sleep(self.async_sleep_time)
+                await asyncio.sleep(self.async_sleep_time)
         self.consumer.unsubscribe()
         self.consumer.close()

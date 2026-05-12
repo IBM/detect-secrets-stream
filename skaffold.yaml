@@ -38,7 +38,7 @@ profiles:
 
     deploy:
       kustomize:
-        paths: ["kustomize_envs/dev"]
+        paths: [ "kustomize_envs/dev" ]
 
     portForward:
     - resourceType: deployment
