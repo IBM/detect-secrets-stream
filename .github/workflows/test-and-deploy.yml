@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - add-gh-actions
+      - ibm-cloud-secrets-manager
     tags:
       - '*'
   pull_request:
