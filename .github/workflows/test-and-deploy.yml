@@ -142,7 +142,7 @@ jobs:
     needs: test
     if: |
       github.event_name == 'push' &&
-      (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/'))
+      (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/ibm-cloud-secrets-manager' || startsWith(github.ref, 'refs/tags/'))
 
     steps:
       - name: Checkout code
@@ -157,6 +157,8 @@ jobs:
         run: |
           if [ -n "${{ github.ref_type == 'tag' && github.ref_name || '' }}" ]; then
             echo "VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" == "refs/heads/ibm-cloud-secrets-manager" ]; then
+            echo "VERSION=ibm-cloud-secrets-manager-$(date +%Y.%m.%d)" >> $GITHUB_ENV
           else
             echo "VERSION=github-actions-${{ github.run_number }}-$(date +%Y%m%d-%H%M%S)" >> $GITHUB_ENV
           fi
