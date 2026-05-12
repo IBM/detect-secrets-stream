@@ -44,6 +44,8 @@ detect-secrets = {ref = "0.13.1+ibm.64.dss", git = "https://github.com/ibm/detec
 pytest = "==8.3.4"
 Werkzeug = "==3.1.5"
 pre-commit = "==4.0.1"
+tornado = "==6.4.2"
+wheel = "==0.45.1"
 
 [requires]
 python_version = "3.12"
