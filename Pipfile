@@ -42,7 +42,7 @@ ibm-cloud-sdk-core = "==3.24.4"
 ibm-secrets-manager-sdk = "==2.1.19"
 detect-secrets = {ref = "0.13.1+ibm.64.dss", git = "https://github.com/ibm/detect-secrets.git"}
 pytest = "==8.3.4"
-Werkzeug = "==3.1.5"
+Werkzeug = "==3.1.6"
 pre-commit = "==4.0.1"
 wheel = "==0.46.2"
 
