@@ -79,7 +79,7 @@ setup-deploy-tools:
 	container-structure-test version
 	curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && sudo install skaffold /usr/local/bin/
 	skaffold version
-	curl -Lo kustomize "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" && chmod +x kustomize && bash kustomize
+	curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
 	sudo install kustomize /usr/local/bin/
 	kustomize version
 
