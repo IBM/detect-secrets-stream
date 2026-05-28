@@ -43,7 +43,7 @@ jobs:
         run: echo "Build Version=${{ env.VERSION }}"
 
       - name: Cache Trivy
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/trivy
           key: ${{ runner.os }}-trivy-${{ hashFiles('**/Pipfile.lock') }}
@@ -51,7 +51,7 @@ jobs:
             ${{ runner.os }}-trivy-
 
       - name: Cache pre-commit
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/pre-commit
           key: ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
@@ -59,7 +59,7 @@ jobs:
             ${{ runner.os }}-pre-commit-
 
       - name: Cache cosign
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/cosign
           key: ${{ runner.os }}-cosign-${{ hashFiles('**/Makefile') }}
@@ -67,7 +67,7 @@ jobs:
             ${{ runner.os }}-cosign-
 
       - name: Cache pip packages
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/Pipfile.lock') }}
@@ -75,7 +75,7 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: Cache pipenv virtualenv
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.local/share/virtualenvs
           key: ${{ runner.os }}-pipenv-${{ env.PYTHON_VERSION }}-${{ hashFiles('**/Pipfile.lock') }}
@@ -83,7 +83,7 @@ jobs:
             ${{ runner.os }}-pipenv-${{ env.PYTHON_VERSION }}-
 
       - name: Cache IBM Cloud CLI
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             /usr/local/bin/ibmcloud
@@ -93,7 +93,7 @@ jobs:
             ${{ runner.os }}-ibmcloud-
 
       - name: Cache Skaffold
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: /usr/local/bin/skaffold
           key: ${{ runner.os }}-skaffold-latest
@@ -101,7 +101,7 @@ jobs:
             ${{ runner.os }}-skaffold-
 
       - name: Cache Kustomize
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: /usr/local/bin/kustomize
           key: ${{ runner.os }}-kustomize-latest
@@ -109,7 +109,7 @@ jobs:
             ${{ runner.os }}-kustomize-
 
       - name: Cache container-structure-test
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: /usr/local/bin/container-structure-test
           key: ${{ runner.os }}-container-structure-test-latest
@@ -117,7 +117,7 @@ jobs:
             ${{ runner.os }}-container-structure-test-
 
       - name: Cache Docker layers
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
@@ -164,7 +164,7 @@ jobs:
         run: echo "Build Version=${{ env.VERSION }}"
 
       - name: Cache Trivy
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/trivy
           key: ${{ runner.os }}-trivy-${{ hashFiles('**/Pipfile.lock') }}
@@ -172,7 +172,7 @@ jobs:
             ${{ runner.os }}-trivy-
 
       - name: Cache cosign
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/cosign
           key: ${{ runner.os }}-cosign-${{ hashFiles('**/Makefile') }}
@@ -180,7 +180,7 @@ jobs:
             ${{ runner.os }}-cosign-
 
       - name: Cache pip packages
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/Pipfile.lock') }}
