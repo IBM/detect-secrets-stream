@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - add-gh-actions
       - ibm-cloud-secrets-manager
     tags:
       - '*'
@@ -14,9 +13,7 @@ on:
 
 env:
   PYTHON_VERSION: '3.12.13'
-  CONTAINER_REGISTRY: icr.io
   IBM_CLOUD_REGION: us-east
-  DOCKER_IMAGE_NAME: icr.io/git-defenders/detect-secrets-stream
 
 jobs:
   test:
@@ -32,12 +29,29 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Set VERSION environment variable
+      - name: Set build environment variables
         run: |
-          if [ -n "${{ github.ref_type == 'tag' && github.ref_name || '' }}" ]; then
+          # Set VERSION based on ref type
+          if [ "${{ github.ref_type }}" == "tag" ]; then
             echo "VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "VERSION=main-${{ github.run_number }}-$(date +%Y%m%d-%H%M%S)" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" == "refs/heads/ibm-cloud-secrets-manager" ]; then
+            echo "VERSION=ibm-cloud-secrets-manager-${{ github.run_number }}-$(date +%Y%m%d-%H%M%S)" >> $GITHUB_ENV
           else
             echo "VERSION=github-actions-${{ github.run_number }}-$(date +%Y%m%d-%H%M%S)" >> $GITHUB_ENV
+          fi
+          
+          # Set CONTAINER_REGISTRY and DOCKER_IMAGE_NAME based on branch
+          if [ "${{ github.ref }}" == "refs/heads/ibm-cloud-secrets-manager" ] || [ "${{ github.ref_type }}" == "tag" ]; then
+            echo "CONTAINER_REGISTRY=icr.io" >> $GITHUB_ENV
+            echo "DOCKER_IMAGE_NAME=icr.io/git-defenders/detect-secrets-stream" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "CONTAINER_REGISTRY=icr.io" >> $GITHUB_ENV
+            echo "DOCKER_IMAGE_NAME=icr.io/git-defenders/detect-secrets-stream-dev" >> $GITHUB_ENV
+          else
+            echo "CONTAINER_REGISTRY=icr.io" >> $GITHUB_ENV
+            echo "DOCKER_IMAGE_NAME=icr.io/git-defenders/detect-secrets-stream-test" >> $GITHUB_ENV
           fi
 
       - name: Display build version
@@ -153,14 +167,29 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Set VERSION environment variable
+      - name: Set deployment environment variables
         run: |
-          if [ -n "${{ github.ref_type == 'tag' && github.ref_name || '' }}" ]; then
+          # Set VERSION based on ref type
+          if [ "${{ github.ref_type }}" == "tag" ]; then
             echo "VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "VERSION=main-${{ github.run_number }}-$(date +%Y%m%d-%H%M%S)" >> $GITHUB_ENV
           elif [ "${{ github.ref }}" == "refs/heads/ibm-cloud-secrets-manager" ]; then
-            echo "VERSION=ibm-cloud-secrets-manager-$(date +%Y.%m.%d)" >> $GITHUB_ENV
+            echo "VERSION=ibm-cloud-secrets-manager-${{ github.run_number }}-$(date +%Y%m%d-%H%M%S)" >> $GITHUB_ENV
           else
             echo "VERSION=github-actions-${{ github.run_number }}-$(date +%Y%m%d-%H%M%S)" >> $GITHUB_ENV
+          fi
+          
+          # Set CONTAINER_REGISTRY and DOCKER_IMAGE_NAME based on branch
+          if [ "${{ github.ref }}" == "refs/heads/ibm-cloud-secrets-manager" ] || [ "${{ github.ref_type }}" == "tag" ]; then
+            echo "CONTAINER_REGISTRY=icr.io" >> $GITHUB_ENV
+            echo "DOCKER_IMAGE_NAME=icr.io/git-defenders/detect-secrets-stream" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "CONTAINER_REGISTRY=icr.io" >> $GITHUB_ENV
+            echo "DOCKER_IMAGE_NAME=icr.io/git-defenders/detect-secrets-stream-dev" >> $GITHUB_ENV
+          else
+            echo "CONTAINER_REGISTRY=icr.io" >> $GITHUB_ENV
+            echo "DOCKER_IMAGE_NAME=icr.io/git-defenders/detect-secrets-stream-test" >> $GITHUB_ENV
           fi
 
       - name: Display build version
