@@ -5,7 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "==8.3.4"
-responses = "==0.25.3"
+responses = "==0.26.2"
 mock = "==5.1.0"
 unittest2 = "==1.1.0"
 pre-commit = "==4.0.1"
